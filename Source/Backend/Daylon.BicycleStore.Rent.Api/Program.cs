@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//==|=====>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,3 +24,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//     ╱|、
+//    (-ˎ- >  
+//    |、˜〵          
+//    じしˍ,)ノ D A Y L O N
