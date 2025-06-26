@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\Daylon.BicycleStore.Rent.Communication\Daylon.BicycleStore.Rent.Communication.csproj" />
     <ProjectReference Include="..\..\Shared\Daylon.BicycleStore.Rent.Exceptions\Daylon.BicycleStore.Rent.Exceptions.csproj" />
     <ProjectReference Include="..\Daylon.BicycleStore.Rent.Application\Daylon.BicycleStore.Rent.Application.csproj" />
