@@ -1,7 +1,7 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Application.Services.Bicycles;
+using Daylon.BicycleStore.Rent.Application.UseCases.Bicycle;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 namespace Daylon.BicycleStore.Rent.Application
 {
@@ -15,6 +15,7 @@ namespace Daylon.BicycleStore.Rent.Application
         private static void AddServices(IServiceCollection services)
         {
             services.AddScoped<IBicycleService, BicycleServices>();
+            services.AddScoped<IBicycleUseCase, BicycleUseCase>();
         }
     }
 }
