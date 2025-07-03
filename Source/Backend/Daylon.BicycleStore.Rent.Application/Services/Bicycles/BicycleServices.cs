@@ -13,5 +13,12 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
         }
 
         public async Task<IList<Bicycle>> GetBicyclesAsync() => await _bicycleRepository.GetBicyclesAsync();
+
+        public async Task<Bicycle> GetBicycleByIdAsync(Guid id)
+        {
+            var bicycle = await _bicycleRepository.GetBicycleByIdAsync(id);
+
+            return bicycle;
+        }
     }
 }
