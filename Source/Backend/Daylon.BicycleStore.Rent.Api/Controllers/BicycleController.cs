@@ -19,16 +19,16 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetBicyclesAsync()
         {
-            var bicycles= await _bicycleService.GetBicyclesAsync();
-            
-            if(bicycles == null || bicycles.Count == 0)
+            var bicycles = await _bicycleService.GetBicyclesAsync();
+
+            if (bicycles == null || bicycles.Count == 0)
                 return NotFound("No bicycles found.");
 
             return Ok(bicycles);
 
         }
 
-        [HttpGet("{id}")]      
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetBicycleByIdAsync(Guid id)
         {
             var bicycle = await _bicycleService.GetBicycleByIdAsync(id);
@@ -44,11 +44,12 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterBicycleAsync([FromBody] RequestRegisterBicycleJson request)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var bicycle = await _bicycleService.RegisterBicycleAsync(request);
 
-
+            return Ok(bicycle);
         }
 
         //PUT
