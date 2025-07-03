@@ -1,5 +1,4 @@
 ﻿using Daylon.BicycleStore.Rent.Communication.Request;
-using Daylon.BicycleStore.Rent.Domain.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
@@ -41,6 +40,16 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         //POST
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterBicycleAsync([FromBody] RequestRegisterBicycleJson request)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
+
+        }
 
         //PUT
 
