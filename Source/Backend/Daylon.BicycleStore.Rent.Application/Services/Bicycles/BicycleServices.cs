@@ -35,5 +35,8 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
 
             return bicycle;
         }
+
+        // DELETE
+        public async Task DeleteBicycleAsync(Guid id) => await _bicycleRepository.DeleteBicycleAsync(id);
     }
 }
