@@ -33,6 +33,12 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
             await SaveChangesAsync();
         }
 
-
+        // DELETE
+        public async Task DeleteBicycleAsync(Guid id)
+        {
+            var bicycle = await GetBicycleByIdAsync(id);
+            _dbContext.Bicycles.Remove(bicycle);
+            await SaveChangesAsync();
+        }
     }
 }

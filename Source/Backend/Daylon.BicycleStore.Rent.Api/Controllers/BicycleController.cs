@@ -56,5 +56,12 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         //DELETE
 
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBicycleAsync(Guid id)
+        {
+            await _bicycleService.DeleteBicycleAsync(id);
+
+            return Ok();
+        }
     }
 }
