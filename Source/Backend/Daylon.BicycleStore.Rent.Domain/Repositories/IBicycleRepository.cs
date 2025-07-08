@@ -14,7 +14,10 @@ namespace Daylon.BicycleStore.Rent.Domain.Repositories
         public Task<Bicycle> GetBicycleByIdAsync(Guid id);
 
         // POST
-        public Task AddAsync(Bicycle bicycle);
+        public Task AddBicycleAsync(Bicycle bicycle);
+
+        // PUT
+        public Task UpdateBicycleAsync(Bicycle bicycle);
 
         // DELETE
         public Task DeleteBicycleAsync(Guid id);
