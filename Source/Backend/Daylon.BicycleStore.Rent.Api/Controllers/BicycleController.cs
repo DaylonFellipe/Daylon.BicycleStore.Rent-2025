@@ -54,6 +54,17 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         //PUT
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateBicycleAsync([FromBody] RequestUpdateBicycleJson request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var bicycle = await _bicycleService.UpdateBicycleAsync(request);
+
+            return Ok();
+        }
+
         //DELETE
 
         [HttpDelete]

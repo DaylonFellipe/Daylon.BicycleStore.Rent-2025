@@ -13,6 +13,9 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
         // POST
         public Task<Bicycle> RegisterBicycleAsync(RequestRegisterBicycleJson request);
 
+        // PUT
+        public Task<Bicycle> UpdateBicycleAsync(RequestUpdateBicycleJson request);
+
         // DELETE
         public Task DeleteBicycleAsync(Guid id);
     }

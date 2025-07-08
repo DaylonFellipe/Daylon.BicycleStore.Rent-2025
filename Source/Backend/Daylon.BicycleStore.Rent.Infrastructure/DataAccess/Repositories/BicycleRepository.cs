@@ -27,9 +27,16 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         }
 
         // POST
-        public async Task AddAsync(Bicycle bicycle)
+        public async Task AddBicycleAsync(Bicycle bicycle)
         {
             await _dbContext.Bicycles.AddAsync(bicycle);
+            await SaveChangesAsync();
+        }
+
+        //PUT
+        public async Task UpdateBicycleAsync(Bicycle bicycle)
+        {
+            _dbContext.Bicycles.Update(bicycle);
             await SaveChangesAsync();
         }
 
