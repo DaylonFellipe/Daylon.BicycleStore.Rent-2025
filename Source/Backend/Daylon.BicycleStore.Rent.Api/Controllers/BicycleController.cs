@@ -65,6 +65,28 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok();
         }
 
+        // PATCH
+
+        [HttpPatch]
+        public async Task<IActionResult> UpdateBicyclePartialAsync(
+            Guid id,
+            string? name,
+            string? description,
+            Domain.Entity.Enum.BrandEnum? brand,
+            Domain.Entity.Enum.ModelEnum? model,
+            Domain.Entity.Enum.ColorEnum? color,
+            double? price,
+            int? quantity
+            )
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity);
+
+            return Ok(bicycle);
+        }
+
         //DELETE
 
         [HttpDelete]

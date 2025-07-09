@@ -44,6 +44,31 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
             return bicycle;
         }
 
+        // PATCH    
+        public async Task<Bicycle> PatchBicyclePartialAsync(
+            Guid id,
+            string? name,
+            string? description,
+            Domain.Entity.Enum.BrandEnum? brand,
+            Domain.Entity.Enum.ModelEnum? model,
+            Domain.Entity.Enum.ColorEnum? color,
+            double? price,
+            int? quantity)
+        {
+            var bicycle = await _useCase.ExecutePatchBicyclePartialAsync(
+                id,
+                name,
+                description,
+                brand,
+                model,
+                color,
+                price,
+                quantity);
+
+            return bicycle;
+        }
+
+
         // DELETE
         public async Task DeleteBicycleAsync(Guid id) => await _bicycleRepository.DeleteBicycleAsync(id);
     }

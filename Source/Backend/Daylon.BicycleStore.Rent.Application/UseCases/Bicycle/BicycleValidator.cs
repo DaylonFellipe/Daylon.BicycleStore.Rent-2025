@@ -39,7 +39,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 .GreaterThanOrEqualTo(0).WithMessage("Quantity must be zero or greater.");
         }
     }
-
     public class UpdateBicycleValidator : AbstractValidator<RequestUpdateBicycleJson>
     {
         public UpdateBicycleValidator()
@@ -71,9 +70,44 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             RuleFor(q => q.Quantity)
                 .GreaterThanOrEqualTo(0).WithMessage("Quantity must be zero or greater.");
+        }
+    }
 
-            RuleFor(s => s.Status)
-                .NotNull().WithMessage("Status must be specified.");
+    public class PatchBicycleValidator : AbstractValidator<RequestPatchBicycleJson>
+    {
+        public PatchBicycleValidator()
+        {
+            ClassLevelCascadeMode = CascadeMode.Stop;
+
+            RuleFor(n => n.Name).MustAsync(async (name, cancellation) =>
+            {
+                if (string.IsNullOrEmpty(name)) return true;
+                return name.Length <= 100;
+            }).MaximumLength(100).WithMessage("Bicycle name must not exceed 100 characters.");
+
+            RuleFor(d => d.Description).MustAsync(async (description, cancellation) =>
+            {
+                if (string.IsNullOrEmpty(description)) return true;
+                return description.Length <= 500;
+            }).MaximumLength(500).WithMessage("Bicycle descrption must not exceed 500 characters.");
+
+            RuleFor(m => m.Model)
+                .IsInEnum().WithMessage("Valid model is required")
+                .Must(model => model is null || Enum.IsDefined(typeof(ModelEnum), model)).WithMessage("Model must be a valid enum value.");
+
+            RuleFor(b => b.Brand)
+                .IsInEnum().WithMessage("Valid brand is required")
+                .Must(model => model is null || Enum.IsDefined(typeof(BrandEnum), model)).WithMessage("Brand must be a valid enum value.");
+
+            RuleFor(c => c.Color)
+                .IsInEnum().WithMessage("Valid color is required")
+                .Must(model => model is null || Enum.IsDefined(typeof(ColorEnum), model)).WithMessage("Color must be a valid enum value.");
+
+            RuleFor(p => p.Price)
+                .GreaterThan(0).WithMessage("Price must be greater than zero.");
+
+            RuleFor(q => q.Quantity)
+                .GreaterThanOrEqualTo(0).WithMessage("Quantity must be zero or greater.");
         }
     }
 }
