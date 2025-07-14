@@ -17,6 +17,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         //GET
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetBicyclesAsync()
         {
             var bicycles = await _bicycleService.GetBicyclesAsync();
@@ -25,10 +27,11 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
                 return NotFound("No bicycles found.");
 
             return Ok(bicycles);
-
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetBicycleByIdAsync(Guid id)
         {
             var bicycle = await _bicycleService.GetBicycleByIdAsync(id);
@@ -42,6 +45,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         //POST
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterBicycleAsync([FromBody] RequestRegisterBicycleJson request)
         {
             if (!ModelState.IsValid)
@@ -55,6 +60,9 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         //PUT
 
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateBicycleAsync([FromBody] RequestUpdateBicycleJson request)
         {
             if (!ModelState.IsValid)
@@ -62,12 +70,18 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var bicycle = await _bicycleService.UpdateBicycleAsync(request);
 
+            if (bicycle == null)
+                return NotFound($"Bicycle with ID {request.Id} not found.");
+
             return Ok();
         }
 
         // PATCH
 
         [HttpPatch]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateBicyclePartialAsync(
             Guid id,
             string? name,
@@ -76,20 +90,27 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             Domain.Entity.Enum.ModelEnum? model,
             Domain.Entity.Enum.ColorEnum? color,
             double? price,
-            int? quantity
+            int? quantity,
+            double? dailyRate,
+            Domain.Entity.Enum.OrderStatusEnum? orderStatus
             )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity);
+            var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity, dailyRate, orderStatus);
+
+            if (bicycle == null)
+                return NotFound($"Bicycle with ID {id} not found.");
 
             return Ok(bicycle);
         }
 
         //DELETE
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteBicycleAsync(Guid id)
         {
             await _bicycleService.DeleteBicycleAsync(id);
@@ -98,3 +119,5 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
     }
 }
+
+//   /ᐠ - ˕ -マ D A Y L O N

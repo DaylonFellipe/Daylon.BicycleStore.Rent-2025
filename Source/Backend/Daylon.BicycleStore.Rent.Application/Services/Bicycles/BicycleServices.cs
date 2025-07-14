@@ -53,7 +53,10 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
             Domain.Entity.Enum.ModelEnum? model,
             Domain.Entity.Enum.ColorEnum? color,
             double? price,
-            int? quantity)
+            int? quantity,
+            double? dailyRate,
+            Domain.Entity.Enum.OrderStatusEnum? orderStatus
+            )
         {
             var bicycle = await _useCase.ExecutePatchBicyclePartialAsync(
                 id,
@@ -63,11 +66,13 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
                 model,
                 color,
                 price,
-                quantity);
+                quantity,
+                dailyRate,
+                orderStatus
+                );
 
             return bicycle;
         }
-
 
         // DELETE
         public async Task DeleteBicycleAsync(Guid id) => await _bicycleRepository.DeleteBicycleAsync(id);
