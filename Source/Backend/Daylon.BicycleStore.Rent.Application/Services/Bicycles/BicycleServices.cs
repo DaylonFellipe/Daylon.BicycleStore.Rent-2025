@@ -54,8 +54,7 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
             Domain.Entity.Enum.ColorEnum? color,
             double? price,
             int? quantity,
-            double? dailyRate,
-            Domain.Entity.Enum.OrderStatusEnum? orderStatus
+            double? dailyRate
             )
         {
             var bicycle = await _useCase.ExecutePatchBicyclePartialAsync(
@@ -67,8 +66,7 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
                 color,
                 price,
                 quantity,
-                dailyRate,
-                orderStatus
+                dailyRate
                 );
 
             return bicycle;

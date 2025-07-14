@@ -40,12 +40,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             RuleFor(d => d.DailyRate)
                 .GreaterThan(0).WithMessage("Daily rate must be greater than zero.");
-
-            RuleFor(o => o.OrderStatus)
-                .IsInEnum().WithMessage("Valid order status is required")
-                .Must(status => Enum.IsDefined(typeof(OrderStatusEnum), status)).WithMessage("Order status must be a valid enum value.");
         }
     }
+
     public class UpdateBicycleValidator : AbstractValidator<RequestUpdateBicycleJson>
     {
         public UpdateBicycleValidator()
@@ -79,11 +76,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 .GreaterThanOrEqualTo(0).WithMessage("Quantity must be zero or greater.");
 
             RuleFor(d => d.DailyRate)
-                .GreaterThan(0).WithMessage("Daily rate must be greater than zero.");
-
-            RuleFor(o => o.OrderStatus)
-                .IsInEnum().WithMessage("Valid order status is required")
-                .Must(status => status is not null && Enum.IsDefined(typeof(OrderStatusEnum), status)).WithMessage("Order status must be a valid enum value.");
+                .GreaterThan(0).WithMessage("Daily rate must be greater than zero.");      
         }
     }
 
@@ -125,10 +118,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             RuleFor(d => d.DailyRate)
                 .GreaterThan(0).WithMessage("Daily rate must be greater than zero.");
-
-            RuleFor(o => o.OrderStatus)
-                .IsInEnum().WithMessage("Valid order status is required")
-                .Must(status => status is null || Enum.IsDefined(typeof(OrderStatusEnum), status)).WithMessage("Order status must be a valid enum value.");
         }
     }
 }

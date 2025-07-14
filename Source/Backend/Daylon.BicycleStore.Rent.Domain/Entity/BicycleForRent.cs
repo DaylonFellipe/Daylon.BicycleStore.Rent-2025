@@ -1,17 +1,24 @@
-﻿namespace Daylon.BicycleStore.Rent.Domain.Entity
+﻿using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
+
+namespace Daylon.BicycleStore.Rent.Domain.Entity
 {
-    public class BicycleForRent : Bicycle
+    public class BicycleForRent
     {
+        // Basic Properties
         public Guid OrderId { get; set; }
 
-        // valor por hora ou dia
-        // status (alugado, atrasado, entregue)
+        // Time Properties
+        public DateTime RentalStart { get; set; }
+        public DateTime RentalEnd { get; set; }
 
-        // dias de aluguel
-        // Metodo de Pagamento
-        // datetime do inicio do alugel
-        // datetime do dia da entrega
-        // Valor total
+        // Order Properties
+        public int RentalDays { get; set; }
+        public PaymentMethodEnum PaymentMethod { get; set; }
+        public double TotalPrice { get; set; }
+        public OrderStatusEnum OrderStatus { get; set; }
 
+        // Bicycle Properties
+        public Guid BicycleId { get; set; }
+        public required Bicycle Bicycle { get; set; }
     }
 }

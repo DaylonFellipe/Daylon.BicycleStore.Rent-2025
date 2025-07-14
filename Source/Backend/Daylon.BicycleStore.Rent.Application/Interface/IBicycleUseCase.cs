@@ -19,7 +19,6 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
            double? price,
            int? quantity,
            double? dailyRate,
-           OrderStatusEnum? orderStatus,
            CancellationToken cancellationToken = default);
     }
 }

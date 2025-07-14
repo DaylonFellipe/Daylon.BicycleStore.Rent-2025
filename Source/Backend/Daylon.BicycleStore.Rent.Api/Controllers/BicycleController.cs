@@ -91,14 +91,13 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             Domain.Entity.Enum.ColorEnum? color,
             double? price,
             int? quantity,
-            double? dailyRate,
-            Domain.Entity.Enum.OrderStatusEnum? orderStatus
+            double? dailyRate
             )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity, dailyRate, orderStatus);
+            var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity, dailyRate);
 
             if (bicycle == null)
                 return NotFound($"Bicycle with ID {id} not found.");

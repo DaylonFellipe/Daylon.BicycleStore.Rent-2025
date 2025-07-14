@@ -33,8 +33,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 Price = request.Price,
                 Quantity = request.Quantity,
                 Status = request.Quantity > 0,
-                DailyRate = request.DailyRate,
-                OrderStatus = request.OrderStatus
+                DailyRate = request.DailyRate
             };
 
             // Save
@@ -71,9 +70,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             bicycle.Status = request.Quantity > 0;
             if (request.DailyRate > 0) bicycle.DailyRate = request.DailyRate.Value;
 
-            if (request.OrderStatus.HasValue && Enum.IsDefined(typeof(OrderStatusEnum), request.OrderStatus.Value))
-                bicycle.OrderStatus = request.OrderStatus.Value;
-
             // Save changes
             await _bicycleRepository.UpdateBicycleAsync(bicycle);
 
@@ -90,7 +86,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             double? price,
             int? quantity,
             double? dailyRate,
-            OrderStatusEnum? orderStatus,
             CancellationToken cancellationToken = default)
         {
 
@@ -110,7 +105,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 Price = price,
                 Quantity = quantity,
                 DailyRate = dailyRate,
-                OrderStatus = orderStatus
             };
 
             var validator = new PatchBicycleValidator();
@@ -136,8 +130,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             bicycle.Status = quantity.HasValue ? quantity > 0 : bicycle.Status;
             if (dailyRate.HasValue && dailyRate > 0) bicycle.DailyRate = dailyRate.Value;
 
-            if (orderStatus.HasValue && Enum.IsDefined(typeof(OrderStatusEnum), orderStatus.Value)) bicycle.OrderStatus = orderStatus.Value;
-
             // Save changes
             await _bicycleRepository.UpdateBicycleAsync(bicycle);
 
@@ -146,10 +138,12 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
         private static void ValidateRequest<T>(T request, AbstractValidator<T> validator)
         {
-            var resutl = validator.ValidateAsync(request);
+            var result = validator.ValidateAsync(request);
 
-            if (!resutl.Result.IsValid)
-            { var erros = resutl.Result.Errors.Select(e => e.ErrorMessage).ToList(); }
+            if (!result.Result.IsValid)
+            {
+                var erros = result.Result.Errors.Select(e => e.ErrorMessage).ToList();
+            }
         }
     }
 }
