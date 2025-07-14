@@ -26,8 +26,8 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
            Domain.Entity.Enum.ColorEnum? color,
            double? price,
            int? quantity,
-           double? dailyRate,
-           Domain.Entity.Enum.OrderStatusEnum? oderStatus);
+           double? dailyRate
+          );
 
         // DELETE
         public Task DeleteBicycleAsync(Guid id);

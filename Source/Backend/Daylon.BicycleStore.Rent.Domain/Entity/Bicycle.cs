@@ -21,6 +21,5 @@ namespace Daylon.BicycleStore.Rent.Domain.Entity
 
         // Order Properties
         public double DailyRate { get; set; }
-        public OrderStatusEnum OrderStatus { get; set; } 
     }
 }
