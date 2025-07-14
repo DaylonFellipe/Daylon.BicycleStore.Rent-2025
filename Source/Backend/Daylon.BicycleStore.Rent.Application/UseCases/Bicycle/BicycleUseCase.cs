@@ -32,7 +32,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 Color = request.Color,
                 Price = request.Price,
                 Quantity = request.Quantity,
-                Status = request.Quantity > 0
+                Status = request.Quantity > 0,
+                DailyRate = request.DailyRate,
+                OrderStatus = request.OrderStatus
             };
 
             // Save
@@ -67,6 +69,10 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             if (request.Price > 0) bicycle.Price = request.Price;
             if (request.Quantity >= 0) bicycle.Quantity = request.Quantity;
             bicycle.Status = request.Quantity > 0;
+            if (request.DailyRate > 0) bicycle.DailyRate = request.DailyRate.Value;
+
+            if (request.OrderStatus.HasValue && Enum.IsDefined(typeof(OrderStatusEnum), request.OrderStatus.Value))
+                bicycle.OrderStatus = request.OrderStatus.Value;
 
             // Save changes
             await _bicycleRepository.UpdateBicycleAsync(bicycle);
@@ -83,6 +89,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             ColorEnum? color,
             double? price,
             int? quantity,
+            double? dailyRate,
+            OrderStatusEnum? orderStatus,
             CancellationToken cancellationToken = default)
         {
 
@@ -92,7 +100,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 throw new KeyNotFoundException($"Bicycle with ID {id} not found.");
 
             // Validate
-
             var request = new RequestPatchBicycleJson
             {
                 Name = name,
@@ -101,14 +108,16 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 Model = model,
                 Color = color,
                 Price = price,
-                Quantity = quantity
+                Quantity = quantity,
+                DailyRate = dailyRate,
+                OrderStatus = orderStatus
             };
 
-            var validator = new PatchBicycleValidator(); 
+            var validator = new PatchBicycleValidator();
 
-            var result = await validator.ValidateAsync(request, cancellationToken); 
+            var result = await validator.ValidateAsync(request, cancellationToken);
 
-            if (!result.IsValid) 
+            if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
                 throw new ValidationException(string.Join(", ", errors));
@@ -125,6 +134,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             if (price.HasValue && price > 0) bicycle.Price = price.Value;
             if (quantity.HasValue && quantity >= 0) bicycle.Quantity = quantity.Value;
             bicycle.Status = quantity.HasValue ? quantity > 0 : bicycle.Status;
+            if (dailyRate.HasValue && dailyRate > 0) bicycle.DailyRate = dailyRate.Value;
+
+            if (orderStatus.HasValue && Enum.IsDefined(typeof(OrderStatusEnum), orderStatus.Value)) bicycle.OrderStatus = orderStatus.Value;
 
             // Save changes
             await _bicycleRepository.UpdateBicycleAsync(bicycle);
@@ -138,7 +150,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             if (!resutl.Result.IsValid)
             { var erros = resutl.Result.Errors.Select(e => e.ErrorMessage).ToList(); }
-
         }
     }
 }

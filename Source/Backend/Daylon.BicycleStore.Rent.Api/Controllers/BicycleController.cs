@@ -27,7 +27,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
                 return NotFound("No bicycles found.");
 
             return Ok(bicycles);
-
         }
 
         [HttpGet("{id}")]
@@ -91,13 +90,15 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             Domain.Entity.Enum.ModelEnum? model,
             Domain.Entity.Enum.ColorEnum? color,
             double? price,
-            int? quantity
+            int? quantity,
+            double? dailyRate,
+            Domain.Entity.Enum.OrderStatusEnum? orderStatus
             )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity);
+            var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity, dailyRate, orderStatus);
 
             if (bicycle == null)
                 return NotFound($"Bicycle with ID {id} not found.");

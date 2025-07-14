@@ -19,5 +19,9 @@ namespace Daylon.BicycleStore.Rent.Communication.Request
         public double Price { get; set; } 
         public int Quantity { get; set; } 
         public bool Status { get; set; }
+
+        // Order Properties
+        public double? DailyRate { get; set; }
+        public OrderStatusEnum? OrderStatus { get; set; }
     }
 }
