@@ -16,6 +16,8 @@ namespace Daylon.BicycleStore.Rent.Application
         {
             services.AddScoped<IBicycleService, BicycleServices>();
             services.AddScoped<IBicycleUseCase, BicycleUseCase>();
+            services.AddScoped<IRentalOrderService, RentalOrderService>();
+            services.AddScoped<IRentalOrderUseCase, RentalOrderUseCase>();
         }
     }
 }

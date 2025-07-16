@@ -3,7 +3,6 @@ using Daylon.BicycleStore.Rent.Communication.Request;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 {
