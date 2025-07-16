@@ -1,5 +1,4 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
-using Daylon.BicycleStore.Rent.Domain.Entity;
 
 namespace Daylon.BicycleStore.Rent.Communication.Request
 {
@@ -9,10 +8,10 @@ namespace Daylon.BicycleStore.Rent.Communication.Request
         public DateTime RentalStart { get; set; }
         public DateTime RentalEnd { get; set; }
         public int RentalDays { get; set; }
+        public DateTime DropOffTime { get; set; }
 
         // Order Properties
         public PaymentMethodEnum PaymentMethod { get; set; }
-        public double TotalPrice { get; set; }
         public OrderStatusEnum OrderStatus { get; set; }
 
         // Bicycle Properties

@@ -7,7 +7,7 @@ using FluentValidation;
 namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 {
     public class BicycleUseCase : IBicycleUseCase
-    {
+    { 
         private readonly IBicycleRepository _bicycleRepository;
 
         public BicycleUseCase(IBicycleRepository bicycleRepository)

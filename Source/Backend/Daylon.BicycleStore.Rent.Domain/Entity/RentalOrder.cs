@@ -13,6 +13,8 @@ namespace Daylon.BicycleStore.Rent.Domain.Entity
         public DateTime RentalStart { get; set; }
         public DateTime RentalEnd { get; set; }
         public int RentalDays { get; set; }
+        public DateTime DropOffTime { get; set; } 
+
 
         // Order Properties
         public PaymentMethodEnum PaymentMethod { get; set; }
