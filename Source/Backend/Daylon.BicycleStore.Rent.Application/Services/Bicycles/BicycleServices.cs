@@ -1,7 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request;
 using Daylon.BicycleStore.Rent.Domain.Entity;
-using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
 {

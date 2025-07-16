@@ -26,11 +26,11 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             RuleFor(b => b.Brand)
                 .IsInEnum().WithMessage("Valid brand is required")
-                .Must(model => Enum.IsDefined(typeof(BrandEnum), model)).WithMessage("Brand must be a valid enum value.");
+                .Must(brand => Enum.IsDefined(typeof(BrandEnum), brand)).WithMessage("Brand must be a valid enum value.");
 
             RuleFor(c => c.Color)
                 .IsInEnum().WithMessage("Valid color is required")
-                .Must(model => Enum.IsDefined(typeof(ColorEnum), model)).WithMessage("Color must be a valid enum value.");
+                .Must(color => Enum.IsDefined(typeof(ColorEnum), color)).WithMessage("Color must be a valid enum value.");
 
             RuleFor(p => p.Price)
                 .GreaterThan(0).WithMessage("Price must be greater than zero.");
@@ -63,11 +63,11 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             RuleFor(b => b.Brand)
                 .IsInEnum().WithMessage("Valid brand is required")
-                .Must(model => model is not null && Enum.IsDefined(typeof(BrandEnum), model)).WithMessage("Brand must be a valid enum value.");
+                .Must(brand => brand is not null && Enum.IsDefined(typeof(BrandEnum), brand)).WithMessage("Brand must be a valid enum value.");
 
             RuleFor(c => c.Color)
                 .IsInEnum().WithMessage("Valid color is required")
-                .Must(model => model is not null && Enum.IsDefined(typeof(ColorEnum), model)).WithMessage("Color must be a valid enum value.");
+                .Must(color => color is not null && Enum.IsDefined(typeof(ColorEnum), color)).WithMessage("Color must be a valid enum value.");
 
             RuleFor(p => p.Price)
                 .GreaterThan(0).WithMessage("Price must be greater than zero.");
@@ -104,11 +104,11 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             RuleFor(b => b.Brand)
                 .IsInEnum().WithMessage("Valid brand is required")
-                .Must(model => model is null || Enum.IsDefined(typeof(BrandEnum), model)).WithMessage("Brand must be a valid enum value.");
+                .Must(brand => brand is null || Enum.IsDefined(typeof(BrandEnum), brand)).WithMessage("Brand must be a valid enum value.");
 
             RuleFor(c => c.Color)
                 .IsInEnum().WithMessage("Valid color is required")
-                .Must(model => model is null || Enum.IsDefined(typeof(ColorEnum), model)).WithMessage("Color must be a valid enum value.");
+                .Must(color => color is null || Enum.IsDefined(typeof(ColorEnum), color)).WithMessage("Color must be a valid enum value.");
 
             RuleFor(p => p.Price)
                 .GreaterThan(0).WithMessage("Price must be greater than zero.");
