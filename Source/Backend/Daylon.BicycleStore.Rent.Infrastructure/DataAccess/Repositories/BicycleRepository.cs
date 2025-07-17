@@ -26,6 +26,15 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
                    ?? throw new KeyNotFoundException($"Bicycle with ID {id} not found.");
         }
 
+        public async Task<IList<RentalOrder>> GetRentalOrdersAsync() => await _dbContext.RentalOrders.ToListAsync()
+           ?? throw new Exception("No rental order found.");
+
+        public async Task<RentalOrder> GetRentalOderById(Guid id)
+        {
+            return await _dbContext.RentalOrders.FirstOrDefaultAsync(r => r.OrderId == id)
+                   ?? throw new KeyNotFoundException($"Rental order with ID {id} not found.");
+        }
+
         // POST
         public async Task AddBicycleAsync(Bicycle bicycle)
         {
