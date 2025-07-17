@@ -15,6 +15,7 @@ namespace Daylon.BicycleStore.Rent.Domain.Repositories
 
         // POST
         public Task AddBicycleAsync(Bicycle bicycle);
+        public Task AddRentalOrderAsync(RentalOrder rentalOrder);
 
         // PUT
         public Task UpdateBicycleAsync(Bicycle bicycle);

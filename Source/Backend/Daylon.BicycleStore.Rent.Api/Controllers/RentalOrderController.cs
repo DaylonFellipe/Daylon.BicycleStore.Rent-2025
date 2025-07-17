@@ -1,4 +1,6 @@
-﻿using Daylon.BicycleStore.Rent.Communication.Request;
+﻿using Daylon.BicycleStore.Rent.Application.Interface;
+using Daylon.BicycleStore.Rent.Application.Services.Bicycles;
+using Daylon.BicycleStore.Rent.Communication.Request;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata;
@@ -9,25 +11,23 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
     [ApiController]
     public class RentalOrderController : ControllerBase
     {
-        //private readonly Interface nomaDaInterface
+        private readonly IRentalOrderService _rentalOrderService;
 
-        public RentalOrderController()
+        public RentalOrderController(IRentalOrderService rentalOrderService)
         {
-           
+            _rentalOrderService = rentalOrderService;
         }
 
+        // POST
         [HttpPost]
         public async Task<IActionResult> RegisterRentalOrderAsync([FromBody] RequestRegisterRentalOrderJson request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var rentalOrder = 0; //*await _service.execute(request);*/
+            var rentalOrder = await _rentalOrderService.RegisterRentalOrderAsync(request);
 
             return Ok(rentalOrder);
         }
-
-
-
     }
 }

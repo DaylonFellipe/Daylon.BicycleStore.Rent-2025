@@ -6,16 +6,17 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
 {
     public class RentalOrderService : IRentalOrderService
     {
-        // private readonly Interface nomeDaInterface;
+        private readonly IRentalOrderUseCase _rentalOrderUseCase;
 
-        public RentalOrderService()
+        public RentalOrderService(IRentalOrderUseCase rentalOrderUseCase)
         {
-
+            _rentalOrderUseCase = rentalOrderUseCase;
         }
 
+        // POST
         public async Task<RentalOrder> RegisterRentalOrderAsync(RequestRegisterRentalOrderJson request)
         {
-            var rentalOrder = await UseCases
+            var rentalOrder = await _rentalOrderUseCase.ExecuteRegisterRentalOrderAsync(request);
 
             return rentalOrder;
         }
