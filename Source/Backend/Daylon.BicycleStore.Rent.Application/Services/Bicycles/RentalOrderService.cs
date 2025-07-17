@@ -28,7 +28,7 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
 
         public async Task<RentalOrder> GetRentalOrderByIdAsync(Guid id)
         {
-            var rentalOrder = await _bicycleRepository.GetRentalOderById(id);
+            var rentalOrder = await _bicycleRepository.GetRentalOderByIdAsync(id);
 
             return rentalOrder;
         }
@@ -40,5 +40,8 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
 
             return rentalOrder;
         }
+
+        // DELETE
+        public async Task DeleteRentalOrderAsync(Guid id) => await _bicycleRepository.DeleteRentalOrderAsync(id);
     }
 }
