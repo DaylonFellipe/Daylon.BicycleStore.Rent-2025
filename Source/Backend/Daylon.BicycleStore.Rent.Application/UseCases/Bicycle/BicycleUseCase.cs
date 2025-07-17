@@ -142,6 +142,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             if (!result.Result.IsValid)
             {
                 var erros = result.Result.Errors.Select(e => e.ErrorMessage).ToList();
+                throw new ValidationException(string.Join(", ", erros));
             }
         }
     }
