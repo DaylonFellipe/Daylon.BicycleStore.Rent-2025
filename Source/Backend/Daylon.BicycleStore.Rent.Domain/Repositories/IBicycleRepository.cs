@@ -10,8 +10,9 @@ namespace Daylon.BicycleStore.Rent.Domain.Repositories
 
         // GET
         public Task<IList<Bicycle>> GetBicyclesAsync();
-
         public Task<Bicycle> GetBicycleByIdAsync(Guid id);
+        public Task<IList<RentalOrder>> GetRentalOrdersAsync();
+        public Task<RentalOrder> GetRentalOderById(Guid id);
 
         // POST
         public Task AddBicycleAsync(Bicycle bicycle);
