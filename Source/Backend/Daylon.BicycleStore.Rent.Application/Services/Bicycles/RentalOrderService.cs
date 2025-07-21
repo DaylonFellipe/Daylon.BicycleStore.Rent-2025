@@ -41,6 +41,19 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
             return rentalOrder;
         }
 
+        // PATCH
+      public async Task<RentalOrder> ModifyDatesAsync(Guid id, DateTime? rentalStart,int? rentalDays, int? extraDays)
+        {
+            var rentalOrder = await _bicycleRepository.GetRentalOderByIdAsync(id);
+
+            if (rentalOrder == null)
+                throw new KeyNotFoundException($"Rental order with ID {id} not found.");
+
+            var updatedRentalOrder = await _rentalOrderUseCase.ExecuteModifyDatesAsync(id, rentalStart, rentalDays, extraDays);
+
+            return updatedRentalOrder;
+        }
+
         // DELETE
         public async Task DeleteRentalOrderAsync(Guid id) => await _bicycleRepository.DeleteRentalOrderAsync(id);
     }

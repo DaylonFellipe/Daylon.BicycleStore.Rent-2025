@@ -107,16 +107,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             };
 
             var validator = new PatchBicycleValidator();
+            await validator.ValidateAsync(request, cancellationToken);
 
-            var result = await validator.ValidateAsync(request, cancellationToken);
-
-            if (!result.IsValid)
-            {
-                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new ValidationException(string.Join(", ", errors));
-            }
-
-            // Update properties
+            // Update Properties
             if (!string.IsNullOrEmpty(name)) bicycle.Name = name;
             if (!string.IsNullOrEmpty(description)) bicycle.Description = description;
 

@@ -1,5 +1,4 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Entity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Daylon.BicycleStore.Rent.Domain.Repositories
 {
@@ -20,6 +19,7 @@ namespace Daylon.BicycleStore.Rent.Domain.Repositories
 
         // PUT
         public Task UpdateBicycleAsync(Bicycle bicycle);
+        public Task UpdateRentalOrderAsync(RentalOrder rentalOrder);
 
         // DELETE
         public Task DeleteBicycleAsync(Guid id);
