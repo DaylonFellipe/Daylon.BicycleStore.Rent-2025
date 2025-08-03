@@ -14,6 +14,7 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
 
         // PATCH
         public Task<RentalOrder> ModifyDatesAsync(Guid id, DateTime? rentalStart, int? rentalDays, int? extraDays);
+        public Task ModifyOrderStatusToOverdueAsync();
 
         // DELETE
         public Task DeleteRentalOrderAsync(Guid id);

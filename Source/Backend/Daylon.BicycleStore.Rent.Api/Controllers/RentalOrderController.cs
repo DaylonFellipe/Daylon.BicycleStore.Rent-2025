@@ -62,7 +62,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok(rentalOrder);
         }
 
-
         // DELETE
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRentalOrderAsync(Guid id)

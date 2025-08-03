@@ -1,4 +1,5 @@
 using Daylon.BicycleStore.Rent.Application;
+using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,13 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 //==|=====>
 var app = builder.Build();
+
+// Support Methods
+using (var scope = app.Services.CreateScope())
+{
+    var orderService = scope.ServiceProvider.GetRequiredService<IRentalOrderService>();
+    await orderService.ModifyOrderStatusToOverdueAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
