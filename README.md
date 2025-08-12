@@ -1,6 +1,8 @@
+- 👋 Hi, I’m @DaylonFellipe
 
+<br>
 
-# 🚲 BikeRental - Sistema de Aluguel de Bicicletas
+<h1 align="center">🚲 BikeRental - Sistema de Aluguel de Bicicletas</h1>
 
 Sistema desenvolvido em **.NET** com foco em **boas práticas de código, arquitetura limpa e organização**, voltado para gerenciar o aluguel de bicicletas de forma simples.
 
@@ -45,3 +47,23 @@ Estrutura de projeto segue uma arquitetura limpa e modular, bastante comum em ap
 <div>
 <img width="400" height="950" alt="image" src="https://github.com/user-attachments/assets/6883075e-21b7-41b7-9f6a-8863b31fadad" />
 </div>
+
+---
+
+## 🗂 Estrutura de Camadas
+Projeto organizado em várias camadas, onde cada camada tem uma responsabilidade clara e comunica-se apenas com a camada imediatamente adjacente.
+Essa organização torna o código mais fácil de manter, de ampliar e de reaproveitar, pois cada parte cuida de um propósito específico, permitindo ajustes, expansões e reutilizações sem bagunçar o restante.
+
+---
+
+<div>
+<img width="1050" height="750" alt="image" src="https://github.com/user-attachments/assets/11947d13-fdf3-4385-a680-f41c2f2989ae" />
+</div>
+
+---
+
+<br>
+
+# Thanks...
+
+//   /ᐠ - ˕ -マ D A Y L O N
