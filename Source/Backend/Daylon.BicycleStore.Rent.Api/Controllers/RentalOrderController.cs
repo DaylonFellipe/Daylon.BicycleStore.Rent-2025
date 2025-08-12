@@ -1,10 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
-using Daylon.BicycleStore.Rent.Application.Services.Bicycles;
 using Daylon.BicycleStore.Rent.Communication.Request;
-using Daylon.BicycleStore.Rent.Domain.Entity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
 {
@@ -52,6 +48,27 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             var rentalOrder = await _rentalOrderService.RegisterRentalOrderAsync(request);
 
             return Ok(rentalOrder);
+        }
+
+        // PATCH
+        [HttpPatch("DateProperties")]
+        public async Task<IActionResult> ModifyDatesAsync(Guid id, DateTime? rentalStart, int? rentalDays, int? extraDays)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var rentalOrder = await _rentalOrderService.ModifyDatesAsync(id, rentalStart, rentalDays, extraDays);
+
+            return Ok(rentalOrder);
+        }
+
+        // DELETE
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRentalOrderAsync(Guid id)
+        {
+            await _rentalOrderService.DeleteRentalOrderAsync(id);
+
+            return NoContent();
         }
     }
 }

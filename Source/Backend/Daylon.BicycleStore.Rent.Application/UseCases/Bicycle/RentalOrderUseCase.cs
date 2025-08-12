@@ -15,6 +15,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             _bicycleRepository = bicycleRepository;
         }
 
+        // POST
         public async Task<Domain.Entity.RentalOrder> ExecuteRegisterRentalOrderAsync(RequestRegisterRentalOrderJson request, CancellationToken cancellationToken = default)
         {
             // Validate
@@ -49,6 +50,51 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             //Save
             await _bicycleRepository.AddRentalOrderAsync(rentalOrder);
+
+            return rentalOrder;
+        }
+
+        // PATCH
+        public async Task<Domain.Entity.RentalOrder> ExecuteModifyDatesAsync(Guid id, DateTime? rentalStart, int? rentalDays, int? extraDays)
+        {
+            // Validate 
+            var dates = new RequestModifyDatesValidatorJson
+            {
+                RentalStart = rentalStart,
+                RentalDays = rentalDays,
+                ExtraDays = extraDays
+            };
+
+            ValidateRequest(dates, new ModifyDatesValidator());
+
+            // Get RentalOrder
+            var rentalOrder = await _bicycleRepository.GetRentalOderByIdAsync(id);
+
+
+            if (rentalOrder == null)
+                throw new KeyNotFoundException($"Rental order with ID {id} not found.");
+
+            // Update Dates
+            if (rentalStart.HasValue && rentalStart > DateTime.Now)
+                rentalOrder.RentalStart = rentalStart.Value;
+
+            if (rentalDays.HasValue && rentalDays > 1)
+                rentalOrder.RentalDays = rentalDays.Value;
+
+            if (extraDays.HasValue && extraDays >= 0)
+                rentalOrder.RentalDays += extraDays.Value;
+
+            // Calculate Rental End Date
+            rentalOrder.RentalEnd = rentalOrder.RentalStart.AddDays(rentalOrder.RentalDays);
+
+            // Get Bicycle
+            var bicycle = await _bicycleRepository.GetBicycleByIdAsync(rentalOrder.BicycleId);
+
+            rentalOrder.TotalPrice = bicycle.DailyRate * rentalOrder.RentalDays; // Recalculate total price
+            rentalOrder.OrderStatus = OrderStatusEnum.Rented; // Status remains 'Rented' after modification
+
+            // Save
+            await _bicycleRepository.UpdateRentalOrderAsync(rentalOrder);
 
             return rentalOrder;
         }
