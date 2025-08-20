@@ -1,5 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request;
+using Daylon.BicycleStore.Rent.Domain.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
@@ -17,6 +18,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         // GET
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRentalOrdersAsync()
         {
             var rentalOrders = await _rentalOrderService.GetRentalOrdersAsync();
@@ -28,6 +31,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetRentalOrderByIdAsync(Guid id)
         {
             var rentalOrder = await _rentalOrderService.GetRentalOrderByIdAsync(id);
@@ -40,6 +45,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         // POST
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterRentalOrderAsync([FromBody] RequestRegisterRentalOrderJson request)
         {
             if (!ModelState.IsValid)
@@ -52,6 +59,9 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         // PATCH
         [HttpPatch("DateProperties")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ModifyDatesAsync(Guid id, DateTime? rentalStart, int? rentalDays, int? extraDays)
         {
             if (!ModelState.IsValid)
@@ -59,13 +69,27 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var rentalOrder = await _rentalOrderService.ModifyDatesAsync(id, rentalStart, rentalDays, extraDays);
 
+            if (rentalOrder == null)
+                return NotFound($"Rental Order with ID {id} not found.");
+
             return Ok(rentalOrder);
         }
 
         // DELETE
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteRentalOrderAsync(Guid id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var rentalOrder = await _rentalOrderService.GetRentalOrderByIdAsync(id);
+
+            if (rentalOrder == null)
+                return NotFound($"Rental Order with ID {id} not found.");
+
             await _rentalOrderService.DeleteRentalOrderAsync(id);
 
             return NoContent();

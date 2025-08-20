@@ -109,9 +109,18 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteBicycleAsync(Guid id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var bicycle = await _bicycleService.GetBicycleByIdAsync(id);
+
+            if (bicycle == null)
+                return NotFound($"Bicycle with ID {id} not found.");
+
             await _bicycleService.DeleteBicycleAsync(id);
 
             return Ok();
