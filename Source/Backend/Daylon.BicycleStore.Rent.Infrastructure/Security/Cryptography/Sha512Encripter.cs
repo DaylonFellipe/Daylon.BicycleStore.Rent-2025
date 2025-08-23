@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography
 {
-    public class Sha512Encripter : IPasswordEncripter
+    public class Sha512Encripter : ISha512PasswordEncripter
     {
         private readonly string _additionalKey;
 

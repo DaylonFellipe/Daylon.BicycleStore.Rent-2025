@@ -35,7 +35,8 @@ namespace Daylon.BicycleStore.Rent.Infrastructure
 
         private static void AddServices(IServiceCollection services)
         {
-            services.AddScoped<IPasswordEncripter, Sha512Encripter>();
+            services.AddScoped<ISha512PasswordEncripter, Sha512Encripter>();
+            services.AddScoped<IPBKDF2PasswordEncripter, PBKDF2Encripter>();
         }
     }
 }
