@@ -1,4 +1,4 @@
-﻿using Daylon.BicycleStore.Rent.Communication.Request;
+﻿using Daylon.BicycleStore.Rent.Communication.Request.Bibycle;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers

@@ -11,6 +11,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess
 
         public DbSet<Domain.Entity.Bicycle> Bicycles { get; set; } = null!;
         public DbSet<Domain.Entity.RentalOrder> RentalOrders { get; set; } = null!;
+        public DbSet<Domain.Entity.User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

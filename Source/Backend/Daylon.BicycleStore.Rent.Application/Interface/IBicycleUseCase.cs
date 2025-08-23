@@ -1,4 +1,4 @@
-﻿using Daylon.BicycleStore.Rent.Communication.Request;
+﻿using Daylon.BicycleStore.Rent.Communication.Request.Bibycle;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 
 namespace Daylon.BicycleStore.Rent.Application.Interface
