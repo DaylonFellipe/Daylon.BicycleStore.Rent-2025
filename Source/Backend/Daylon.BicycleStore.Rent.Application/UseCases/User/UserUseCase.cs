@@ -15,7 +15,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         }
 
         // POST
-        public async Task<Domain.Entity.User> ExecuteRegisterUserAsync(Communication.Request.User.RequestRegisterUserJson request)
+        public async Task<Domain.Entity.User> ExecuteRegisterUserAsync(RequestRegisterUserJson request)
         {
             // Validate
             ValidateRequest(request, new RegisterUserValidator());

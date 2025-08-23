@@ -1,6 +1,8 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Repositories;
+using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
 using Daylon.BicycleStore.Rent.Infrastructure.DataAccess;
 using Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories;
+using Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,9 +27,15 @@ namespace Daylon.BicycleStore.Rent.Infrastructure
             services.AddDbContext<BicycleStoreDbContext>(options =>
                 options.UseSqlServer(connectionString));
         }
+
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<IBicycleRepository, BicycleRepository>();
+        }
+
+        private static void AddServices(IServiceCollection services)
+        {
+            services.AddScoped<IPasswordEncripter, Sha512Encripter>();
         }
     }
 }
