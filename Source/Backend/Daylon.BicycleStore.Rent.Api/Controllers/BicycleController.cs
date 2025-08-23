@@ -54,7 +54,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var bicycle = await _bicycleService.RegisterBicycleAsync(request);
 
-            return Ok(bicycle);
+            return Created("", bicycle);
         }
 
         //PUT
