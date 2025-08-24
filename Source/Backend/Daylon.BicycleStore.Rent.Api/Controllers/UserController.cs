@@ -28,6 +28,17 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok(users);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserByIdAsync(Guid id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if (user == null)
+                return NotFound($"User with ID {id} not found.");
+
+            return Ok(user);
+        }
+
         // POST
         [HttpPost]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RequestRegisterUserJson request)
