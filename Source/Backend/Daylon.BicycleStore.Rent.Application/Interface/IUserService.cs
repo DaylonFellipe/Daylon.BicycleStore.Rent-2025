@@ -8,6 +8,8 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
     {
         // GET
         public Task<IList<Domain.Entity.User>> GetUsersAsync(UserStatusFilterEnum filterEnum);
+        public Task<Domain.Entity.User> GetUserByIdAsync(Guid id);
+
 
         // POST
         public Task<UserDto> RegisterUserAsync(RequestRegisterUserJson request);

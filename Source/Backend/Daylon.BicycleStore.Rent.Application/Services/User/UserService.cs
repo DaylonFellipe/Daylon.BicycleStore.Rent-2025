@@ -28,6 +28,13 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
             return users;
         }
 
+        public async Task<Domain.Entity.User> GetUserByIdAsync(Guid id)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+
+            return user;
+        }
+
         // POST
         public async Task<UserDto> RegisterUserAsync(RequestRegisterUserJson request)
         {
