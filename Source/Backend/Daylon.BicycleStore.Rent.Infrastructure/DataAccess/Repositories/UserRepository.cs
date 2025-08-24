@@ -1,4 +1,5 @@
-﻿using Daylon.BicycleStore.Rent.Domain.Repositories;
+﻿using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
+using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
@@ -16,8 +17,28 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
 
         // GET
-        public async Task<IList<Domain.Entity.User>> GetUsersAsync() => await _dbContext.Users.ToListAsync()
-            ?? throw new Exception("No user found.");
+        public async Task<IList<Domain.Entity.User>> GetUsersAsync(UserStatusFilterEnum filterEnum = UserStatusFilterEnum.All)
+        {
+            IQueryable<Domain.Entity.User> query = _dbContext.Users;
+
+            switch (filterEnum)
+            {
+                case UserStatusFilterEnum.Active:
+                    query = query.Where(query => query.Active.Equals(true));
+                    break;
+
+
+                case UserStatusFilterEnum.Inactive:
+                    query = query.Where(query => query.Active.Equals(false));
+                    break;
+
+                case UserStatusFilterEnum.All:
+                default:
+                    break;
+            }
+
+            return await query.ToListAsync() ?? throw new Exception("No users found.");
+        }
 
         public async Task<Domain.Entity.User> GetUserByIdAsync(Guid id)
 
