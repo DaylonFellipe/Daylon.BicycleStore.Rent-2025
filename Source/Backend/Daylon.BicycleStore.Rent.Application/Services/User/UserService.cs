@@ -1,16 +1,31 @@
 ﻿using Daylon.BicycleStore.Rent.Application.DTOs.User;
 using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
+using Daylon.BicycleStore.Rent.Domain.Entity;
+using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
+using Daylon.BicycleStore.Rent.Domain.Repositories;
 
 namespace Daylon.BicycleStore.Rent.Application.Services.User
 {
     public class UserService : IUserService
     {
         private readonly IUserUseCase _userUseCase;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserUseCase userUseCase)
+        public UserService(
+            IUserUseCase userUseCase,
+            IUserRepository userRepository)
         {
             _userUseCase = userUseCase;
+            _userRepository = userRepository;
+        }
+
+        // GET
+        public async Task<IList<Domain.Entity.User>> GetUsersAsync(UserStatusFilterEnum filterEnum)
+        {
+            var users = await _userRepository.GetUsersAsync(filterEnum);
+
+            return users;
         }
 
         // POST

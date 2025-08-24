@@ -1,4 +1,6 @@
-﻿namespace Daylon.BicycleStore.Rent.Domain.Repositories
+﻿using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
+
+namespace Daylon.BicycleStore.Rent.Domain.Repositories
 {
     public interface IUserRepository
     {
@@ -7,7 +9,7 @@
         Task SaveChangesAsync();
 
         // GET
-        Task<IList<Domain.Entity.User>> GetUsersAsync();
+        Task<IList<Domain.Entity.User>> GetUsersAsync(UserStatusFilterEnum filterEnum = UserStatusFilterEnum.All);
         Task<Domain.Entity.User> GetUserByIdAsync(Guid id);
         Task<Domain.Entity.User> GetUserByEmailAsync(string email);
 

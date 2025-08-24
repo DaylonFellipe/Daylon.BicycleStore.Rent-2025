@@ -1,5 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
+using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
@@ -15,6 +16,19 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             _userService = userService;
         }
 
+        // GET
+        [HttpGet]
+        public async Task<IActionResult> GetUsersAsync(UserStatusFilterEnum filterEnum)
+        {
+            var users = await _userService.GetUsersAsync(filterEnum);
+
+            if (users == null || !users.Any())
+                return NotFound("No users found.");
+
+            return Ok(users);
+        }
+
+        // POST
         [HttpPost]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RequestRegisterUserJson request)
         {
