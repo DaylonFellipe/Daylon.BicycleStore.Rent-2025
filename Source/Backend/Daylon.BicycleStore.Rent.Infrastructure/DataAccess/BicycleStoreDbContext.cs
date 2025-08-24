@@ -23,6 +23,10 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess
                 .ToTable("RentalOrders")
                 .HasKey(key => key.OrderId);
 
+            modelBuilder.Entity<Domain.Entity.User>()
+                .ToTable("Users")
+                .HasKey(key => key.Id);
+
             //==|=====>
             base.OnModelCreating(modelBuilder);
         }

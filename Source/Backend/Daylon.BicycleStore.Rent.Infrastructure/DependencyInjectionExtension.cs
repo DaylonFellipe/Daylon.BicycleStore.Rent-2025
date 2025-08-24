@@ -15,6 +15,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure
         {
             AddDbContext(services, configuration);
             AddRepositories(services);
+            AddServices(services);
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
@@ -31,6 +32,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure
         private static void AddRepositories(IServiceCollection services)
         {
             services.AddScoped<IBicycleRepository, BicycleRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         private static void AddServices(IServiceCollection services)

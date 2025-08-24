@@ -13,11 +13,13 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
 
             RuleFor(user => user.FirstName)
                 .NotEmpty().WithMessage("Name is required.")
-                .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.");
+                .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.")
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage("Name can only contain letters and spaces.");
 
             RuleFor(user => user.LastName)
                 .NotEmpty().WithMessage("Last name is required.")
-                .MaximumLength(100).WithMessage("Last name cannot exceed 100 characters.");
+                .MaximumLength(100).WithMessage("Last name cannot exceed 100 characters.")
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage("Name can only contain letters and spaces.");
 
             RuleFor(user => user.DateOfBirth)
                 .NotEmpty().WithMessage("Date of birth is required.")

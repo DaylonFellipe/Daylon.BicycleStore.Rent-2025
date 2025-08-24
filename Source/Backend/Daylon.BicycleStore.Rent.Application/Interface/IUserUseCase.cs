@@ -2,6 +2,7 @@
 {
     public interface IUserUseCase
     {
+        // POST
         public Task<Domain.Entity.User> ExecuteRegisterUserAsync(Communication.Request.User.RequestRegisterUserJson request);
     }
 }

@@ -1,6 +1,6 @@
-﻿using Daylon.BicycleStore.Rent.Application.Interface;
+﻿using Daylon.BicycleStore.Rent.Application.DTOs.User;
+using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
-using Daylon.BicycleStore.Rent.Domain.Entity;
 
 namespace Daylon.BicycleStore.Rent.Application.Services.User
 {
@@ -13,13 +13,18 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
             _userUseCase = userUseCase;
         }
 
-        public async Task<Domain.Entity.User> RegisterUserAsync(RequestRegisterUserJson request)
+        // POST
+        public async Task<UserDto> RegisterUserAsync(RequestRegisterUserJson request)
         {
-            //var user = await _userUseCase.ExecuteRegisterUserAsync(request);
+            var userEntity = await _userUseCase.ExecuteRegisterUserAsync(request);
 
-            //return user;
-
-            return null;
+            return new UserDto
+            {
+                Id = userEntity.Id,
+                Name = $"{userEntity.FirstName} {userEntity.LastName}",
+                Email = userEntity.Email,
+                Password = userEntity.Password
+            };
         }
     }
 }

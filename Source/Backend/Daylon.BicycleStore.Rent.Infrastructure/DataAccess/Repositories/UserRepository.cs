@@ -33,7 +33,6 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         }
 
         // POST
-
         public async Task AddUserAsync(Domain.Entity.User user)
         {
             await _dbContext.Users.AddAsync(user);
@@ -46,6 +45,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
             _dbContext.Users.Update(user);
             await SaveChangesAsync();
         }
+
         // DELETE
         public async Task DeleteUserAsync(Guid id)
         {

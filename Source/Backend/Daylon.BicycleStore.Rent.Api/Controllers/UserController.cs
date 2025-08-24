@@ -16,20 +16,14 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         [HttpPost]
-        public async IActionResult RegisterUserAsync([FromBody] RequestRegisterUserJson request)
+        public async Task<IActionResult> RegisterUserAsync([FromBody] RequestRegisterUserJson request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = await _userService.RegisterUserAsync(request);
+            var userDTO = await _userService.RegisterUserAsync(request);
 
-
-
-
-
-
-
-            return Ok();
+            return Ok(userDTO);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
+using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
 using FluentValidation;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.User
@@ -8,10 +9,14 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
     public class UserUseCase : IUserUseCase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPBKDF2PasswordEncripter _passwordEncripter;
 
-        public UserUseCase(IUserRepository userRepository)
+        public UserUseCase(
+            IUserRepository userRepository,
+            IPBKDF2PasswordEncripter passwordEncripter)
         {
             _userRepository = userRepository;
+            _passwordEncripter = passwordEncripter;
         }
 
         // POST
@@ -19,6 +24,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         {
             // Validate
             ValidateRequest(request, new RegisterUserValidator());
+
+            // Cryptographically Hash Password
+            var hashedPassword = _passwordEncripter.HashPassword_PBKDF2Encripter(request.Password);
 
             // Map Properties and Created Entity
             var user = new Domain.Entity.User
@@ -32,7 +40,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 // User
                 Id = Guid.NewGuid(),
                 Email = request.Email,
-                Password = request.Password,
+                Password = hashedPassword,
                 CreatedOn = DateTime.Now,
                 Active = true
             };
