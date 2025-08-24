@@ -1,6 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 
-namespace Daylon.BicycleStore.Rent.Communication.Request
+namespace Daylon.BicycleStore.Rent.Communication.Request.Bibycle
 {
     public class RequestRegisterBicycleJson
     {

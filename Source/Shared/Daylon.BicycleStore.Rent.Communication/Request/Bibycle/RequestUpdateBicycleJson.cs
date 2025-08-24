@@ -1,7 +1,7 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using System.Reflection.Metadata.Ecma335;
 
-namespace Daylon.BicycleStore.Rent.Communication.Request
+namespace Daylon.BicycleStore.Rent.Communication.Request.Bibycle
 {
     public class RequestUpdateBicycleJson
     {

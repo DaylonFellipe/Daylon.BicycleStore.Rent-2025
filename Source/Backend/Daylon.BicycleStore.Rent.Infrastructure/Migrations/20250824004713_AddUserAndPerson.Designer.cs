@@ -4,6 +4,7 @@ using Daylon.BicycleStore.Rent.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Daylon.BicycleStore.Rent.Infrastructure.Migrations
 {
     [DbContext(typeof(BicycleStoreDbContext))]
-    partial class BicycleStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250824004713_AddUserAndPerson")]
+    partial class AddUserAndPerson
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

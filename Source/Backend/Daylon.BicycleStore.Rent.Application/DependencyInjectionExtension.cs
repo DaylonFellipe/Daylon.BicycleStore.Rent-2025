@@ -1,6 +1,8 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Application.Services.Bicycles;
+using Daylon.BicycleStore.Rent.Application.Services.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.Bicycle;
+using Daylon.BicycleStore.Rent.Application.UseCases.User;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Daylon.BicycleStore.Rent.Application
@@ -18,6 +20,8 @@ namespace Daylon.BicycleStore.Rent.Application
             services.AddScoped<IBicycleUseCase, BicycleUseCase>();
             services.AddScoped<IRentalOrderService, RentalOrderService>();
             services.AddScoped<IRentalOrderUseCase, RentalOrderUseCase>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserUseCase, UserUseCase>();
         }
     }
 }
