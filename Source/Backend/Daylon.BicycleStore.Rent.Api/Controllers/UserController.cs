@@ -1,4 +1,5 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
+using Daylon.BicycleStore.Rent.Application.Services.Bicycles;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +67,18 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             var userDTO = await _userService.RegisterUserAsync(request);
 
             return Ok(userDTO);
+        }
+
+        // DELETE
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUserAsync(Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _userService.DeleteUserAsync(id);
+
+            return NoContent();
         }
     }
 }

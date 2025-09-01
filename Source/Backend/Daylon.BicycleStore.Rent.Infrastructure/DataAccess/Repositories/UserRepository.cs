@@ -92,6 +92,10 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         public async Task DeleteUserAsync(Guid id)
         {
             var user = await GetUserByIdAsync(id);
+
+            if (user == null)
+                throw new KeyNotFoundException($"User with ID {id} not found.");
+
             _dbContext.Users.Remove(user);
             await SaveChangesAsync();
         }
