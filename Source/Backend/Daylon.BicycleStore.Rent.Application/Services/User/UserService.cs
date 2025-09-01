@@ -71,6 +71,14 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
             };
         }
 
+        // DELETE
+        public async Task DeleteUserAsync(Guid id)
+        {
+            await _userRepository.DeleteUserAsync(id);
+        }
+
+
+
         // EXTENSION SUPORTS
         private static bool IsEmail(string input)
         {
