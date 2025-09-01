@@ -9,7 +9,7 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
         // GET
         public Task<IList<Domain.Entity.User>> GetUsersAsync(UserStatusFilterEnum filterEnum);
         public Task<Domain.Entity.User> GetUserByIdAsync(Guid id);
-
+        public Task<IList<Domain.Entity.User>> GetUserByNameOrEmailAsync(string nameOrEmail);
 
         // POST
         public Task<UserDto> RegisterUserAsync(RequestRegisterUserJson request);

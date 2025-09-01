@@ -2,6 +2,7 @@
 using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
 {
     public class UserRepository : IUserRepository
@@ -51,6 +52,26 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email)
                    ?? throw new KeyNotFoundException($"User with email {email} not found.");
+        }
+
+        public async Task<IList<Domain.Entity.User>> GetUserByNameAsync(string searchName)
+        {
+           if (string.IsNullOrWhiteSpace(searchName))
+                throw new ArgumentException("Search name cannot be null or empty.", nameof(searchName));
+
+            searchName = $"%{searchName.Trim()}%";
+
+            var users = await _dbContext.Users
+             .Where(u =>
+                 EF.Functions.Like(u.FirstName + " " + u.LastName, searchName) ||
+                 EF.Functions.Like(u.FirstName, searchName) ||
+                 EF.Functions.Like(u.LastName, searchName))
+             .ToListAsync();
+
+            if (users == null || users.Count == 0)
+                throw new KeyNotFoundException($"User with name '{searchName}' not found.");
+
+            return users;
         }
 
         // POST

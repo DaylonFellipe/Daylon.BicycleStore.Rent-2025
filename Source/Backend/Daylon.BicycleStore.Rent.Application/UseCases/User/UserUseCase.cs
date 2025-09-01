@@ -23,6 +23,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         public async Task<Domain.Entity.User> ExecuteRegisterUserAsync(RequestRegisterUserJson request)
         {
             // Validate
+            
+
             ValidateRequest(request, new RegisterUserValidator());
 
             // Cryptographically Hash Password
@@ -53,12 +55,33 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
 
         private void ValidateRequest<T>(T request, AbstractValidator<T> validator)
         {
+            if (request is not RequestRegisterUserJson registerUserRequest)
+            {
+                throw new ArgumentException("Invalid request type.", nameof(request));
+            }
+
             var result = validator.Validate(request);
+
+            if( ExistsEmail(registerUserRequest.Email))
+                throw new ValidationException($"Validation failed: Email '{registerUserRequest.Email}' is already in use.");
 
             if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
                 throw new ValidationException($"Validation failed: {string.Join(", ", errors)}");
+            }
+        }
+
+        private bool ExistsEmail(string email)
+        {
+            try
+            {
+                var user = _userRepository.GetUserByEmailAsync(email).Result;
+                return user != null;
+            }
+            catch (AggregateException ex) when (ex.InnerException is KeyNotFoundException)
+            {
+                return false;
             }
         }
     }
