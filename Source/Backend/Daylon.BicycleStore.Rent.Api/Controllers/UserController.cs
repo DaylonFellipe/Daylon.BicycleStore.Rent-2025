@@ -69,6 +69,20 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok(userDTO);
         }
 
+        // PATCH
+
+        // PUT
+        [HttpPut("ChangeUserStatus")]
+        public async Task<IActionResult> UpdateUserStatusAsync(Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _userService.UpdateUserStatusAsync(id);
+
+            return Ok($"User Status Update to {user.Active}");
+        }
+
         // DELETE
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserAsync(Guid id)

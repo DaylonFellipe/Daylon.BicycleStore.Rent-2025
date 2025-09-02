@@ -53,6 +53,26 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             return user;
         }
 
+        // PUT
+        public async Task<Domain.Entity.User> ExecuteUpdateUserStatusAsync(Domain.Entity.User user)
+        {
+            switch
+                (user.Active)
+            {
+                case true:
+                    user.Active = false;
+                    break;
+
+                case false:
+                    user.Active = true;
+                    break;
+            }
+
+            await _userRepository.UpdateUserAsync(user);
+
+            return user;
+        }
+
         private void ValidateRequest<T>(T request, AbstractValidator<T> validator)
         {
             if (request is not RequestRegisterUserJson registerUserRequest)

@@ -14,6 +14,9 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
         // POST
         public Task<UserDto> RegisterUserAsync(RequestRegisterUserJson request);
 
+        // PUT
+        public Task<Domain.Entity.User> UpdateUserStatusAsync(Guid id);
+
         // DELETE
         public Task DeleteUserAsync(Guid id);
     }
