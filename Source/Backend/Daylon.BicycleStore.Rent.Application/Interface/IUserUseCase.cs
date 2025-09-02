@@ -5,6 +5,9 @@
         // POST
         public Task<Domain.Entity.User> ExecuteRegisterUserAsync(Communication.Request.User.RequestRegisterUserJson request);
 
+        // PATCH
+        public Task<Domain.Entity.User> ExecuteUpdateUserNameAsync(Guid id, string? firstName, string? LastName);
+
         // PUT
         public Task<Domain.Entity.User> ExecuteUpdateUserStatusAsync(Domain.Entity.User user);
     }

@@ -38,7 +38,7 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
 
         public async Task<IList<Domain.Entity.User>> GetUserByNameOrEmailAsync(string nameOrEmail)
         {
-           var verification = IsEmail(nameOrEmail);
+            var verification = IsEmail(nameOrEmail);
 
             if (verification)
             {
@@ -62,14 +62,18 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
         {
             var userEntity = await _userUseCase.ExecuteRegisterUserAsync(request);
 
-            return new UserDto
-            {
-                Id = userEntity.Id,
-                Name = $"{userEntity.FirstName} {userEntity.LastName}",
-                Email = userEntity.Email,
-                Password = userEntity.Password
-            };
+            return ChangeToUserDTO(userEntity);
         }
+
+        // PATCH
+        public async Task<UserDto> UpdateUserNameAsync(Guid id, string? firstName, string? LastName)
+        {
+            var user = await _userUseCase.ExecuteUpdateUserNameAsync(id, firstName!, LastName!);
+
+            return ChangeToUserDTO(user);
+        }
+
+
 
         // PUT
         public async Task<Domain.Entity.User> UpdateUserStatusAsync(Guid id)
@@ -99,6 +103,17 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
             {
                 return false;
             }
+        }
+
+        private static UserDto ChangeToUserDTO(Domain.Entity.User user)
+        {
+            return new UserDto
+            {
+                Id = user.Id,
+                Name = $"{user.FirstName} {user.LastName}",
+                Email = user.Email,
+                Password = user.Password
+            };
         }
     }
 }

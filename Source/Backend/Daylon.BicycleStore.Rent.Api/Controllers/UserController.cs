@@ -70,6 +70,16 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         // PATCH
+        [HttpPatch("Name")]
+        public async Task<IActionResult> UpdateUserNameAsync(Guid id, string? firstName, string? LastName)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var userDTO = await _userService.UpdateUserNameAsync(id, firstName!, LastName!);
+
+            return Ok(userDTO);
+        }
 
         // PUT
         [HttpPut("ChangeUserStatus")]
