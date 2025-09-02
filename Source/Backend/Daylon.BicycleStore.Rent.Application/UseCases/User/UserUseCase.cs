@@ -23,9 +23,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         public async Task<Domain.Entity.User> ExecuteRegisterUserAsync(RequestRegisterUserJson request)
         {
             // Validate
-            
 
-            ValidateRequest(request, new RegisterUserValidator());
+
+            ValidateRegisterRequest(request, new RegisterUserValidator());
 
             // Cryptographically Hash Password
             var hashedPassword = _passwordEncripter.HashPassword_PBKDF2Encripter(request.Password);
@@ -53,6 +53,34 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             return user;
         }
 
+        // PATCH
+        public async Task<Domain.Entity.User> ExecuteUpdateUserNameAsync(Guid id, string? firstName, string? lastName)
+        {
+            var requestUpdateName = new RequestUpdateUserNameJson
+            {
+                Id = id,
+                FirstName = firstName!,
+                LastName = lastName!
+            };
+
+            // Validate
+            ValidateRequest(requestUpdateName, new UpdateUserNameValidator());
+
+            // Map Properties
+            var user = await _userRepository.GetUserByIdAsync(id);
+
+            if(!string.IsNullOrWhiteSpace(firstName))
+                user.FirstName = firstName;
+
+            if (!string.IsNullOrWhiteSpace(lastName))
+                user.LastName = lastName;
+
+            // Save
+            await _userRepository.UpdateUserAsync(user);
+
+            return user;
+        }
+
         // PUT
         public async Task<Domain.Entity.User> ExecuteUpdateUserStatusAsync(Domain.Entity.User user)
         {
@@ -73,7 +101,18 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             return user;
         }
 
+        // EXTENSIONS METHODS
         private void ValidateRequest<T>(T request, AbstractValidator<T> validator)
+        {
+            var result = validator.Validate(request);
+
+            if (!result.IsValid)
+            {
+                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+                throw new ValidationException($"Validation failed: {string.Join(", ", errors)}");
+            }
+        }
+        private void ValidateRegisterRequest<T>(T request, AbstractValidator<T> validator)
         {
             if (request is not RequestRegisterUserJson registerUserRequest)
             {
@@ -82,7 +121,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
 
             var result = validator.Validate(request);
 
-            if( ExistsEmail(registerUserRequest.Email))
+            if (ExistsEmail(registerUserRequest.Email))
                 throw new ValidationException($"Validation failed: Email '{registerUserRequest.Email}' is already in use.");
 
             if (!result.IsValid)
