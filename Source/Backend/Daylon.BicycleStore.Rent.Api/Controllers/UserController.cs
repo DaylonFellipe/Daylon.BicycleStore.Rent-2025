@@ -3,6 +3,7 @@ using Daylon.BicycleStore.Rent.Application.Services.Bicycles;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
 {
@@ -40,7 +41,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok(user);
         }
 
-        [HttpGet("NameOrEmail")]
+        [HttpGet("nameOrEmail")]
         public async Task<IActionResult> GetUsersByNameOrEmailAsync(string nameOrEmail)
         {
             if (string.IsNullOrWhiteSpace(nameOrEmail))
@@ -70,7 +71,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         // PATCH
-        [HttpPatch("Name")]
+        [HttpPatch("name")]
         public async Task<IActionResult> UpdateUserNameAsync(Guid id, string? firstName, string? LastName)
         {
             if (!ModelState.IsValid)
@@ -81,8 +82,19 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok(userDTO);
         }
 
+        [HttpPatch("password")]
+        public async Task<IActionResult> UpdateUserPasswordAsync(Guid id, string oldPassword, string newPassword)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var userDTO = await _userService.UpdateUserPasswordAsync(id, oldPassword, newPassword);
+
+            return Ok(userDTO);
+        }
+
         // PUT
-        [HttpPut("ChangeUserStatus")]
+        [HttpPut("changeUserStatus")]
         public async Task<IActionResult> UpdateUserStatusAsync(Guid id)
         {
             if (!ModelState.IsValid)
