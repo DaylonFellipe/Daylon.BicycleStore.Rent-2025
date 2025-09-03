@@ -81,6 +81,35 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             return user;
         }
 
+        public async Task<Domain.Entity.User> ExecuteUpdateUserPasswordAsync(Guid id, string oldPassword, string newPassword)
+        {
+            var requestUpdatePassword = new RequestUpdateUserPasswordJson
+            {
+                Id = id,
+                OldPassword = oldPassword,
+                NewPassword = newPassword
+            };
+
+            // Validate
+            ValidateRequest(requestUpdatePassword, new UpdateUserPasswordValidator());
+           
+            // Map Properties
+            var user = await _userRepository.GetUserByIdAsync(id);
+
+            // Verify Old Password
+            if (!_passwordEncripter.VerifyPassword_PBKDF2Encripter(oldPassword, user.Password))
+                throw new ValidationException("The old password is incorrect.");
+
+            // Change to New Password
+            var hashedNewPassword = _passwordEncripter.HashPassword_PBKDF2Encripter(newPassword);
+
+            user.Password = hashedNewPassword;
+
+            // Save
+            await _userRepository.UpdateUserAsync(user);
+            return user;
+        }
+
         // PUT
         public async Task<Domain.Entity.User> ExecuteUpdateUserStatusAsync(Domain.Entity.User user)
         {
