@@ -104,6 +104,17 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok(userDTO);
         }
 
+        [HttpPatch("BirthDate")]
+        public async Task<IActionResult> UpdateUserBirthdayDateAsync(Guid id, DateTime birthdayDate)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var userDTO = await _userService.UpdateUserBirthdayDateAsync(id, birthdayDate);
+
+            return Ok(userDTO);
+        }
+
         // PUT
         [HttpPut("changeUserStatus")]
         public async Task<IActionResult> UpdateUserStatusAsync(Guid id)

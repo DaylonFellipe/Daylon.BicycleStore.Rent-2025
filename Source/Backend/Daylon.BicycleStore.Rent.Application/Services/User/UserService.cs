@@ -88,6 +88,13 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
             return ChangeToUserDTO(userVerification);
         }
 
+        public async Task<UserDto> UpdateUserBirthdayDateAsync(Guid id, DateTime newBirhtDate)
+        {
+            var user = await _userUseCase.ExecuteUpdateUserDateOfBirthAsync(id, newBirhtDate);
+
+            return ChangeToUserDTO(user);
+        }
+
         // PUT
         public async Task<Domain.Entity.User> UpdateUserStatusAsync(Guid id)
         {

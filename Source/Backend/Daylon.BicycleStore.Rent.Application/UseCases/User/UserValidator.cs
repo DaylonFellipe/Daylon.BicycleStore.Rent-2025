@@ -114,4 +114,20 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 .NotEqual(user => user.OldPassword).WithMessage("New password cannot be the same as the old password.");
         }
     }
+
+    public class UpdateUserDateOfBirthValidator : AbstractValidator<RequestUpdateUserDateOfBirthJson>
+    {
+        public UpdateUserDateOfBirthValidator()
+        {
+            ClassLevelCascadeMode = CascadeMode.Stop;
+
+            RuleFor(user => user.Id)
+                .NotEmpty().WithMessage("User Id is required.").Must(id => id != Guid.Empty).WithMessage("User Id must be a valid GUID.");
+
+            RuleFor(user => user.NewDateOfBirth)
+                 .NotEmpty().WithMessage("Date of birth is required.")
+                 .Must(date => date <= DateTime.Now).WithMessage("Date of birth must be in the past.")
+                 .NotEqual(user => user.OldDateOfBirth).WithMessage("The new date of birth must be different from the current one.");
+        }
+    }
 }

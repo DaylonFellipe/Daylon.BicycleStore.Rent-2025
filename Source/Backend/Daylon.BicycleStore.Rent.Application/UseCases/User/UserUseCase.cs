@@ -139,6 +139,31 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
 
             return user;
         }
+        
+        public async Task<Domain.Entity.User> ExecuteUpdateUserDateOfBirthAsync(Guid id, DateTime newDateOfBirth)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+
+            var requestUpdateDateOfBirth = new RequestUpdateUserDateOfBirthJson
+            {
+                Id = id,
+                NewDateOfBirth = newDateOfBirth,
+                OldDateOfBirth = user.DateOfBirth
+                
+            };
+
+            // Validate
+            ValidateRequest(requestUpdateDateOfBirth, new UpdateUserDateOfBirthValidator());
+
+            // Map Properties
+            user.DateOfBirth = newDateOfBirth;
+            user.Age = DateTime.Now.Year - newDateOfBirth.Year;
+
+            // Save
+            await _userRepository.UpdateUserAsync(user);
+
+            return user;
+        }
 
         // PUT
         public async Task<Domain.Entity.User> ExecuteUpdateUserStatusAsync(Domain.Entity.User user)

@@ -18,6 +18,7 @@ namespace Daylon.BicycleStore.Rent.Application.Interface
         public Task<UserDto> UpdateUserNameAsync(Guid id, string? firstName, string? LastName);
         public Task<UserDto> UpdateUserEmailAsync(Guid id, string newEmail, string password);
         public Task<UserDto> UpdateUserPasswordAsync(Guid id, string oldPassword, string newPassword);
+        public Task<UserDto> UpdateUserBirthdayDateAsync(Guid id, DateTime newBirhtDate);
 
         // PUT
         public Task<Domain.Entity.User> UpdateUserStatusAsync(Guid id);
