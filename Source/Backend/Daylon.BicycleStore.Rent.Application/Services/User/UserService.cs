@@ -73,6 +73,14 @@ namespace Daylon.BicycleStore.Rent.Application.Services.User
             return ChangeToUserDTO(user);
         }
 
+        public async Task<UserDto> UpdateUserEmailAsync(Guid id, string newEmail, string password)
+        {
+            var user = await _userUseCase.ExecuteUpdateUserEmailAsync(id, newEmail, password);
+
+            return ChangeToUserDTO(user);
+
+        }
+
         public async Task<UserDto> UpdateUserPasswordAsync(Guid id, string oldPassword, string newPassword)
         {
             var userVerification = await _userUseCase.ExecuteUpdateUserPasswordAsync(id, oldPassword, newPassword);

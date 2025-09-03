@@ -60,6 +60,31 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         }
     }
 
+    public class UpdateUserEmailValidator : AbstractValidator<RequestUpdateUserEmailJson>
+    {
+        public UpdateUserEmailValidator()
+        {
+            ClassLevelCascadeMode = CascadeMode.Stop;
+
+            RuleFor(user => user.Id)
+                .NotEmpty().WithMessage("User Id is required.").Must(id => id != Guid.Empty).WithMessage("User Id must be a valid GUID.");
+
+            RuleFor(user => user.NewEmail)
+                .NotEmpty().WithMessage("Email is required.")
+                .EmailAddress().WithMessage("Invalid email format.")
+                .MaximumLength(256).WithMessage("Email cannot exceed 256 characters.");
+
+            RuleFor(user => user.Password)
+                .NotEmpty().WithMessage("Password is required.")
+                .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")
+                .MaximumLength(100).WithMessage("Password cannot exceed 100 characters.")
+                .Matches(@"[A-Z]").WithMessage("Password must contain at least one uppercase letter.")
+                .Matches(@"[a-z]").WithMessage("Password must contain at least one lowercase letter.")
+                .Matches(@"\d").WithMessage("Password must contain at least one number.")
+                .Matches(@"[\W_]").WithMessage("Password must contain at least one special character.");
+        }
+    }
+
     public class UpdateUserPasswordValidator : AbstractValidator<RequestUpdateUserPasswordJson>
     {
         public UpdateUserPasswordValidator()
@@ -70,7 +95,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 .NotEmpty().WithMessage("User Id is required.").Must(id => id != Guid.Empty).WithMessage("User Id must be a valid GUID.");
 
             RuleFor(user => user.OldPassword)
-                .NotEmpty().WithMessage("New password is required.")
+                .NotEmpty().WithMessage("Password is required.")
                 .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")
                 .MaximumLength(100).WithMessage("Password cannot exceed 100 characters.")
                 .Matches(@"[A-Z]").WithMessage("Password must contain at least one uppercase letter.")

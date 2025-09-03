@@ -82,6 +82,17 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             return Ok(userDTO);
         }
 
+        [HttpPatch("email")]
+        public async Task<IActionResult> UpdateUserEmailAsync(Guid id, string newEmail, string password)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var userDTO = await _userService.UpdateUserEmailAsync(id, newEmail, password);
+
+            return Ok(userDTO);
+        }
+
         [HttpPatch("password")]
         public async Task<IActionResult> UpdateUserPasswordAsync(Guid id, string oldPassword, string newPassword)
         {
