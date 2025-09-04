@@ -1,9 +1,8 @@
-﻿using Daylon.BicycleStore.Rent.Application.Interface;
-using Daylon.BicycleStore.Rent.Application.Services.Bicycles;
+﻿using Daylon.BicycleStore.Rent.Api.ModelBinders;
+using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
 {
