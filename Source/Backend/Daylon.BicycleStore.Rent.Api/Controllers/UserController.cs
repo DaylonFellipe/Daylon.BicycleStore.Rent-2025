@@ -1,5 +1,4 @@
-﻿using Daylon.BicycleStore.Rent.Api.ModelBinders;
-using Daylon.BicycleStore.Rent.Application.Interface;
+﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +18,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         // GET
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUsersAsync(UserStatusFilterEnum filterEnum)
         {
             var users = await _userService.GetUsersAsync(filterEnum);
@@ -30,6 +31,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUserByIdAsync(Guid id)
         {
             var user = await _userService.GetUserByIdAsync(id);
@@ -41,6 +44,9 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         [HttpGet("nameOrEmail")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUsersByNameOrEmailAsync(string nameOrEmail)
         {
             if (string.IsNullOrWhiteSpace(nameOrEmail))
@@ -59,6 +65,8 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
         // POST
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RequestRegisterUserJson request)
         {
             if (!ModelState.IsValid)
@@ -66,11 +74,14 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var userDTO = await _userService.RegisterUserAsync(request);
 
-            return Ok(userDTO);
+            return Created("", userDTO);
         }
 
         // PATCH
         [HttpPatch("name")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUserNameAsync(Guid id, string? firstName, string? LastName)
         {
             if (!ModelState.IsValid)
@@ -78,10 +89,16 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var userDTO = await _userService.UpdateUserNameAsync(id, firstName!, LastName!);
 
+            if (userDTO == null)
+                return NotFound($"User with ID {id} not found.");
+
             return Ok(userDTO);
         }
 
         [HttpPatch("email")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUserEmailAsync(Guid id, string newEmail, string password)
         {
             if (!ModelState.IsValid)
@@ -89,10 +106,16 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var userDTO = await _userService.UpdateUserEmailAsync(id, newEmail, password);
 
+            if (userDTO == null)
+                return NotFound($"User with ID {id} not found.");
+
             return Ok(userDTO);
         }
 
         [HttpPatch("password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUserPasswordAsync(Guid id, string oldPassword, string newPassword)
         {
             if (!ModelState.IsValid)
@@ -100,10 +123,16 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var userDTO = await _userService.UpdateUserPasswordAsync(id, oldPassword, newPassword);
 
+            if (userDTO == null)
+                return NotFound($"User with ID {id} not found.");
+
             return Ok(userDTO);
         }
 
         [HttpPatch("BirthDate")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUserBirthdayDateAsync(Guid id, DateTime birthdayDate)
         {
             if (!ModelState.IsValid)
@@ -111,11 +140,17 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var userDTO = await _userService.UpdateUserBirthdayDateAsync(id, birthdayDate);
 
+            if (userDTO == null)
+                return NotFound($"User with ID {id} not found.");
+
             return Ok(userDTO);
         }
 
         // PUT
         [HttpPut("changeUserStatus")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUserStatusAsync(Guid id)
         {
             if (!ModelState.IsValid)
@@ -123,15 +158,26 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var user = await _userService.UpdateUserStatusAsync(id);
 
+            if (user == null)
+                return NotFound($"User with ID {id} not found.");
+
             return Ok($"User Status Update to {user.Active}");
         }
 
         // DELETE
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if (user == null)
+                return NotFound($"User with ID {id} not found.");
 
             await _userService.DeleteUserAsync(id);
 
