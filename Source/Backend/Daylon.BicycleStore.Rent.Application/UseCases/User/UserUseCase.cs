@@ -23,8 +23,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         public async Task<Domain.Entity.User> ExecuteRegisterUserAsync(RequestRegisterUserJson request)
         {
             // Validate
-
-
             ValidateRegisterRequest(request, new RegisterUserValidator());
 
             // Cryptographically Hash Password
