@@ -26,8 +26,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 .Must(date => date <= DateTime.Now).WithMessage("Date of birth must be in the past.");
 
             RuleFor(user => user.Email)
-                .NotEmpty().WithMessage("Email is required.")
                 .EmailAddress().WithMessage("Invalid email format.")
+                .NotEmpty().WithMessage("Email is required.")
                 .MaximumLength(256).WithMessage("Email cannot exceed 256 characters.");
 
             RuleFor(user => user.Password)
