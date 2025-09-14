@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.6.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Source\Backend\Daylon.BicycleStore.Rent.Infrastructure\Daylon.BicycleStore.Rent.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Source\Shared\Daylon.BicycleStore.Rent.Communication\Daylon.BicycleStore.Rent.Communication.csproj" />
+  </ItemGroup>
+
 </Project>
