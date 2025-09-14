@@ -91,7 +91,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             // Validate
             ValidateRequest(requestUpdateEmail, new UpdateUserEmailValidator());
 
-            if (ExistsEmail(newEmail))
+            if (ExistsEmail(newEmail).Result)
                 throw new ValidationException($"Validation failed: Email '{newEmail}' is already in use.");
 
             // Verify Password
@@ -184,9 +184,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         }
 
         // EXTENSIONS METHODS
-        private void ValidateRequest<T>(T request, AbstractValidator<T> validator)
+        private async void ValidateRequest<T>(T request, AbstractValidator<T> validator)
         {
-            var result = validator.Validate(request);
+            var result = await validator.ValidateAsync(request);
 
             if (!result.IsValid)
             {
@@ -194,16 +194,16 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 throw new ValidationException($"Validation failed: {string.Join(", ", errors)}");
             }
         }
-        private void ValidateRegisterRequest<T>(T request, AbstractValidator<T> validator)
+        private async void ValidateRegisterRequest<T>(T request, AbstractValidator<T> validator)
         {
             if (request is not RequestRegisterUserJson registerUserRequest)
             {
                 throw new ArgumentException("Invalid request type.", nameof(request));
             }
 
-            var result = validator.Validate(request);
+            var result = await validator.ValidateAsync(request);
 
-            if (ExistsEmail(registerUserRequest.Email))
+            if (ExistsEmail(registerUserRequest.Email).Result)
                 throw new ValidationException($"Validation failed: Email '{registerUserRequest.Email}' is already in use.");
 
             if (!result.IsValid)
@@ -213,14 +213,14 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             }
         }
 
-        private bool ExistsEmail(string email)
+        public async Task<bool> ExistsEmail(string email)
         {
             try
             {
-                var user = _userRepository.GetUserByEmailAsync(email).Result;
+                var user = await _userRepository.GetUserByEmailAsync(email);
                 return user != null;
             }
-            catch (AggregateException ex) when (ex.InnerException is KeyNotFoundException)
+            catch (KeyNotFoundException)
             {
                 return false;
             }
