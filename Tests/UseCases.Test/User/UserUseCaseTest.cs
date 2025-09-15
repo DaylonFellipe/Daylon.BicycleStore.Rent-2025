@@ -3,8 +3,8 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
 using FluentAssertions;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
-using System.ComponentModel.DataAnnotations;
 
 namespace UseCases.Test.User
 {
@@ -30,13 +30,30 @@ namespace UseCases.Test.User
             result.CreatedOn.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(5));
         }
 
-        private UserUseCase CreateUseCase()
+        [Fact]
+        public async Task Error_Email_Already_Registered()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+
+            var useCase = CreateUseCase(request.Email);
+
+            Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
+
+            await action.Should().ThrowAsync<ValidationException>()
+                       .WithMessage($"The email {request.Email} is already registered.");
+        }
+
+        private UserUseCase CreateUseCase(string? email = null)
         {
             var configuration = new ConfigurationBuilder().Build();
             var passwordEncripter = PBKDF2EncripterBuilder.Build(configuration);
-            var userRepository = UserRepositoryBuilder.Build();
+            var userRepositoryBuilder = new UserRepositoryBuilder();
 
-            return new UserUseCase(userRepository, passwordEncripter);
+            if (!string.IsNullOrEmpty(email))
+                userRepositoryBuilder.ExistsUserWithEmailAsync(email);
+
+            return new UserUseCase(userRepositoryBuilder.Build(), passwordEncripter);
         }
     }
 }
+

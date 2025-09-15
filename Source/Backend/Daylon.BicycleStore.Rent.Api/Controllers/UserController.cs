@@ -55,12 +55,20 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             if (nameOrEmail.Length <= 2)
                 return BadRequest("Name or Email parameter must be longer than 2 characters.");
 
-            var users = await _userService.GetUserByNameOrEmailAsync(nameOrEmail);
+            try
+            {
+                var users = await _userService.GetUserByNameOrEmailAsync(nameOrEmail);
 
-            if (users == null)
-                return NotFound($"User with Name or Email '{nameOrEmail}' not found.");
+                if (users == null)
+                    return NotFound($"User with Name or Email '{nameOrEmail}' not found.");
 
-            return Ok(users);
+
+                return Ok(users);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // POST

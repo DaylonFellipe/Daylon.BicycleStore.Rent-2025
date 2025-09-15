@@ -25,6 +25,10 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             // Validate
             ValidateRegisterRequest(request, new RegisterUserValidator());
 
+            //Check if Email is already registered
+            if (await _userRepository.ExistsUserWithEmailAsync(request.Email))
+                throw new ValidationException($"The email {request.Email} is already registered.");
+
             // Cryptographically Hash Password
             var hashedPassword = _passwordEncripter.HashPassword_PBKDF2Encripter(request.Password);
 
@@ -67,7 +71,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             // Map Properties
             var user = await _userRepository.GetUserByIdAsync(id);
 
-            if(!string.IsNullOrWhiteSpace(firstName))
+            if (!string.IsNullOrWhiteSpace(firstName))
                 user.FirstName = firstName;
 
             if (!string.IsNullOrWhiteSpace(lastName))
@@ -91,14 +95,19 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             // Validate
             ValidateRequest(requestUpdateEmail, new UpdateUserEmailValidator());
 
-            if (ExistsEmail(newEmail).Result)
-                throw new ValidationException($"Validation failed: Email '{newEmail}' is already in use.");
+            //Check if Email is already registered
+            if (await _userRepository.ExistsUserWithEmailAsync(newEmail))
+                throw new ValidationException($"The email {newEmail} is already registered.");
 
             // Verify Password
             var user = await _userRepository.GetUserByIdAsync(id);
 
             if (!_passwordEncripter.VerifyPassword_PBKDF2Encripter(password, user.Password))
                 throw new ValidationException("The password is incorrect.");
+
+            // Check if New Email is already registered
+            if (await _userRepository.ExistsUserWithEmailAsync(newEmail))
+                throw new ValidationException("The new email is already registered.");
 
             // Change to New Email
             user.Email = newEmail;
@@ -137,7 +146,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
 
             return user;
         }
-        
+
         public async Task<Domain.Entity.User> ExecuteUpdateUserDateOfBirthAsync(Guid id, DateTime newDateOfBirth)
         {
             var user = await _userRepository.GetUserByIdAsync(id);
@@ -147,7 +156,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 Id = id,
                 NewDateOfBirth = newDateOfBirth,
                 OldDateOfBirth = user.DateOfBirth
-                
+
             };
 
             // Validate
@@ -197,32 +206,17 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         private async void ValidateRegisterRequest<T>(T request, AbstractValidator<T> validator)
         {
             if (request is not RequestRegisterUserJson registerUserRequest)
-            {
-                throw new ArgumentException("Invalid request type.", nameof(request));
-            }
+                throw new ValidationException("Invalid request type.");
+
+            if (await _userRepository.ExistsUserWithEmailAsync(registerUserRequest.Email))
+                throw new ValidationException("The new email is already registered.");
 
             var result = await validator.ValidateAsync(request);
-
-            if (ExistsEmail(registerUserRequest.Email).Result)
-                throw new ValidationException($"Validation failed: Email '{registerUserRequest.Email}' is already in use.");
 
             if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
                 throw new ValidationException($"Validation failed: {string.Join(", ", errors)}");
-            }
-        }
-
-        public async Task<bool> ExistsEmail(string email)
-        {
-            try
-            {
-                var user = await _userRepository.GetUserByEmailAsync(email);
-                return user != null;
-            }
-            catch (KeyNotFoundException)
-            {
-                return false;
             }
         }
     }

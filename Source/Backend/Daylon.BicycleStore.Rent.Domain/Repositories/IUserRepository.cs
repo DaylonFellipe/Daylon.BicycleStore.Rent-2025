@@ -13,6 +13,7 @@ namespace Daylon.BicycleStore.Rent.Domain.Repositories
         Task<Domain.Entity.User> GetUserByIdAsync(Guid id);
         Task<Domain.Entity.User> GetUserByEmailAsync(string email);
         Task<IList<Domain.Entity.User>> GetUserByNameAsync(string searchName);
+        Task<bool> ExistsUserWithEmailAsync(string email);
 
         // POST
         Task AddUserAsync(Domain.Entity.User user);
