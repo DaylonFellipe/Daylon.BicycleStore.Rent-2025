@@ -1,17 +1,24 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Identity.Client;
 using Moq;
 
 namespace CommonTestUtilities.Repositories
 {
     public class UserRepositoryBuilder
     {
-        public static IUserRepository Build()
-        {
-            var mock = new Mock<IUserRepository>();
+        private readonly Mock<IUserRepository> _repository;
 
-            return mock.Object;
+        public UserRepositoryBuilder() =>
+            _repository = new Mock<IUserRepository>();
+
+        public void ExistsUserWithEmailAsync(string email)
+        {
+            _repository.Setup(repository => repository.ExistsUserWithEmailAsync(email)).ReturnsAsync(true);
         }
+
+        public IUserRepository Build() => _repository.Object;
+      
     }
 }

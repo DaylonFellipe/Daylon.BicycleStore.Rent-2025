@@ -56,7 +56,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
 
         public async Task<IList<Domain.Entity.User>> GetUserByNameAsync(string searchName)
         {
-           if (string.IsNullOrWhiteSpace(searchName))
+            if (string.IsNullOrWhiteSpace(searchName))
                 throw new ArgumentException("Search name cannot be null or empty.", nameof(searchName));
 
             searchName = $"%{searchName.Trim()}%";
@@ -72,6 +72,16 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
                 throw new KeyNotFoundException($"User with name '{searchName}' not found.");
 
             return users;
+        }
+
+        public async Task<bool> ExistsUserWithEmailAsync(string email)
+        {
+            var user = await GetUserByEmailAsync(email);
+
+            if (user != null)
+                return true;
+            else
+                return false;
         }
 
         // POST

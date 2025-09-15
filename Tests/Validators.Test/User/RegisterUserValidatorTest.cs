@@ -6,8 +6,6 @@ namespace Validators.Test.User
 {
     public class RegisterUserValidatorTest
     {
-        // Terminar testes para os Validatore e depois os do UsseCasess
-
         [Fact]
         public void Success()
         {
