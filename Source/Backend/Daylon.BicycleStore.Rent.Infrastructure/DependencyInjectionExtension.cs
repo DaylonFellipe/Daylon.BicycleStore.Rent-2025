@@ -2,6 +2,7 @@
 using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
 using Daylon.BicycleStore.Rent.Infrastructure.DataAccess;
 using Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories;
+using Daylon.BicycleStore.Rent.Infrastructure.Extensions;
 using Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,9 +14,13 @@ namespace Daylon.BicycleStore.Rent.Infrastructure
     {
         public static void AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            AddDbContext(services, configuration);
             AddRepositories(services);
             AddServices(services);
+
+            if (configuration.IsUnitTestEnvironment())
+                return;
+         
+            AddDbContext(services, configuration);
         }
 
         private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
