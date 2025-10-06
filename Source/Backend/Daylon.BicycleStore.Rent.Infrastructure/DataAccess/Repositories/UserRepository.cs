@@ -42,7 +42,6 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         }
 
         public async Task<Domain.Entity.User> GetUserByIdAsync(Guid id)
-
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id)
                    ?? throw new KeyNotFoundException($"User with ID {id} not found.");
@@ -50,8 +49,8 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
 
         public async Task<Domain.Entity.User> GetUserByEmailAsync(string email)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email)
-                   ?? throw new KeyNotFoundException($"User with email {email} not found.");
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+                  
         }
 
         public async Task<IList<Domain.Entity.User>> GetUserByNameAsync(string searchName)
