@@ -23,7 +23,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         public async Task<Domain.Entity.User> ExecuteRegisterUserAsync(RequestRegisterUserJson request)
         {
             // Validate
-            ValidateRegisterRequest(request, new RegisterUserValidator());
+            await ValidateRegisterRequest(request, new RegisterUserValidator());
 
             //Check if Email is already registered
             if (await _userRepository.ExistsUserWithEmailAsync(request.Email))
@@ -93,7 +93,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             };
 
             // Validate
-            ValidateRequest(requestUpdateEmail, new UpdateUserEmailValidator());
+            await ValidateRequest(requestUpdateEmail, new UpdateUserEmailValidator());
 
             //Check if Email is already registered
             if (await _userRepository.ExistsUserWithEmailAsync(newEmail))
@@ -193,7 +193,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
         }
 
         // EXTENSIONS METHODS
-        private async void ValidateRequest<T>(T request, AbstractValidator<T> validator)
+        private async Task ValidateRequest<T>(T request, AbstractValidator<T> validator)
         {
             var result = await validator.ValidateAsync(request);
 
@@ -203,7 +203,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 throw new ValidationException($"Validation failed: {string.Join(", ", errors)}");
             }
         }
-        private async void ValidateRegisterRequest<T>(T request, AbstractValidator<T> validator)
+        private async Task ValidateRegisterRequest<T>(T request, AbstractValidator<T> validator)
         {
             if (request is not RequestRegisterUserJson registerUserRequest)
                 throw new ValidationException("Invalid request type.");
