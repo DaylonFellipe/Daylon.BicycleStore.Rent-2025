@@ -61,6 +61,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The new date of birth must be different from the current one..
+        /// </summary>
+        public static string DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD {
+            get {
+                return ResourceManager.GetString("DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of birth is required..
         /// </summary>
         public static string DATE_OF_BIRTH_EMPTY {
@@ -156,6 +165,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string NAME_MAX_LENGTH {
             get {
                 return ResourceManager.GetString("NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password cannot be the same as the old password..
+        /// </summary>
+        public static string PASSWORD_CANNOT_BE_SAME_AS_OLD {
+            get {
+                return ResourceManager.GetString("PASSWORD_CANNOT_BE_SAME_AS_OLD", resourceCulture);
             }
         }
         

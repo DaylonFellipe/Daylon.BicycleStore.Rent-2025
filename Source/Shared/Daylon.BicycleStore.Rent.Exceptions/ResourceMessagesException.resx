@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD" xml:space="preserve">
+    <value>The new date of birth must be different from the current one.</value>
+  </data>
   <data name="DATE_OF_BIRTH_EMPTY" xml:space="preserve">
     <value>Date of birth is required.</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="NAME_MAX_LENGTH" xml:space="preserve">
     <value>Name cannot exceed 100 characters.</value>
+  </data>
+  <data name="PASSWORD_CANNOT_BE_SAME_AS_OLD" xml:space="preserve">
+    <value>New password cannot be the same as the old password.</value>
   </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>New password is required.</value>
