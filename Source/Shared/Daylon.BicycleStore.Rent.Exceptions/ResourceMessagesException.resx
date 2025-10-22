@@ -150,6 +150,9 @@
   <data name="NAME_MAX_LENGTH" xml:space="preserve">
     <value>Name cannot exceed 100 characters.</value>
   </data>
+  <data name="PASSWORD_CANNOT_BE_SAME_AS_OLD" xml:space="preserve">
+    <value>New password cannot be the same as the old password.</value>
+  </data>
   <data name="PASSWORD_EMPTY" xml:space="preserve">
     <value>New password is required.</value>
   </data>

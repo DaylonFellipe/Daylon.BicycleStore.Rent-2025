@@ -160,6 +160,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New password cannot be the same as the old password..
+        /// </summary>
+        public static string PASSWORD_CANNOT_BE_SAME_AS_OLD {
+            get {
+                return ResourceManager.GetString("PASSWORD_CANNOT_BE_SAME_AS_OLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password is required..
         /// </summary>
         public static string PASSWORD_EMPTY {
