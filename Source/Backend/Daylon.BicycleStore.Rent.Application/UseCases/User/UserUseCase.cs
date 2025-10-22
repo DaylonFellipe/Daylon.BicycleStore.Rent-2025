@@ -2,6 +2,7 @@
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using FluentValidation;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.User
@@ -216,7 +217,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new ValidationException($"Validation failed: {string.Join(", ", errors)}");
+
+                throw new ErrorOnValidationExeption(errors);
             }
         }
     }

@@ -68,5 +68,14 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
                 return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unkow Error..
+        /// </summary>
+        public static string UNKNOW_ERROR {
+            get {
+                return ResourceManager.GetString("UNKNOW_ERROR", resourceCulture);
+            }
+        }
     }
 }
