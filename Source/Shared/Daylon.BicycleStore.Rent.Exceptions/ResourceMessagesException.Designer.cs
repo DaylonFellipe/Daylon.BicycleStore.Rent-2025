@@ -61,11 +61,164 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date of birth is required..
+        /// </summary>
+        public static string DATE_OF_BIRTH_EMPTY {
+            get {
+                return ResourceManager.GetString("DATE_OF_BIRTH_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date of birth must be in the past..
+        /// </summary>
+        public static string DATE_OF_BIRTH_IN_FUTURE {
+            get {
+                return ResourceManager.GetString("DATE_OF_BIRTH_IN_FUTURE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is required..
+        /// </summary>
+        public static string EMAIL_EMPTY {
+            get {
+                return ResourceManager.GetString("EMAIL_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email format..
+        /// </summary>
+        public static string EMAIL_INVALID_FORMAT {
+            get {
+                return ResourceManager.GetString("EMAIL_INVALID_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email cannot exceed 256 characters..
+        /// </summary>
+        public static string EMAIL_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("EMAIL_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name is required..
+        /// </summary>
+        public static string LAST_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("LAST_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name can only contain letters and spaces..
+        /// </summary>
+        public static string LAST_NAME_INVALID_CHARACTERS {
+            get {
+                return ResourceManager.GetString("LAST_NAME_INVALID_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name cannot exceed 100 characters..
+        /// </summary>
+        public static string LAST_NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("LAST_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name cannot be empty..
         /// </summary>
         public static string NAME_EMPTY {
             get {
                 return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name can only contain letters and spaces..
+        /// </summary>
+        public static string NAME_INVALID_CHARACTERS {
+            get {
+                return ResourceManager.GetString("NAME_INVALID_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name cannot exceed 100 characters..
+        /// </summary>
+        public static string NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password is required..
+        /// </summary>
+        public static string PASSWORD_EMPTY {
+            get {
+                return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot exceed 100 characters..
+        /// </summary>
+        public static string PASSWORD_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("PASSWORD_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 characters long..
+        /// </summary>
+        public static string PASSWORD_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("PASSWORD_MIN_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one lowercase letter..
+        /// </summary>
+        public static string PASSWORD_REQUIRE_LOWERCASE {
+            get {
+                return ResourceManager.GetString("PASSWORD_REQUIRE_LOWERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one number..
+        /// </summary>
+        public static string PASSWORD_REQUIRE_NUMBER {
+            get {
+                return ResourceManager.GetString("PASSWORD_REQUIRE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one special character..
+        /// </summary>
+        public static string PASSWORD_REQUIRE_SPECIAL_CHAR {
+            get {
+                return ResourceManager.GetString("PASSWORD_REQUIRE_SPECIAL_CHAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one uppercase letter..
+        /// </summary>
+        public static string PASSWORD_REQUIRE_UPPERCASE {
+            get {
+                return ResourceManager.GetString("PASSWORD_REQUIRE_UPPERCASE", resourceCulture);
             }
         }
         

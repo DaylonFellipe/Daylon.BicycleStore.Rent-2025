@@ -117,8 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DATE_OF_BIRTH_EMPTY" xml:space="preserve">
+    <value>Date of birth is required.</value>
+  </data>
+  <data name="DATE_OF_BIRTH_IN_FUTURE" xml:space="preserve">
+    <value>Date of birth must be in the past.</value>
+  </data>
+  <data name="EMAIL_EMPTY" xml:space="preserve">
+    <value>Email is required.</value>
+  </data>
+  <data name="EMAIL_INVALID_FORMAT" xml:space="preserve">
+    <value>Invalid email format.</value>
+  </data>
+  <data name="EMAIL_MAX_LENGTH" xml:space="preserve">
+    <value>Email cannot exceed 256 characters.</value>
+  </data>
+  <data name="LAST_NAME_EMPTY" xml:space="preserve">
+    <value>Last name is required.</value>
+  </data>
+  <data name="LAST_NAME_INVALID_CHARACTERS" xml:space="preserve">
+    <value>Last name can only contain letters and spaces.</value>
+  </data>
+  <data name="LAST_NAME_MAX_LENGTH" xml:space="preserve">
+    <value>Last name cannot exceed 100 characters.</value>
+  </data>
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The name cannot be empty.</value>
+  </data>
+  <data name="NAME_INVALID_CHARACTERS" xml:space="preserve">
+    <value>Name can only contain letters and spaces.</value>
+  </data>
+  <data name="NAME_MAX_LENGTH" xml:space="preserve">
+    <value>Name cannot exceed 100 characters.</value>
+  </data>
+  <data name="PASSWORD_EMPTY" xml:space="preserve">
+    <value>New password is required.</value>
+  </data>
+  <data name="PASSWORD_MAX_LENGTH" xml:space="preserve">
+    <value>Password cannot exceed 100 characters.</value>
+  </data>
+  <data name="PASSWORD_MIN_LENGTH" xml:space="preserve">
+    <value>Password must be at least 8 characters long.</value>
+  </data>
+  <data name="PASSWORD_REQUIRE_LOWERCASE" xml:space="preserve">
+    <value>Password must contain at least one lowercase letter.</value>
+  </data>
+  <data name="PASSWORD_REQUIRE_NUMBER" xml:space="preserve">
+    <value>Password must contain at least one number.</value>
+  </data>
+  <data name="PASSWORD_REQUIRE_SPECIAL_CHAR" xml:space="preserve">
+    <value>Password must contain at least one special character.</value>
+  </data>
+  <data name="PASSWORD_REQUIRE_UPPERCASE" xml:space="preserve">
+    <value>Password must contain at least one uppercase letter.</value>
   </data>
   <data name="UNKNOW_ERROR" xml:space="preserve">
     <value>Unkow Error.</value>

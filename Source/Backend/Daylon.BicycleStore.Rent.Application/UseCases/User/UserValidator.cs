@@ -14,31 +14,31 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
 
             RuleFor(user => user.FirstName)
                 .NotEmpty().WithMessage(ResourceMessagesException.NAME_EMPTY)
-                .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.")
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage("Name can only contain letters and spaces.");
+                .MaximumLength(100).WithMessage(ResourceMessagesException.NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.NAME_INVALID_CHARACTERS);
 
             RuleFor(user => user.LastName)
-                .NotEmpty().WithMessage("Last name is required.")
-                .MaximumLength(100).WithMessage("Last name cannot exceed 100 characters.")
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage("Name can only contain letters and spaces.");
+                .NotEmpty().WithMessage(ResourceMessagesException.LAST_NAME_EMPTY)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.LAST_NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.LAST_NAME_INVALID_CHARACTERS);
 
             RuleFor(user => user.DateOfBirth)
-                .NotEmpty().WithMessage("Date of birth is required.")
-                .Must(date => date <= DateTime.Now).WithMessage("Date of birth must be in the past.");
+                .NotEmpty().WithMessage(ResourceMessagesException.DATE_OF_BIRTH_EMPTY)
+                .Must(date => date <= DateTime.Now).WithMessage(ResourceMessagesException.DATE_OF_BIRTH_IN_FUTURE);
 
             RuleFor(user => user.Email)
-                .EmailAddress().WithMessage("Invalid email format.")
-                .NotEmpty().WithMessage("Email is required.")
-                .MaximumLength(256).WithMessage("Email cannot exceed 256 characters.");
+                .NotEmpty().WithMessage(ResourceMessagesException.EMAIL_EMPTY)
+                .EmailAddress().WithMessage(ResourceMessagesException.EMAIL_INVALID_FORMAT)
+                .MaximumLength(256).WithMessage(ResourceMessagesException.EMAIL_MAX_LENGTH);
 
             RuleFor(user => user.Password)
-                .NotEmpty().WithMessage("New password is required.")
-                .MinimumLength(8).WithMessage("Password must be at least 8 characters long.")
-                .MaximumLength(100).WithMessage("Password cannot exceed 100 characters.")
-                .Matches(@"[A-Z]").WithMessage("Password must contain at least one uppercase letter.")
-                .Matches(@"[a-z]").WithMessage("Password must contain at least one lowercase letter.")
-                .Matches(@"\d").WithMessage("Password must contain at least one number.")
-                .Matches(@"[\W_]").WithMessage("Password must contain at least one special character.");
+                .NotEmpty().WithMessage(ResourceMessagesException.PASSWORD_EMPTY)
+                .MinimumLength(8).WithMessage(ResourceMessagesException.PASSWORD_MIN_LENGTH)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.PASSWORD_MAX_LENGTH)
+                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_UPPERCASE)
+                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_LOWERCASE)
+                .Matches(@"\d").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_NUMBER)
+                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_SPECIAL_CHAR);
         }
     }
 
