@@ -49,15 +49,15 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.Id)
-                .NotEmpty().WithMessage("User Id is required.").Must(id => id != Guid.Empty).WithMessage("User Id must be a valid GUID.");
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.FirstName)
-                .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.")
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage("Name can only contain letters and spaces.");
+                .MaximumLength(100).WithMessage(ResourceMessagesException.NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.NAME_INVALID_CHARACTERS);
 
             RuleFor(user => user.LastName)
-                .MaximumLength(100).WithMessage("Last name cannot exceed 100 characters.")
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage("Name can only contain letters and spaces.");
+                .MaximumLength(100).WithMessage(ResourceMessagesException.LAST_NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.LAST_NAME_INVALID_CHARACTERS);
         }
     }
 

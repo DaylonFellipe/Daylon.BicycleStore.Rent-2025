@@ -230,5 +230,23 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
                 return ResourceManager.GetString("UNKNOW_ERROR", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Id is required..
+        /// </summary>
+        public static string USER_ID_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_ID_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Id must be a valid GUID..
+        /// </summary>
+        public static string USER_ID_INVALID {
+            get {
+                return ResourceManager.GetString("USER_ID_INVALID", resourceCulture);
+            }
+        }
     }
 }

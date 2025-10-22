@@ -174,4 +174,10 @@
   <data name="UNKNOW_ERROR" xml:space="preserve">
     <value>Unkow Error.</value>
   </data>
+  <data name="USER_ID_EMPTY" xml:space="preserve">
+    <value>User Id is required.</value>
+  </data>
+  <data name="USER_ID_INVALID" xml:space="preserve">
+    <value>User Id must be a valid GUID.</value>
+  </data>
 </root>
