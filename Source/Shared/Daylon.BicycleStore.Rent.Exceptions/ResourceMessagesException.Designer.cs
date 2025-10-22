@@ -61,6 +61,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The new date of birth must be different from the current one..
+        /// </summary>
+        public static string DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD {
+            get {
+                return ResourceManager.GetString("DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date of birth is required..
         /// </summary>
         public static string DATE_OF_BIRTH_EMPTY {

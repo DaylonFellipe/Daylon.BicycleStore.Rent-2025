@@ -123,12 +123,12 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.Id)
-                .NotEmpty().WithMessage("User Id is required.").Must(id => id != Guid.Empty).WithMessage("User Id must be a valid GUID.");
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.NewDateOfBirth)
-                 .NotEmpty().WithMessage("Date of birth is required.")
-                 .Must(date => date <= DateTime.Now).WithMessage("Date of birth must be in the past.")
-                 .NotEqual(user => user.OldDateOfBirth).WithMessage("The new date of birth must be different from the current one.");
+                 .NotEmpty().WithMessage(ResourceMessagesException.DATE_OF_BIRTH_EMPTY)
+                 .Must(date => date <= DateTime.Now).WithMessage(ResourceMessagesException.DATE_OF_BIRTH_IN_FUTURE)
+                 .NotEqual(user => user.OldDateOfBirth).WithMessage(ResourceMessagesException.DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD);
         }
     }
 }
