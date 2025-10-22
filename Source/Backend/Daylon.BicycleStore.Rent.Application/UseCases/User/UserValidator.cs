@@ -1,4 +1,5 @@
 ﻿using Daylon.BicycleStore.Rent.Communication.Request.User;
+using Daylon.BicycleStore.Rent.Exceptions;
 using FluentValidation;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.User
@@ -12,7 +13,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.FirstName)
-                .NotEmpty().WithMessage("Name is required.")
+                .NotEmpty().WithMessage(ResourceMessagesException.NAME_EMPTY)
                 .MaximumLength(100).WithMessage("Name cannot exceed 100 characters.")
                 .Matches(@"^[a-zA-Z\s]+$").WithMessage("Name can only contain letters and spaces.");
 
