@@ -277,6 +277,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknow error..
+        /// </summary>
+        public static string UNKNOW_ERROR {
+            get {
+                return ResourceManager.GetString("UNKNOW_ERROR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The new date of birth must be different from the current one..
         /// </summary>
         public static string USER_DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD {

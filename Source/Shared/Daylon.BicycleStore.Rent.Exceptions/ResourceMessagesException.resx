@@ -258,4 +258,7 @@
   <data name="RENTAL_EXTRA_DAYS_MINIMUM_ZERO" xml:space="preserve">
     <value>Extra days must be at least 0 when both start and end dates are provided.</value>
   </data>
+  <data name="UNKNOW_ERROR" xml:space="preserve">
+    <value>Unknow error.</value>
+  </data>
 </root>

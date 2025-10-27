@@ -67,7 +67,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             };
 
             // Validate
-            ValidateRequest(requestUpdateName, new UpdateUserNameValidator());
+            await ValidateRequest(requestUpdateName, new UpdateUserNameValidator());
 
             // Map Properties
             var user = await _userRepository.GetUserByIdAsync(id);
@@ -129,7 +129,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             };
 
             // Validate
-            ValidateRequest(requestUpdatePassword, new UpdateUserPasswordValidator());
+            await ValidateRequest(requestUpdatePassword, new UpdateUserPasswordValidator());
 
             // Verify Old Password
             var user = await _userRepository.GetUserByIdAsync(id);
@@ -161,7 +161,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             };
 
             // Validate
-            ValidateRequest(requestUpdateDateOfBirth, new UpdateUserDateOfBirthValidator());
+            await ValidateRequest(requestUpdateDateOfBirth, new UpdateUserDateOfBirthValidator());
 
             // Map Properties
             user.DateOfBirth = newDateOfBirth;
