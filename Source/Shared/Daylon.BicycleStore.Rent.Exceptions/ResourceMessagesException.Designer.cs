@@ -61,6 +61,132 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brand must be a valid enum value..
+        /// </summary>
+        public static string BICYCLE_BRAND_INVALID_ENUM {
+            get {
+                return ResourceManager.GetString("BICYCLE_BRAND_INVALID_ENUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid brand is required..
+        /// </summary>
+        public static string BICYCLE_BRAND_REQUIRED {
+            get {
+                return ResourceManager.GetString("BICYCLE_BRAND_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color must be a valid enum value..
+        /// </summary>
+        public static string BICYCLE_COLOR_INVALID_ENUM {
+            get {
+                return ResourceManager.GetString("BICYCLE_COLOR_INVALID_ENUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid color is required..
+        /// </summary>
+        public static string BICYCLE_COLOR_REQUIRED {
+            get {
+                return ResourceManager.GetString("BICYCLE_COLOR_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily rate must be greater than zero..
+        /// </summary>
+        public static string BICYCLE_DAILY_RATE_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("BICYCLE_DAILY_RATE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name is required..
+        /// </summary>
+        public static string BICYCLE_DESCRIPTION_EMPTY {
+            get {
+                return ResourceManager.GetString("BICYCLE_DESCRIPTION_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name must not exceed 500 characters..
+        /// </summary>
+        public static string BICYCLE_DESCRIPTION_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("BICYCLE_DESCRIPTION_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model must be a valid enum value..
+        /// </summary>
+        public static string BICYCLE_MODEL_INVALID_ENUM {
+            get {
+                return ResourceManager.GetString("BICYCLE_MODEL_INVALID_ENUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid model is required..
+        /// </summary>
+        public static string BICYCLE_MODEL_REQUIRED {
+            get {
+                return ResourceManager.GetString("BICYCLE_MODEL_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name is required..
+        /// </summary>
+        public static string BICYCLE_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("BICYCLE_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name must not exceed 100 characters..
+        /// </summary>
+        public static string BICYCLE_NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("BICYCLE_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name must be at least 5 characters long..
+        /// </summary>
+        public static string BICYCLE_NAME_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("BICYCLE_NAME_MIN_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price must be greater than zero..
+        /// </summary>
+        public static string BICYCLE_PRICE_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("BICYCLE_PRICE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity must be zero or greater..
+        /// </summary>
+        public static string BICYCLE_QUANTITY_ZERO_OR_GREATER {
+            get {
+                return ResourceManager.GetString("BICYCLE_QUANTITY_ZERO_OR_GREATER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The new date of birth must be different from the current one..
         /// </summary>
         public static string USER_DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD {

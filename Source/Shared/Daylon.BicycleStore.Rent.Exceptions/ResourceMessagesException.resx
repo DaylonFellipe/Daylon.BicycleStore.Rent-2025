@@ -186,4 +186,43 @@
   <data name="USER_PASSWORD_CANNOT_BE_SAME_AS_OLD" xml:space="preserve">
     <value>New password cannot be the same as the old password.</value>
   </data>
+  <data name="BICYCLE_NAME_EMPTY" xml:space="preserve">
+    <value>Bicycle name is required.</value>
+  </data>
+  <data name="BICYCLE_NAME_MAX_LENGTH" xml:space="preserve">
+    <value>Bicycle name must not exceed 100 characters.</value>
+  </data>
+  <data name="BICYCLE_DESCRIPTION_EMPTY" xml:space="preserve">
+    <value>Bicycle name is required.</value>
+  </data>
+  <data name="BICYCLE_DESCRIPTION_MAX_LENGTH" xml:space="preserve">
+    <value>Bicycle name must not exceed 500 characters.</value>
+  </data>
+  <data name="BICYCLE_MODEL_REQUIRED" xml:space="preserve">
+    <value>Valid model is required.</value>
+  </data>
+  <data name="BICYCLE_MODEL_INVALID_ENUM" xml:space="preserve">
+    <value>Model must be a valid enum value.</value>
+  </data>
+  <data name="BICYCLE_BRAND_REQUIRED" xml:space="preserve">
+    <value>Valid brand is required.</value>
+  </data>
+  <data name="BICYCLE_BRAND_INVALID_ENUM" xml:space="preserve">
+    <value>Brand must be a valid enum value.</value>
+  </data>
+  <data name="BICYCLE_COLOR_REQUIRED" xml:space="preserve">
+    <value>Valid color is required.</value>
+  </data>
+  <data name="BICYCLE_COLOR_INVALID_ENUM" xml:space="preserve">
+    <value>Color must be a valid enum value.</value>
+  </data>
+  <data name="BICYCLE_PRICE_GREATER_THAN_ZERO" xml:space="preserve">
+    <value>Price must be greater than zero.</value>
+  </data>
+  <data name="BICYCLE_QUANTITY_ZERO_OR_GREATER" xml:space="preserve">
+    <value>Quantity must be zero or greater.</value>
+  </data>
+  <data name="BICYCLE_DAILY_RATE_GREATER_THAN_ZERO" xml:space="preserve">
+    <value>Daily rate must be greater than zero.</value>
+  </data>
 </root>
