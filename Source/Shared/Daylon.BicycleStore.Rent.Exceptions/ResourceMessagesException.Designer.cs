@@ -61,191 +61,182 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brand must be a valid enum value..
+        /// </summary>
+        public static string BICYCLE_BRAND_INVALID_ENUM {
+            get {
+                return ResourceManager.GetString("BICYCLE_BRAND_INVALID_ENUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid brand is required..
+        /// </summary>
+        public static string BICYCLE_BRAND_REQUIRED {
+            get {
+                return ResourceManager.GetString("BICYCLE_BRAND_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color must be a valid enum value..
+        /// </summary>
+        public static string BICYCLE_COLOR_INVALID_ENUM {
+            get {
+                return ResourceManager.GetString("BICYCLE_COLOR_INVALID_ENUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid color is required..
+        /// </summary>
+        public static string BICYCLE_COLOR_REQUIRED {
+            get {
+                return ResourceManager.GetString("BICYCLE_COLOR_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily rate must be greater than zero..
+        /// </summary>
+        public static string BICYCLE_DAILY_RATE_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("BICYCLE_DAILY_RATE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name is required..
+        /// </summary>
+        public static string BICYCLE_DESCRIPTION_EMPTY {
+            get {
+                return ResourceManager.GetString("BICYCLE_DESCRIPTION_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name must not exceed 500 characters..
+        /// </summary>
+        public static string BICYCLE_DESCRIPTION_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("BICYCLE_DESCRIPTION_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model must be a valid enum value..
+        /// </summary>
+        public static string BICYCLE_MODEL_INVALID_ENUM {
+            get {
+                return ResourceManager.GetString("BICYCLE_MODEL_INVALID_ENUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid model is required..
+        /// </summary>
+        public static string BICYCLE_MODEL_REQUIRED {
+            get {
+                return ResourceManager.GetString("BICYCLE_MODEL_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name is required..
+        /// </summary>
+        public static string BICYCLE_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("BICYCLE_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name must not exceed 100 characters..
+        /// </summary>
+        public static string BICYCLE_NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("BICYCLE_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle name must be at least 5 characters long..
+        /// </summary>
+        public static string BICYCLE_NAME_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("BICYCLE_NAME_MIN_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price must be greater than zero..
+        /// </summary>
+        public static string BICYCLE_PRICE_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("BICYCLE_PRICE_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quantity must be zero or greater..
+        /// </summary>
+        public static string BICYCLE_QUANTITY_ZERO_OR_GREATER {
+            get {
+                return ResourceManager.GetString("BICYCLE_QUANTITY_ZERO_OR_GREATER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The new date of birth must be different from the current one..
         /// </summary>
-        public static string DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD {
+        public static string USER_DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD {
             get {
-                return ResourceManager.GetString("DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD", resourceCulture);
+                return ResourceManager.GetString("USER_DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Date of birth is required..
         /// </summary>
-        public static string DATE_OF_BIRTH_EMPTY {
+        public static string USER_DATE_OF_BIRTH_EMPTY {
             get {
-                return ResourceManager.GetString("DATE_OF_BIRTH_EMPTY", resourceCulture);
+                return ResourceManager.GetString("USER_DATE_OF_BIRTH_EMPTY", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Date of birth must be in the past..
         /// </summary>
-        public static string DATE_OF_BIRTH_IN_FUTURE {
+        public static string USER_DATE_OF_BIRTH_IN_FUTURE {
             get {
-                return ResourceManager.GetString("DATE_OF_BIRTH_IN_FUTURE", resourceCulture);
+                return ResourceManager.GetString("USER_DATE_OF_BIRTH_IN_FUTURE", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Email is required..
         /// </summary>
-        public static string EMAIL_EMPTY {
+        public static string USER_EMAIL_EMPTY {
             get {
-                return ResourceManager.GetString("EMAIL_EMPTY", resourceCulture);
+                return ResourceManager.GetString("USER_EMAIL_EMPTY", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Invalid email format..
         /// </summary>
-        public static string EMAIL_INVALID_FORMAT {
+        public static string USER_EMAIL_INVALID_FORMAT {
             get {
-                return ResourceManager.GetString("EMAIL_INVALID_FORMAT", resourceCulture);
+                return ResourceManager.GetString("USER_EMAIL_INVALID_FORMAT", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Email cannot exceed 256 characters..
         /// </summary>
-        public static string EMAIL_MAX_LENGTH {
+        public static string USER_EMAIL_MAX_LENGTH {
             get {
-                return ResourceManager.GetString("EMAIL_MAX_LENGTH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last name is required..
-        /// </summary>
-        public static string LAST_NAME_EMPTY {
-            get {
-                return ResourceManager.GetString("LAST_NAME_EMPTY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last name can only contain letters and spaces..
-        /// </summary>
-        public static string LAST_NAME_INVALID_CHARACTERS {
-            get {
-                return ResourceManager.GetString("LAST_NAME_INVALID_CHARACTERS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last name cannot exceed 100 characters..
-        /// </summary>
-        public static string LAST_NAME_MAX_LENGTH {
-            get {
-                return ResourceManager.GetString("LAST_NAME_MAX_LENGTH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The name cannot be empty..
-        /// </summary>
-        public static string NAME_EMPTY {
-            get {
-                return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name can only contain letters and spaces..
-        /// </summary>
-        public static string NAME_INVALID_CHARACTERS {
-            get {
-                return ResourceManager.GetString("NAME_INVALID_CHARACTERS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name cannot exceed 100 characters..
-        /// </summary>
-        public static string NAME_MAX_LENGTH {
-            get {
-                return ResourceManager.GetString("NAME_MAX_LENGTH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New password cannot be the same as the old password..
-        /// </summary>
-        public static string PASSWORD_CANNOT_BE_SAME_AS_OLD {
-            get {
-                return ResourceManager.GetString("PASSWORD_CANNOT_BE_SAME_AS_OLD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New password is required..
-        /// </summary>
-        public static string PASSWORD_EMPTY {
-            get {
-                return ResourceManager.GetString("PASSWORD_EMPTY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password cannot exceed 100 characters..
-        /// </summary>
-        public static string PASSWORD_MAX_LENGTH {
-            get {
-                return ResourceManager.GetString("PASSWORD_MAX_LENGTH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password must be at least 8 characters long..
-        /// </summary>
-        public static string PASSWORD_MIN_LENGTH {
-            get {
-                return ResourceManager.GetString("PASSWORD_MIN_LENGTH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password must contain at least one lowercase letter..
-        /// </summary>
-        public static string PASSWORD_REQUIRE_LOWERCASE {
-            get {
-                return ResourceManager.GetString("PASSWORD_REQUIRE_LOWERCASE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password must contain at least one number..
-        /// </summary>
-        public static string PASSWORD_REQUIRE_NUMBER {
-            get {
-                return ResourceManager.GetString("PASSWORD_REQUIRE_NUMBER", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password must contain at least one special character..
-        /// </summary>
-        public static string PASSWORD_REQUIRE_SPECIAL_CHAR {
-            get {
-                return ResourceManager.GetString("PASSWORD_REQUIRE_SPECIAL_CHAR", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password must contain at least one uppercase letter..
-        /// </summary>
-        public static string PASSWORD_REQUIRE_UPPERCASE {
-            get {
-                return ResourceManager.GetString("PASSWORD_REQUIRE_UPPERCASE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unkow Error..
-        /// </summary>
-        public static string UNKNOW_ERROR {
-            get {
-                return ResourceManager.GetString("UNKNOW_ERROR", resourceCulture);
+                return ResourceManager.GetString("USER_EMAIL_MAX_LENGTH", resourceCulture);
             }
         }
         
@@ -264,6 +255,141 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string USER_ID_INVALID {
             get {
                 return ResourceManager.GetString("USER_ID_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name is required..
+        /// </summary>
+        public static string USER_LAST_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_LAST_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name can only contain letters and spaces..
+        /// </summary>
+        public static string USER_LAST_NAME_INVALID_CHARACTERS {
+            get {
+                return ResourceManager.GetString("USER_LAST_NAME_INVALID_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name cannot exceed 100 characters..
+        /// </summary>
+        public static string USER_LAST_NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("USER_LAST_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name cannot be empty..
+        /// </summary>
+        public static string USER_NAME_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name can only contain letters and spaces..
+        /// </summary>
+        public static string USER_NAME_INVALID_CHARACTERS {
+            get {
+                return ResourceManager.GetString("USER_NAME_INVALID_CHARACTERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name cannot exceed 100 characters..
+        /// </summary>
+        public static string USER_NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("USER_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password cannot be the same as the old password..
+        /// </summary>
+        public static string USER_PASSWORD_CANNOT_BE_SAME_AS_OLD {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_CANNOT_BE_SAME_AS_OLD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password is required..
+        /// </summary>
+        public static string USER_PASSWORD_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot exceed 100 characters..
+        /// </summary>
+        public static string USER_PASSWORD_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must be at least 8 characters long..
+        /// </summary>
+        public static string USER_PASSWORD_MIN_LENGTH {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_MIN_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one lowercase letter..
+        /// </summary>
+        public static string USER_PASSWORD_REQUIRE_LOWERCASE {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_REQUIRE_LOWERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one number..
+        /// </summary>
+        public static string USER_PASSWORD_REQUIRE_NUMBER {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_REQUIRE_NUMBER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one special character..
+        /// </summary>
+        public static string USER_PASSWORD_REQUIRE_SPECIAL_CHAR {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_REQUIRE_SPECIAL_CHAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password must contain at least one uppercase letter..
+        /// </summary>
+        public static string USER_PASSWORD_REQUIRE_UPPERCASE {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_REQUIRE_UPPERCASE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unkow Error..
+        /// </summary>
+        public static string USER_UNKNOW_ERROR {
+            get {
+                return ResourceManager.GetString("USER_UNKNOW_ERROR", resourceCulture);
             }
         }
     }

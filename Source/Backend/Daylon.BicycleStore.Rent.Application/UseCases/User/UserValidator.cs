@@ -13,32 +13,32 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.FirstName)
-                .NotEmpty().WithMessage(ResourceMessagesException.NAME_EMPTY)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.NAME_MAX_LENGTH)
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.NAME_INVALID_CHARACTERS);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_NAME_EMPTY)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.USER_NAME_INVALID_CHARACTERS);
 
             RuleFor(user => user.LastName)
-                .NotEmpty().WithMessage(ResourceMessagesException.LAST_NAME_EMPTY)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.LAST_NAME_MAX_LENGTH)
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.LAST_NAME_INVALID_CHARACTERS);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_LAST_NAME_EMPTY)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_LAST_NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.USER_LAST_NAME_INVALID_CHARACTERS);
 
             RuleFor(user => user.DateOfBirth)
-                .NotEmpty().WithMessage(ResourceMessagesException.DATE_OF_BIRTH_EMPTY)
-                .Must(date => date <= DateTime.Now).WithMessage(ResourceMessagesException.DATE_OF_BIRTH_IN_FUTURE);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_DATE_OF_BIRTH_EMPTY)
+                .Must(date => date <= DateTime.Now).WithMessage(ResourceMessagesException.USER_DATE_OF_BIRTH_IN_FUTURE);
 
             RuleFor(user => user.Email)
-                .NotEmpty().WithMessage(ResourceMessagesException.EMAIL_EMPTY)
-                .EmailAddress().WithMessage(ResourceMessagesException.EMAIL_INVALID_FORMAT)
-                .MaximumLength(256).WithMessage(ResourceMessagesException.EMAIL_MAX_LENGTH);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_EMAIL_EMPTY)
+                .EmailAddress().WithMessage(ResourceMessagesException.USER_EMAIL_INVALID_FORMAT)
+                .MaximumLength(256).WithMessage(ResourceMessagesException.USER_EMAIL_MAX_LENGTH);
 
             RuleFor(user => user.Password)
-                .NotEmpty().WithMessage(ResourceMessagesException.PASSWORD_EMPTY)
-                .MinimumLength(8).WithMessage(ResourceMessagesException.PASSWORD_MIN_LENGTH)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.PASSWORD_MAX_LENGTH)
-                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_UPPERCASE)
-                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_LOWERCASE)
-                .Matches(@"\d").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_NUMBER)
-                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_SPECIAL_CHAR);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_PASSWORD_EMPTY)
+                .MinimumLength(8).WithMessage(ResourceMessagesException.USER_PASSWORD_MIN_LENGTH)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_PASSWORD_MAX_LENGTH)
+                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_UPPERCASE)
+                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_LOWERCASE)
+                .Matches(@"\d").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_NUMBER)
+                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_SPECIAL_CHAR);
         }
     }
 
@@ -52,12 +52,12 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.FirstName)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.NAME_MAX_LENGTH)
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.NAME_INVALID_CHARACTERS);
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.USER_NAME_INVALID_CHARACTERS);
 
             RuleFor(user => user.LastName)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.LAST_NAME_MAX_LENGTH)
-                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.LAST_NAME_INVALID_CHARACTERS);
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_LAST_NAME_MAX_LENGTH)
+                .Matches(@"^[a-zA-Z\s]+$").WithMessage(ResourceMessagesException.USER_LAST_NAME_INVALID_CHARACTERS);
         }
     }
 
@@ -71,18 +71,18 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.NewEmail)
-                .NotEmpty().WithMessage(ResourceMessagesException.EMAIL_EMPTY)
-                .EmailAddress().WithMessage(ResourceMessagesException.EMAIL_INVALID_FORMAT)
-                .MaximumLength(256).WithMessage(ResourceMessagesException.EMAIL_MAX_LENGTH);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_EMAIL_EMPTY)
+                .EmailAddress().WithMessage(ResourceMessagesException.USER_EMAIL_INVALID_FORMAT)
+                .MaximumLength(256).WithMessage(ResourceMessagesException.USER_EMAIL_MAX_LENGTH);
 
             RuleFor(user => user.Password)
-                .NotEmpty().WithMessage(ResourceMessagesException.PASSWORD_EMPTY)
-                .MinimumLength(8).WithMessage(ResourceMessagesException.PASSWORD_MIN_LENGTH)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.PASSWORD_MAX_LENGTH)
-                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_UPPERCASE)
-                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_LOWERCASE)
-                .Matches(@"\d").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_NUMBER)
-                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_SPECIAL_CHAR);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_PASSWORD_EMPTY)
+                .MinimumLength(8).WithMessage(ResourceMessagesException.USER_PASSWORD_MIN_LENGTH)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_PASSWORD_MAX_LENGTH)
+                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_UPPERCASE)
+                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_LOWERCASE)
+                .Matches(@"\d").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_NUMBER)
+                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_SPECIAL_CHAR);
         }
     }
 
@@ -96,23 +96,23 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.OldPassword)
-                .NotEmpty().WithMessage(ResourceMessagesException.PASSWORD_EMPTY)
-                .MinimumLength(8).WithMessage(ResourceMessagesException.PASSWORD_MIN_LENGTH)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.PASSWORD_MAX_LENGTH)
-                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_UPPERCASE)
-                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_LOWERCASE)
-                .Matches(@"\d").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_NUMBER)
-                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_SPECIAL_CHAR);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_PASSWORD_EMPTY)
+                .MinimumLength(8).WithMessage(ResourceMessagesException.USER_PASSWORD_MIN_LENGTH)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_PASSWORD_MAX_LENGTH)
+                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_UPPERCASE)
+                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_LOWERCASE)
+                .Matches(@"\d").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_NUMBER)
+                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_SPECIAL_CHAR);
 
             RuleFor(user => user.NewPassword)
-                .NotEmpty().WithMessage(ResourceMessagesException.PASSWORD_EMPTY)
-                .MinimumLength(8).WithMessage(ResourceMessagesException.PASSWORD_MIN_LENGTH)
-                .MaximumLength(100).WithMessage(ResourceMessagesException.PASSWORD_MAX_LENGTH)
-                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_UPPERCASE)
-                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_LOWERCASE)
-                .Matches(@"\d").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_NUMBER)
-                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.PASSWORD_REQUIRE_SPECIAL_CHAR)
-                .NotEqual(user => user.OldPassword).WithMessage(ResourceMessagesException.PASSWORD_CANNOT_BE_SAME_AS_OLD);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_PASSWORD_EMPTY)
+                .MinimumLength(8).WithMessage(ResourceMessagesException.USER_PASSWORD_MIN_LENGTH)
+                .MaximumLength(100).WithMessage(ResourceMessagesException.USER_PASSWORD_MAX_LENGTH)
+                .Matches(@"[A-Z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_UPPERCASE)
+                .Matches(@"[a-z]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_LOWERCASE)
+                .Matches(@"\d").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_NUMBER)
+                .Matches(@"[\W_]").WithMessage(ResourceMessagesException.USER_PASSWORD_REQUIRE_SPECIAL_CHAR)
+                .NotEqual(user => user.OldPassword).WithMessage(ResourceMessagesException.USER_PASSWORD_CANNOT_BE_SAME_AS_OLD);
         }
     }
 
@@ -126,9 +126,9 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
                 .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.NewDateOfBirth)
-                 .NotEmpty().WithMessage(ResourceMessagesException.DATE_OF_BIRTH_EMPTY)
-                 .Must(date => date <= DateTime.Now).WithMessage(ResourceMessagesException.DATE_OF_BIRTH_IN_FUTURE)
-                 .NotEqual(user => user.OldDateOfBirth).WithMessage(ResourceMessagesException.DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD);
+                 .NotEmpty().WithMessage(ResourceMessagesException.USER_DATE_OF_BIRTH_EMPTY)
+                 .Must(date => date <= DateTime.Now).WithMessage(ResourceMessagesException.USER_DATE_OF_BIRTH_IN_FUTURE)
+                 .NotEqual(user => user.OldDateOfBirth).WithMessage(ResourceMessagesException.USER_DATE_OF_BIRTH_CANNOT_BE_SAME_AS_OLD);
         }
     }
 }
