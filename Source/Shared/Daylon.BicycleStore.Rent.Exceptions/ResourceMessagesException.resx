@@ -225,4 +225,37 @@
   <data name="BICYCLE_DAILY_RATE_GREATER_THAN_ZERO" xml:space="preserve">
     <value>Daily rate must be greater than zero.</value>
   </data>
+  <data name="RENTAL_DAYS_GREATER_THAN_ZERO" xml:space="preserve">
+    <value>Rental days must be greater than zero.</value>
+  </data>
+  <data name="RENTAL_DAYS_MAX_LIMIT" xml:space="preserve">
+    <value>Rental days cannot exceed 90 days.</value>
+  </data>
+  <data name="RENTAL_PAYMENT_METHOD_REQUIRED" xml:space="preserve">
+    <value>Payment method is required.</value>
+  </data>
+  <data name="RENTAL_PAYMENT_METHOD_INVALID_ENUM" xml:space="preserve">
+    <value>Payment method must be a valid enum value.</value>
+  </data>
+  <data name="BICYCLE_ID_EMPTY" xml:space="preserve">
+    <value>Bicycle ID is required.</value>
+  </data>
+  <data name="BICYCLE_ID_INVALID" xml:space="preserve">
+    <value>Bicycle ID must be a valid GUID.</value>
+  </data>
+  <data name="RENTAL_START_IN_FUTURE_OR_NULL" xml:space="preserve">
+    <value>Rental start date must be in the future or null.</value>
+  </data>
+  <data name="RENTAL_DAYS_GREATER_THAN_ZERO_OR_NULL" xml:space="preserve">
+    <value>Rental days must be greater than zero or null.</value>
+  </data>
+  <data name="RENTAL_DAYS_MINIMUM_ONE" xml:space="preserve">
+    <value>Rental days must be at least 1 when both start and end dates are provided.</value>
+  </data>
+  <data name="RENTAL_EXTRA_DAYS_ZERO_OR_GREATER" xml:space="preserve">
+    <value>Extra days must be zero or greater.</value>
+  </data>
+  <data name="RENTAL_EXTRA_DAYS_MINIMUM_ZERO" xml:space="preserve">
+    <value>Extra days must be at least 0 when both start and end dates are provided.</value>
+  </data>
 </root>

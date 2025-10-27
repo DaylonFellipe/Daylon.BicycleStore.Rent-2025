@@ -1,5 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Communication.Request;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
+using Daylon.BicycleStore.Rent.Exceptions;
 using FluentValidation;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
@@ -13,16 +14,16 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(r => r.RentalDays)
-                .GreaterThan(0).WithMessage("Rental days must be greater than zero.")
-                .LessThanOrEqualTo(90).WithMessage("Rental days cannot exceed 90 days.");
+                .GreaterThan(0).WithMessage(ResourceMessagesException.RENTAL_DAYS_GREATER_THAN_ZERO)
+                .LessThanOrEqualTo(90).WithMessage(ResourceMessagesException.RENTAL_DAYS_MAX_LIMIT);
 
             RuleFor(r => r.PaymentMethod)
-                .IsInEnum().WithMessage("Payment method is required.")
-                .Must(method => Enum.IsDefined(typeof(PaymentMethodEnum), method)).WithMessage("Payment method must be a valid enum value.");
+                .IsInEnum().WithMessage(ResourceMessagesException.RENTAL_PAYMENT_METHOD_REQUIRED)
+                .Must(method => Enum.IsDefined(typeof(PaymentMethodEnum), method)).WithMessage(ResourceMessagesException.RENTAL_PAYMENT_METHOD_INVALID_ENUM);
 
             RuleFor(r => r.BicycleId)
-                .NotEmpty().WithMessage("Bicycle ID is required.")
-                .Must(id => id != Guid.Empty).WithMessage("Bicycle ID must be a valid GUID.");
+                .NotEmpty().WithMessage(ResourceMessagesException.BICYCLE_ID_EMPTY)
+                .Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.BICYCLE_ID_INVALID);
         }
     }
 
@@ -33,19 +34,19 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(r => r.RentalStart)
-                .Must(start => start == null || start >= DateTime.Now).WithMessage("Rental start date must be in the future or null.");
+                .Must(start => start == null || start >= DateTime.Now).WithMessage(ResourceMessagesException.RENTAL_START_IN_FUTURE_OR_NULL);
 
             //RuleFor(r => r.RentalEnd)
             //    .Must(end => end == null || end > DateTime.Now).WithMessage("Rental end date must be in the future or null.")
             //    .GreaterThanOrEqualTo(r => r.RentalStart).WithMessage("Rental end date must be after rental start date.");
 
             RuleFor(r => r.RentalDays)
-                .Must(days => days == null || days > 0).WithMessage("Rental days must be greater than zero or null.")
-                .GreaterThanOrEqualTo(1).WithMessage("Rental days must be at least 1 when both start and end dates are provided.");
+                .Must(days => days == null || days > 0).WithMessage(ResourceMessagesException.RENTAL_DAYS_GREATER_THAN_ZERO_OR_NULL)
+                .GreaterThanOrEqualTo(1).WithMessage(ResourceMessagesException.RENTAL_DAYS_MINIMUM_ONE);
 
             RuleFor(r => r.ExtraDays)
-                .Must(extra => extra == null || extra >= 0).WithMessage("Extra days must be zero or greater.")
-                .GreaterThanOrEqualTo(0).WithMessage("Extra days must be at least 0 when both start and end dates are provided.");
+                .Must(extra => extra == null || extra >= 0).WithMessage(ResourceMessagesException.RENTAL_EXTRA_DAYS_MINIMUM_ZERO)
+                .GreaterThanOrEqualTo(0).WithMessage(ResourceMessagesException.RENTAL_EXTRA_DAYS_ZERO_OR_GREATER);
         }
     }
 }

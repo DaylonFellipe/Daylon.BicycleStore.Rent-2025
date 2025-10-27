@@ -124,6 +124,24 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bicycle ID is required..
+        /// </summary>
+        public static string BICYCLE_ID_EMPTY {
+            get {
+                return ResourceManager.GetString("BICYCLE_ID_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bicycle ID must be a valid GUID..
+        /// </summary>
+        public static string BICYCLE_ID_INVALID {
+            get {
+                return ResourceManager.GetString("BICYCLE_ID_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Model must be a valid enum value..
         /// </summary>
         public static string BICYCLE_MODEL_INVALID_ENUM {
@@ -160,15 +178,6 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bicycle name must be at least 5 characters long..
-        /// </summary>
-        public static string BICYCLE_NAME_MIN_LENGTH {
-            get {
-                return ResourceManager.GetString("BICYCLE_NAME_MIN_LENGTH", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Price must be greater than zero..
         /// </summary>
         public static string BICYCLE_PRICE_GREATER_THAN_ZERO {
@@ -183,6 +192,87 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string BICYCLE_QUANTITY_ZERO_OR_GREATER {
             get {
                 return ResourceManager.GetString("BICYCLE_QUANTITY_ZERO_OR_GREATER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rental days must be greater than zero..
+        /// </summary>
+        public static string RENTAL_DAYS_GREATER_THAN_ZERO {
+            get {
+                return ResourceManager.GetString("RENTAL_DAYS_GREATER_THAN_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rental days must be greater than zero or null..
+        /// </summary>
+        public static string RENTAL_DAYS_GREATER_THAN_ZERO_OR_NULL {
+            get {
+                return ResourceManager.GetString("RENTAL_DAYS_GREATER_THAN_ZERO_OR_NULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rental days cannot exceed 90 days..
+        /// </summary>
+        public static string RENTAL_DAYS_MAX_LIMIT {
+            get {
+                return ResourceManager.GetString("RENTAL_DAYS_MAX_LIMIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rental days must be at least 1 when both start and end dates are provided..
+        /// </summary>
+        public static string RENTAL_DAYS_MINIMUM_ONE {
+            get {
+                return ResourceManager.GetString("RENTAL_DAYS_MINIMUM_ONE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extra days must be at least 0 when both start and end dates are provided..
+        /// </summary>
+        public static string RENTAL_EXTRA_DAYS_MINIMUM_ZERO {
+            get {
+                return ResourceManager.GetString("RENTAL_EXTRA_DAYS_MINIMUM_ZERO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extra days must be zero or greater..
+        /// </summary>
+        public static string RENTAL_EXTRA_DAYS_ZERO_OR_GREATER {
+            get {
+                return ResourceManager.GetString("RENTAL_EXTRA_DAYS_ZERO_OR_GREATER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method must be a valid enum value..
+        /// </summary>
+        public static string RENTAL_PAYMENT_METHOD_INVALID_ENUM {
+            get {
+                return ResourceManager.GetString("RENTAL_PAYMENT_METHOD_INVALID_ENUM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method is required..
+        /// </summary>
+        public static string RENTAL_PAYMENT_METHOD_REQUIRED {
+            get {
+                return ResourceManager.GetString("RENTAL_PAYMENT_METHOD_REQUIRED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rental start date must be in the future or null..
+        /// </summary>
+        public static string RENTAL_START_IN_FUTURE_OR_NULL {
+            get {
+                return ResourceManager.GetString("RENTAL_START_IN_FUTURE_OR_NULL", resourceCulture);
             }
         }
         
