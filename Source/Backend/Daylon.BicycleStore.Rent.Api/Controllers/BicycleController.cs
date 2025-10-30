@@ -24,9 +24,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         {
             var bicycles = await _bicycleService.GetBicyclesAsync();
 
-            if (bicycles == null || bicycles.Count == 0)
-                return NotFound(ResourceMessagesException.BICYCLE_NO_FOUND);
-
             return Ok(bicycles);
         }
 
@@ -36,9 +33,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         public async Task<IActionResult> GetBicycleByIdAsync(Guid id)
         {
             var bicycle = await _bicycleService.GetBicycleByIdAsync(id);
-
-            if (bicycle == null)
-                return NotFound(string.Format(ResourceMessagesException.BICYCLE_ID_NO_FOUND, id));
 
             return Ok(bicycle);
         }
@@ -71,9 +65,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var bicycle = await _bicycleService.UpdateBicycleAsync(request);
 
-            if (bicycle == null)
-                return NotFound(ResourceMessagesException.BICYCLE_ID_NO_FOUND);
-
             return Ok();
         }
 
@@ -100,9 +91,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity, dailyRate);
 
-            if (bicycle == null)
-                return NotFound(ResourceMessagesException.BICYCLE_ID_NO_FOUND);
-
             return Ok(bicycle);
         }
 
@@ -118,9 +106,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
                 return BadRequest(ModelState);
 
             var bicycle = await _bicycleService.GetBicycleByIdAsync(id);
-
-            if (bicycle == null)
-                return NotFound(ResourceMessagesException.BICYCLE_ID_NO_FOUND);
 
             await _bicycleService.DeleteBicycleAsync(id);
 
