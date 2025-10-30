@@ -24,9 +24,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         {
             var rentalOrders = await _rentalOrderService.GetRentalOrdersAsync();
 
-            if (rentalOrders == null || rentalOrders.Count == 0)
-                return NotFound("No rental orders found.");
-
             return Ok(rentalOrders);
         }
 
@@ -36,9 +33,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         public async Task<IActionResult> GetRentalOrderByIdAsync(Guid id)
         {
             var rentalOrder = await _rentalOrderService.GetRentalOrderByIdAsync(id);
-
-            if (rentalOrder == null)
-                return NotFound($"Rental order with ID {id} not found.");
 
             return Ok(rentalOrder);
         }
@@ -69,9 +63,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var rentalOrder = await _rentalOrderService.ModifyDatesAsync(id, rentalStart, rentalDays, extraDays);
 
-            if (rentalOrder == null)
-                return NotFound($"Rental Order with ID {id} not found.");
-
             return Ok(rentalOrder);
         }
 
@@ -86,9 +77,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
                 return BadRequest(ModelState);
 
             var rentalOrder = await _rentalOrderService.GetRentalOrderByIdAsync(id);
-
-            if (rentalOrder == null)
-                return NotFound($"Rental Order with ID {id} not found.");
 
             await _rentalOrderService.DeleteRentalOrderAsync(id);
 
