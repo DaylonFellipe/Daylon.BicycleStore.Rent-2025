@@ -268,6 +268,24 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rental order with ID {0} not found..
+        /// </summary>
+        public static string RENTAL_ID_NO_FOUND {
+            get {
+                return ResourceManager.GetString("RENTAL_ID_NO_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No rental order found..
+        /// </summary>
+        public static string RENTAL_NO_FOUND {
+            get {
+                return ResourceManager.GetString("RENTAL_NO_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment method must be a valid enum value..
         /// </summary>
         public static string RENTAL_PAYMENT_METHOD_INVALID_ENUM {
