@@ -261,4 +261,10 @@
   <data name="UNKNOW_ERROR" xml:space="preserve">
     <value>Unknow error.</value>
   </data>
+  <data name="BICYCLE_NO_FOUND" xml:space="preserve">
+    <value>No bicycles found.</value>
+  </data>
+  <data name="BICYCLE_ID_NO_FOUND" xml:space="preserve">
+    <value>Bicycle with ID {0} not found.</value>
+  </data>
 </root>

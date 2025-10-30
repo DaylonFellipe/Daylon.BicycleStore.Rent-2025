@@ -1,5 +1,7 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Entity;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
+using Daylon.BicycleStore.Rent.Exceptions;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using Microsoft.EntityFrameworkCore;
 
 namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
@@ -22,8 +24,12 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
 
         public async Task<Bicycle> GetBicycleByIdAsync(Guid id)
         {
-            return await _dbContext.Bicycles.FirstOrDefaultAsync(b => b.Id == id)
-                   ?? throw new KeyNotFoundException($"Bicycle with ID {id} not found.");
+            var bicycle = await _dbContext.Bicycles.FirstOrDefaultAsync(b => b.Id == id);
+            if (bicycle == null)
+            {
+                throw new BicycleStoreException("Test!!!");
+            }
+            return bicycle;
         }
 
         public async Task<IList<RentalOrder>> GetRentalOrdersAsync() => await _dbContext.RentalOrders.ToListAsync()

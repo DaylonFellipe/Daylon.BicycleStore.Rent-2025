@@ -142,6 +142,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bicycle with ID {0} not found..
+        /// </summary>
+        public static string BICYCLE_ID_NO_FOUND {
+            get {
+                return ResourceManager.GetString("BICYCLE_ID_NO_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Model must be a valid enum value..
         /// </summary>
         public static string BICYCLE_MODEL_INVALID_ENUM {
@@ -174,6 +183,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string BICYCLE_NAME_MAX_LENGTH {
             get {
                 return ResourceManager.GetString("BICYCLE_NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No bicycles found..
+        /// </summary>
+        public static string BICYCLE_NO_FOUND {
+            get {
+                return ResourceManager.GetString("BICYCLE_NO_FOUND", resourceCulture);
             }
         }
         
