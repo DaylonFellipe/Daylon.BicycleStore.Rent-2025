@@ -1,4 +1,3 @@
-using Daylon.BicycleStore.Rent.Api.Filters;
 using Daylon.BicycleStore.Rent.Application;
 using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Infrastructure;

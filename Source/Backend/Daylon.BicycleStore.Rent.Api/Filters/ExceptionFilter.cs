@@ -1,38 +1,48 @@
 ﻿using Daylon.BicycleStore.Rent.Communication.Responses;
-using Daylon.BicycleStore.Rent.Exceptions;
 using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
+using Daylon.BicycleStore.Rent.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System;
 using System.Net;
 
-namespace Daylon.BicycleStore.Rent.Api.Filters
+public class ExceptionFilter : IExceptionFilter
 {
-    public class ExceptionFilter : IExceptionFilter
+    public void OnException(ExceptionContext context)
     {
-        public void OnException(ExceptionContext context)
+        switch (context.Exception)
         {
-            if (context.Exception is BicycleStoreException)
-                HandleBicycleStoreException(context);
-            else
-                ThrowUnknowException(context);
-        }
+            case ErrorOnValidationExeption validationEx:
+                HandleValidationException(context, validationEx);
+                break;
 
-        private void HandleBicycleStoreException(ExceptionContext context)
-        {
-            if (context.Exception is ErrorOnValidationExeption)
-            {
-                var exception = context.Exception as ErrorOnValidationExeption;
+            case BicycleStoreException storeEx:
+                HandleBicycleStoreException(context, storeEx);
+                break;
 
-                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest; // 400
-                context.Result = new BadRequestObjectResult(new ResponseErrorJson(exception.ErrorMessages));
-            }
+            default:
+                HandleUnknownException(context);
+                break;
         }
+    }
 
-        private void ThrowUnknowException(ExceptionContext context)
-        {
-            context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError; // 500
-            context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOW_ERROR));
-        }
+    private void HandleValidationException(ExceptionContext context, ErrorOnValidationExeption ex)
+    {
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new BadRequestObjectResult(new ResponseErrorJson(ex.ErrorMessages));
+        context.ExceptionHandled = true;
+    }
+
+    private void HandleBicycleStoreException(ExceptionContext context, BicycleStoreException ex)
+    {
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        context.Result = new ObjectResult(new ResponseErrorJson(ex.Message));
+        context.ExceptionHandled = true;
+    }
+
+    private void HandleUnknownException(ExceptionContext context)
+    {
+        context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Result = new ObjectResult(new ResponseErrorJson(ResourceMessagesException.UNKNOW_ERROR));
+        context.ExceptionHandled = true;
     }
 }

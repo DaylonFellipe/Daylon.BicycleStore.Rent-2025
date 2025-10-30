@@ -1,4 +1,5 @@
 ﻿using Daylon.BicycleStore.Rent.Communication.Request.Bibycle;
+using Daylon.BicycleStore.Rent.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
@@ -13,7 +14,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         {
             _bicycleService = bicycleService;
         }
-
+        
         //GET
 
         [HttpGet]
@@ -24,7 +25,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             var bicycles = await _bicycleService.GetBicyclesAsync();
 
             if (bicycles == null || bicycles.Count == 0)
-                return NotFound("No bicycles found.");
+                return NotFound(ResourceMessagesException.BICYCLE_NO_FOUND);
 
             return Ok(bicycles);
         }
@@ -37,7 +38,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             var bicycle = await _bicycleService.GetBicycleByIdAsync(id);
 
             if (bicycle == null)
-                return NotFound($"Bicycle with ID {id} not found.");
+                return NotFound(string.Format(ResourceMessagesException.BICYCLE_ID_NO_FOUND, id));
 
             return Ok(bicycle);
         }
@@ -71,7 +72,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             var bicycle = await _bicycleService.UpdateBicycleAsync(request);
 
             if (bicycle == null)
-                return NotFound($"Bicycle with ID {request.Id} not found.");
+                return NotFound(ResourceMessagesException.BICYCLE_ID_NO_FOUND);
 
             return Ok();
         }
@@ -100,7 +101,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             var bicycle = await _bicycleService.PatchBicyclePartialAsync(id, name, description, brand, model, color, price, quantity, dailyRate);
 
             if (bicycle == null)
-                return NotFound($"Bicycle with ID {id} not found.");
+                return NotFound(ResourceMessagesException.BICYCLE_ID_NO_FOUND);
 
             return Ok(bicycle);
         }
@@ -119,7 +120,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
             var bicycle = await _bicycleService.GetBicycleByIdAsync(id);
 
             if (bicycle == null)
-                return NotFound($"Bicycle with ID {id} not found.");
+                return NotFound(ResourceMessagesException.BICYCLE_ID_NO_FOUND);
 
             await _bicycleService.DeleteBicycleAsync(id);
 
