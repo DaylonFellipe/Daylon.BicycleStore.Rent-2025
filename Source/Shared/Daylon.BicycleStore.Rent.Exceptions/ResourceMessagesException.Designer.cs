@@ -448,6 +448,24 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name or Email parameter is required..
+        /// </summary>
+        public static string USER_NAME_OR_EMAIL_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_NAME_OR_EMAIL_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name or Email parameter must be longer than 2 characters..
+        /// </summary>
+        public static string USER_NAME_OR_EMAIL_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("USER_NAME_OR_EMAIL_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password cannot be the same as the old password..
         /// </summary>
         public static string USER_PASSWORD_CANNOT_BE_SAME_AS_OLD {
