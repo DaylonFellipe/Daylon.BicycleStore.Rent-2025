@@ -1,6 +1,7 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
+using Daylon.BicycleStore.Rent.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
@@ -24,9 +25,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         {
             var users = await _userService.GetUsersAsync(filterEnum);
 
-            if (users == null || !users.Any())
-                return NotFound("No users found.");
-
             return Ok(users);
         }
 
@@ -37,9 +35,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
 
-            if (user == null)
-                return NotFound($"User with ID {id} not found.");
-
             return Ok(user);
         }
 
@@ -49,26 +44,9 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetUsersByNameOrEmailAsync(string nameOrEmail)
         {
-            if (string.IsNullOrWhiteSpace(nameOrEmail))
-                return BadRequest("Name or Email parameter is required.");
-
-            if (nameOrEmail.Length <= 2)
-                return BadRequest("Name or Email parameter must be longer than 2 characters.");
-
-            try
-            {
                 var users = await _userService.GetUserByNameOrEmailAsync(nameOrEmail);
 
-                if (users == null)
-                    return NotFound($"User with Name or Email '{nameOrEmail}' not found.");
-
-
                 return Ok(users);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
 
         // POST
@@ -97,9 +75,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var userDTO = await _userService.UpdateUserNameAsync(id, firstName!, LastName!);
 
-            if (userDTO == null)
-                return NotFound($"User with ID {id} not found.");
-
             return Ok(userDTO);
         }
 
@@ -113,9 +88,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
                 return BadRequest(ModelState);
 
             var userDTO = await _userService.UpdateUserEmailAsync(id, newEmail, password);
-
-            if (userDTO == null)
-                return NotFound($"User with ID {id} not found.");
 
             return Ok(userDTO);
         }
@@ -131,9 +103,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var userDTO = await _userService.UpdateUserPasswordAsync(id, oldPassword, newPassword);
 
-            if (userDTO == null)
-                return NotFound($"User with ID {id} not found.");
-
             return Ok(userDTO);
         }
 
@@ -147,9 +116,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
                 return BadRequest(ModelState);
 
             var userDTO = await _userService.UpdateUserBirthdayDateAsync(id, birthdayDate);
-
-            if (userDTO == null)
-                return NotFound($"User with ID {id} not found.");
 
             return Ok(userDTO);
         }
@@ -166,9 +132,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
 
             var user = await _userService.UpdateUserStatusAsync(id);
 
-            if (user == null)
-                return NotFound($"User with ID {id} not found.");
-
             return Ok($"User Status Update to {user.Active}");
         }
 
@@ -183,9 +146,6 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
                 return BadRequest(ModelState);
             
             var user = await _userService.GetUserByIdAsync(id);
-
-            if (user == null)
-                return NotFound($"User with ID {id} not found.");
 
             await _userService.DeleteUserAsync(id);
 

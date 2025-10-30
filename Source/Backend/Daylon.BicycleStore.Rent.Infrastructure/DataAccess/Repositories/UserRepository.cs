@@ -49,8 +49,8 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
 
         public async Task<Domain.Entity.User> GetUserByEmailAsync(string email)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
-                  
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email)
+                ?? throw new KeyNotFoundException($"User with email '{email}' not found.");
         }
 
         public async Task<IList<Domain.Entity.User>> GetUserByNameAsync(string searchName)

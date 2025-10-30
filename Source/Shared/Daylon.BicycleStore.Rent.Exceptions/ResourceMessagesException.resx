@@ -267,4 +267,16 @@
   <data name="BICYCLE_ID_NO_FOUND" xml:space="preserve">
     <value>Bicycle with ID {0} not found.</value>
   </data>
+  <data name="RENTAL_NO_FOUND" xml:space="preserve">
+    <value>No rental order found.</value>
+  </data>
+  <data name="RENTAL_ID_NO_FOUND" xml:space="preserve">
+    <value>Rental order with ID {0} not found.</value>
+  </data>
+  <data name="USER_NAME_OR_EMAIL_EMPTY" xml:space="preserve">
+    <value>Name or Email parameter is required.</value>
+  </data>
+  <data name="USER_NAME_OR_EMAIL_MAX_LENGTH" xml:space="preserve">
+    <value>Name or Email parameter must be longer than 2 characters.</value>
+  </data>
 </root>
