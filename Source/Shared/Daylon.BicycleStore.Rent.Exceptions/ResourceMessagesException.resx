@@ -171,9 +171,6 @@
   <data name="USER_PASSWORD_REQUIRE_UPPERCASE" xml:space="preserve">
     <value>Password must contain at least one uppercase letter.</value>
   </data>
-  <data name="USER_UNKNOW_ERROR" xml:space="preserve">
-    <value>Unkow Error.</value>
-  </data>
   <data name="USER_ID_EMPTY" xml:space="preserve">
     <value>User Id is required.</value>
   </data>
@@ -278,5 +275,44 @@
   </data>
   <data name="USER_NAME_OR_EMAIL_MAX_LENGTH" xml:space="preserve">
     <value>Name or Email parameter must be longer than 2 characters.</value>
+  </data>
+  <data name="USER_NO_FOUND" xml:space="preserve">
+    <value>No users found.</value>
+  </data>
+  <data name="USER_ID_NO_FOUND" xml:space="preserve">
+    <value>User with id {0} no found.</value>
+  </data>
+  <data name="USER_EMAIL_NO_FOUND" xml:space="preserve">
+    <value>User with email '{0}' no found.</value>
+  </data>
+  <data name="USER_NAME_CANNOT_BE_NULL_OR_EMPTY" xml:space="preserve">
+    <value>Search name cannot be null or empty.</value>
+  </data>
+  <data name="USER_NAME_NO_FOUND" xml:space="preserve">
+    <value>User with name '{0}' no found.</value>
+  </data>
+  <data name="ENCRIPTER_NO_PEPPER" xml:space="preserve">
+    <value>Pepper configuration value is missing.</value>
+  </data>
+  <data name="ENCRIPTER_HASH_INVALID_FORMAT" xml:space="preserve">
+    <value>Invalid hash format.</value>
+  </data>
+  <data name="ENCRIPTER_NO_ADDICIONAL_KEY" xml:space="preserve">
+    <value>AddicionalKey configuration value is missing.</value>
+  </data>
+  <data name="USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY" xml:space="preserve">
+    <value>Password cannot be null or empty.</value>
+  </data>
+  <data name="CONNECTION_STRING_NO_FOUND" xml:space="preserve">
+    <value>Connection string is not configured.</value>
+  </data>
+  <data name="USER_PASSWORD_INCORRECT" xml:space="preserve">
+    <value>The password is incorrect.</value>
+  </data>
+  <data name="USER_EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+    <value>This email is already registered.</value>
+  </data>
+  <data name="INVALID_REQUEST_TYPE" xml:space="preserve">
+    <value>Invalid request type.</value>
   </data>
 </root>

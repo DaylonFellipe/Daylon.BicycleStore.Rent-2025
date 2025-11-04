@@ -1,5 +1,4 @@
 ﻿using Daylon.BicycleStore.Rent.Communication.Request.Bibycle;
-using Daylon.BicycleStore.Rent.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
@@ -14,7 +13,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         {
             _bicycleService = bicycleService;
         }
-        
+       
         //GET
 
         [HttpGet]

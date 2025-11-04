@@ -1,4 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
+using Daylon.BicycleStore.Rent.Exceptions;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,13 +14,13 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography
         public Sha512Encripter(IConfiguration configuration)
         {
             _additionalKey = configuration["Security:AdditionalKey"]
-               ?? throw new InvalidOperationException("AdditionalKey configuration value is missing.");
+               ?? throw new BicycleStoreException(ResourceMessagesException.ENCRIPTER_NO_ADDICIONAL_KEY);
         }
 
         public string Encrypt(string password)
         {
             if (string.IsNullOrEmpty(password))
-                throw new ArgumentException("Password cannot be null or empty.", nameof(password));
+                throw new BicycleStoreException(ResourceMessagesException.USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY);
 
             var bytes = Encoding.UTF8.GetBytes($"{password}{_additionalKey}");
             var hash = SHA512.HashData(bytes);
@@ -28,7 +30,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography
         public bool VerifyPassword(string providedPassword, string storedHash)
         {
             if (string.IsNullOrEmpty(providedPassword))
-                throw new ArgumentException("Password cannot be null or empty.", nameof(providedPassword));
+                throw new BicycleStoreException(ResourceMessagesException.USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY);
 
             var bytes = Encoding.UTF8.GetBytes($"{providedPassword}{_additionalKey}");
             var computedHash = SHA512.HashData(bytes);

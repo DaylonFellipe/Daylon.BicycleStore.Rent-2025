@@ -214,6 +214,51 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection string is not configured..
+        /// </summary>
+        public static string CONNECTION_STRING_NO_FOUND {
+            get {
+                return ResourceManager.GetString("CONNECTION_STRING_NO_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid hash format..
+        /// </summary>
+        public static string ENCRIPTER_HASH_INVALID_FORMAT {
+            get {
+                return ResourceManager.GetString("ENCRIPTER_HASH_INVALID_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddicionalKey configuration value is missing..
+        /// </summary>
+        public static string ENCRIPTER_NO_ADDICIONAL_KEY {
+            get {
+                return ResourceManager.GetString("ENCRIPTER_NO_ADDICIONAL_KEY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pepper configuration value is missing..
+        /// </summary>
+        public static string ENCRIPTER_NO_PEPPER {
+            get {
+                return ResourceManager.GetString("ENCRIPTER_NO_PEPPER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid request type..
+        /// </summary>
+        public static string INVALID_REQUEST_TYPE {
+            get {
+                return ResourceManager.GetString("INVALID_REQUEST_TYPE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rental days must be greater than zero..
         /// </summary>
         public static string RENTAL_DAYS_GREATER_THAN_ZERO {
@@ -349,6 +394,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This email is already registered..
+        /// </summary>
+        public static string USER_EMAIL_ALREADY_REGISTERED {
+            get {
+                return ResourceManager.GetString("USER_EMAIL_ALREADY_REGISTERED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email is required..
         /// </summary>
         public static string USER_EMAIL_EMPTY {
@@ -376,6 +430,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User with email &apos;{0}&apos; no found..
+        /// </summary>
+        public static string USER_EMAIL_NO_FOUND {
+            get {
+                return ResourceManager.GetString("USER_EMAIL_NO_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Id is required..
         /// </summary>
         public static string USER_ID_EMPTY {
@@ -390,6 +453,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string USER_ID_INVALID {
             get {
                 return ResourceManager.GetString("USER_ID_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with id {0} no found..
+        /// </summary>
+        public static string USER_ID_NO_FOUND {
+            get {
+                return ResourceManager.GetString("USER_ID_NO_FOUND", resourceCulture);
             }
         }
         
@@ -421,6 +493,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search name cannot be null or empty..
+        /// </summary>
+        public static string USER_NAME_CANNOT_BE_NULL_OR_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_NAME_CANNOT_BE_NULL_OR_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The name cannot be empty..
         /// </summary>
         public static string USER_NAME_EMPTY {
@@ -448,6 +529,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User with name &apos;{0}&apos; no found..
+        /// </summary>
+        public static string USER_NAME_NO_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NAME_NO_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name or Email parameter is required..
         /// </summary>
         public static string USER_NAME_OR_EMAIL_EMPTY {
@@ -466,6 +556,24 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No users found..
+        /// </summary>
+        public static string USER_NO_FOUND {
+            get {
+                return ResourceManager.GetString("USER_NO_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot be null or empty..
+        /// </summary>
+        public static string USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New password cannot be the same as the old password..
         /// </summary>
         public static string USER_PASSWORD_CANNOT_BE_SAME_AS_OLD {
@@ -480,6 +588,15 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string USER_PASSWORD_EMPTY {
             get {
                 return ResourceManager.GetString("USER_PASSWORD_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password is incorrect..
+        /// </summary>
+        public static string USER_PASSWORD_INCORRECT {
+            get {
+                return ResourceManager.GetString("USER_PASSWORD_INCORRECT", resourceCulture);
             }
         }
         
@@ -534,15 +651,6 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string USER_PASSWORD_REQUIRE_UPPERCASE {
             get {
                 return ResourceManager.GetString("USER_PASSWORD_REQUIRE_UPPERCASE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unkow Error..
-        /// </summary>
-        public static string USER_UNKNOW_ERROR {
-            get {
-                return ResourceManager.GetString("USER_UNKNOW_ERROR", resourceCulture);
             }
         }
     }

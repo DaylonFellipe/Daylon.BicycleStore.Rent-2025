@@ -2,12 +2,13 @@
 using Daylon.BicycleStore.Rent.Communication.Request.Bibycle;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using FluentValidation;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 {
     public class BicycleUseCase : IBicycleUseCase
-    { 
+    {
         private readonly IBicycleRepository _bicycleRepository;
 
         public BicycleUseCase(IBicycleRepository bicycleRepository)
@@ -18,7 +19,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
         public async Task<Domain.Entity.Bicycle> ExecuteRegisterBicycleAsync(RequestRegisterBicycleJson request, CancellationToken cancellationToken = default)
         {
             // Validate
-            ValidateRequest(request, new RegisterBicycleValidator());
+            await ValidateRequest(request, new RegisterBicycleValidator());
 
             // Map
             var bicycle = new Domain.Entity.Bicycle
@@ -45,8 +46,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
         {
             // Get existing bicycle
             var bicycle = await _bicycleRepository.GetBicycleByIdAsync(request.Id);
-            if (bicycle is null)
-                throw new KeyNotFoundException($"Bicycle with ID {request.Id} not found.");
 
             // Validate
             var validator = new UpdateBicycleValidator();
@@ -90,8 +89,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 
             // Get existing bicycle
             var bicycle = await _bicycleRepository.GetBicycleByIdAsync(id);
-            if (bicycle is null)
-                throw new KeyNotFoundException($"Bicycle with ID {id} not found.");
 
             // Validate
             var request = new RequestPatchBicycleJson
@@ -128,14 +125,14 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             return bicycle;
         }
 
-        private static void ValidateRequest<T>(T request, AbstractValidator<T> validator)
+        private async Task ValidateRequest<T>(T request, AbstractValidator<T> validator)
         {
-            var result = validator.ValidateAsync(request);
+            var result = await validator.ValidateAsync(request);
 
-            if (!result.Result.IsValid)
+            if (!result.IsValid)
             {
-                var erros = result.Result.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new ValidationException(string.Join(", ", erros));
+                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+                throw new ErrorOnValidationExeption(errors);
             }
         }
     }

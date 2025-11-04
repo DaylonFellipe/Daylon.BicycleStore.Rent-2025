@@ -1,5 +1,7 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
+using Daylon.BicycleStore.Rent.Exceptions;
 using Daylon.BicycleStore.Rent.Infrastructure.DataAccess;
 using Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories;
 using Daylon.BicycleStore.Rent.Infrastructure.Extensions;
@@ -28,7 +30,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure
             var connectionString = configuration.GetConnectionString("SqlServerConnection");
 
             if (string.IsNullOrEmpty(connectionString))
-            { throw new Exception("Connection string is not configured."); }
+            { throw new BicycleStoreException(ResourceMessagesException.CONNECTION_STRING_NO_FOUND); }
 
             services.AddDbContext<BicycleStoreDbContext>(options =>
                 options.UseSqlServer(connectionString));

@@ -2,7 +2,9 @@
 using Daylon.BicycleStore.Rent.Communication.Request;
 using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using FluentValidation;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 {
@@ -19,7 +21,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
         public async Task<Domain.Entity.RentalOrder> ExecuteRegisterRentalOrderAsync(RequestRegisterRentalOrderJson request, CancellationToken cancellationToken = default)
         {
             // Validate
-            ValidateRequest(request, new RegisterRentalOrderValidator());
+            await ValidateRequest(request, new RegisterRentalOrderValidator());
 
             // Map Properties
             var bicycle = await _bicycleRepository.GetBicycleByIdAsync(request.BicycleId);
@@ -65,14 +67,10 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 ExtraDays = extraDays
             };
 
-            ValidateRequest(dates, new ModifyDatesValidator());
+            await ValidateRequest(dates, new ModifyDatesValidator());
 
             // Get RentalOrder
             var rentalOrder = await _bicycleRepository.GetRentalOderByIdAsync(id);
-
-
-            if (rentalOrder == null)
-                throw new KeyNotFoundException($"Rental order with ID {id} not found.");
 
             // Update Dates
             if (rentalStart.HasValue && rentalStart > DateTime.Now)
@@ -99,14 +97,14 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             return rentalOrder;
         }
 
-        private static void ValidateRequest<T>(T request, AbstractValidator<T> validator)
+        private async Task ValidateRequest<T>(T request, AbstractValidator<T> validator)
         {
-            var result = validator.ValidateAsync(request);
+            var result = await validator.ValidateAsync(request);
 
-            if (!result.Result.IsValid)
+            if (!result.IsValid)
             {
-                var erros = result.Result.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new ValidationException(string.Join(", ", erros));
+                var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
+                throw new ErrorOnValidationExeption(errors);
             }
         }
     }
