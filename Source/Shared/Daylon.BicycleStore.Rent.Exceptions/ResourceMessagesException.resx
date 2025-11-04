@@ -300,7 +300,19 @@
   <data name="ENCRIPTER_NO_ADDICIONAL_KEY" xml:space="preserve">
     <value>AddicionalKey configuration value is missing.</value>
   </data>
-  <data name="PASSWORD_CANNOT_BE_NULL_OR_EMPTY" xml:space="preserve">
+  <data name="USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY" xml:space="preserve">
     <value>Password cannot be null or empty.</value>
+  </data>
+  <data name="CONNECTION_STRING_NO_FOUND" xml:space="preserve">
+    <value>Connection string is not configured.</value>
+  </data>
+  <data name="USER_PASSWORD_INCORRECT" xml:space="preserve">
+    <value>The password is incorrect.</value>
+  </data>
+  <data name="USER_EMAIL_ALREADY_REGISTERED" xml:space="preserve">
+    <value>This email is already registered.</value>
+  </data>
+  <data name="INVALID_REQUEST_TYPE" xml:space="preserve">
+    <value>Invalid request type.</value>
   </data>
 </root>

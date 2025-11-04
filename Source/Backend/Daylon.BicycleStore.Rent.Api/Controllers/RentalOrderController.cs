@@ -1,6 +1,5 @@
 ﻿using Daylon.BicycleStore.Rent.Application.Interface;
 using Daylon.BicycleStore.Rent.Communication.Request;
-using Daylon.BicycleStore.Rent.Domain.Entity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Daylon.BicycleStore.Rent.Api.Controllers
@@ -84,3 +83,5 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
     }
 }
+
+//   /ᐠ - ˕ -マ D A Y L O N

@@ -51,9 +51,6 @@ namespace Daylon.BicycleStore.Rent.Application.Services.Bicycles
         {
             var rentalOrder = await _bicycleRepository.GetRentalOderByIdAsync(id);
 
-            if (rentalOrder == null)
-                throw new KeyNotFoundException($"Rental order with ID {id} not found.");
-
             var updatedRentalOrder = await _rentalOrderUseCase.ExecuteModifyDatesAsync(id, rentalStart, rentalDays, extraDays);
 
             await ModifyOrderStatusToOverdueAsync();

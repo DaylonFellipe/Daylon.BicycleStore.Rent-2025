@@ -20,7 +20,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography
         public string Encrypt(string password)
         {
             if (string.IsNullOrEmpty(password))
-                throw new BicycleStoreException(ResourceMessagesException.PASSWORD_CANNOT_BE_NULL_OR_EMPTY);
+                throw new BicycleStoreException(ResourceMessagesException.USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY);
 
             var bytes = Encoding.UTF8.GetBytes($"{password}{_additionalKey}");
             var hash = SHA512.HashData(bytes);
@@ -30,7 +30,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography
         public bool VerifyPassword(string providedPassword, string storedHash)
         {
             if (string.IsNullOrEmpty(providedPassword))
-                throw new BicycleStoreException(ResourceMessagesException.PASSWORD_CANNOT_BE_NULL_OR_EMPTY);
+                throw new BicycleStoreException(ResourceMessagesException.USER_PASSWORD_CANNOT_BE_NULL_OR_EMPTY);
 
             var bytes = Encoding.UTF8.GetBytes($"{providedPassword}{_additionalKey}");
             var computedHash = SHA512.HashData(bytes);

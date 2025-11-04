@@ -2,6 +2,7 @@
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
+using Daylon.BicycleStore.Rent.Exceptions;
 using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using FluentValidation;
 
@@ -27,8 +28,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             await ValidateRegisterRequest(request, new RegisterUserValidator());
 
             //Check if Email is already registered
-            if (await _userRepository.ExistsUserWithEmailAsync(request.Email))
-                throw new ValidationException($"The email {request.Email} is already registered.");
+            await _userRepository.ExistsUserWithEmailAsync(request.Email);
 
             // Cryptographically Hash Password
             var hashedPassword = _passwordEncripter.HashPassword_PBKDF2Encripter(request.Password);
@@ -97,18 +97,17 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             await ValidateRequest(requestUpdateEmail, new UpdateUserEmailValidator());
 
             //Check if Email is already registered
-            if (await _userRepository.ExistsUserWithEmailAsync(newEmail))
-                throw new ValidationException($"The email {newEmail} is already registered.");
+            await _userRepository.ExistsUserWithEmailAsync(newEmail);
 
             // Verify Password
             var user = await _userRepository.GetUserByIdAsync(id);
 
             if (!_passwordEncripter.VerifyPassword_PBKDF2Encripter(password, user.Password))
-                throw new ValidationException("The password is incorrect.");
+                throw new BicycleStoreException(ResourceMessagesException.USER_PASSWORD_INCORRECT);
 
             // Check if New Email is already registered
             if (await _userRepository.ExistsUserWithEmailAsync(newEmail))
-                throw new ValidationException("The new email is already registered.");
+                throw new BicycleStoreException(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
 
             // Change to New Email
             user.Email = newEmail;
@@ -135,7 +134,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             var user = await _userRepository.GetUserByIdAsync(id);
 
             if (!_passwordEncripter.VerifyPassword_PBKDF2Encripter(oldPassword, user.Password))
-                throw new ValidationException("The old password is incorrect.");
+                throw new BicycleStoreException(ResourceMessagesException.USER_PASSWORD_INCORRECT);
 
             // Change to New Password
             var hashedNewPassword = _passwordEncripter.HashPassword_PBKDF2Encripter(newPassword);
@@ -201,16 +200,16 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             if (!result.IsValid)
             {
                 var errors = result.Errors.Select(e => e.ErrorMessage).ToList();
-                throw new ValidationException($"Validation failed: {string.Join(", ", errors)}");
+                throw new BicycleStoreException($"Validation failed: {string.Join(", ", errors)}");
             }
         }
         private async Task ValidateRegisterRequest<T>(T request, AbstractValidator<T> validator)
         {
             if (request is not RequestRegisterUserJson registerUserRequest)
-                throw new ValidationException("Invalid request type.");
+                throw new BicycleStoreException(ResourceMessagesException.INVALID_REQUEST_TYPE);
 
             if (await _userRepository.ExistsUserWithEmailAsync(registerUserRequest.Email))
-                throw new ValidationException("The new email is already registered.");
+                throw new BicycleStoreException(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
 
             var result = await validator.ValidateAsync(request);
 
