@@ -214,6 +214,42 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid hash format..
+        /// </summary>
+        public static string ENCRIPTER_HASH_INVALID_FORMAT {
+            get {
+                return ResourceManager.GetString("ENCRIPTER_HASH_INVALID_FORMAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AddicionalKey configuration value is missing..
+        /// </summary>
+        public static string ENCRIPTER_NO_ADDICIONAL_KEY {
+            get {
+                return ResourceManager.GetString("ENCRIPTER_NO_ADDICIONAL_KEY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pepper configuration value is missing..
+        /// </summary>
+        public static string ENCRIPTER_NO_PEPPER {
+            get {
+                return ResourceManager.GetString("ENCRIPTER_NO_PEPPER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot be null or empty..
+        /// </summary>
+        public static string PASSWORD_CANNOT_BE_NULL_OR_EMPTY {
+            get {
+                return ResourceManager.GetString("PASSWORD_CANNOT_BE_NULL_OR_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rental days must be greater than zero..
         /// </summary>
         public static string RENTAL_DAYS_GREATER_THAN_ZERO {
@@ -579,15 +615,6 @@ namespace Daylon.BicycleStore.Rent.Exceptions {
         public static string USER_PASSWORD_REQUIRE_UPPERCASE {
             get {
                 return ResourceManager.GetString("USER_PASSWORD_REQUIRE_UPPERCASE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unkow Error..
-        /// </summary>
-        public static string USER_UNKNOW_ERROR {
-            get {
-                return ResourceManager.GetString("USER_UNKNOW_ERROR", resourceCulture);
             }
         }
     }

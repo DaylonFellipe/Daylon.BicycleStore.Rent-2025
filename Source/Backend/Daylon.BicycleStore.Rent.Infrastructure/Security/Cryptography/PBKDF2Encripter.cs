@@ -1,4 +1,6 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
+using Daylon.BicycleStore.Rent.Exceptions;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using Microsoft.Extensions.Configuration;
 using System.Security.Cryptography;
 
@@ -15,7 +17,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography
         public PBKDF2Encripter(IConfiguration configuration)
         {
             _pepper = configuration["Security:Pepper"]
-                ?? throw new InvalidOperationException("Pepper configuration value is missing.");
+                ?? throw new BicycleStoreException(ResourceMessagesException.ENCRIPTER_NO_PEPPER);
         }
 
         public string HashPassword_PBKDF2Encripter(string password)
@@ -49,7 +51,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography
             var parts = storedHash.Split('$');
 
             if (parts.Length != 4 || parts[0] != "v1")
-                throw new FormatException("Invalid hash format.");
+                throw new BicycleStoreException(ResourceMessagesException.ENCRIPTER_HASH_INVALID_FORMAT);
 
             // Extract the number of iterations, salt and hash
             int iterations = int.Parse(parts[1]);

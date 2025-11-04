@@ -20,7 +20,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
 
         // GET 
         public async Task<IList<Bicycle>> GetBicyclesAsync() => await _dbContext.Bicycles.ToListAsync()
-            ?? throw new Exception(ResourceMessagesException.BICYCLE_NO_FOUND);
+            ?? throw new BicycleStoreException(ResourceMessagesException.BICYCLE_NO_FOUND);
 
         public async Task<Bicycle> GetBicycleByIdAsync(Guid id)
         {
