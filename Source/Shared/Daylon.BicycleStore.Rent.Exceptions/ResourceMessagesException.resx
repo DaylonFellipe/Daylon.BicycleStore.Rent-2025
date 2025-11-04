@@ -279,4 +279,19 @@
   <data name="USER_NAME_OR_EMAIL_MAX_LENGTH" xml:space="preserve">
     <value>Name or Email parameter must be longer than 2 characters.</value>
   </data>
+  <data name="USER_NO_FOUND" xml:space="preserve">
+    <value>No users found.</value>
+  </data>
+  <data name="USER_ID_NO_FOUND" xml:space="preserve">
+    <value>User with id {0} no found.</value>
+  </data>
+  <data name="USER_EMAIL_NO_FOUND" xml:space="preserve">
+    <value>User with email '{0}' no found.</value>
+  </data>
+  <data name="USER_NAME_CANNOT_BE_NULL_OR_EMPTY" xml:space="preserve">
+    <value>Search name cannot be null or empty.</value>
+  </data>
+  <data name="USER_NAME_NO_FOUND" xml:space="preserve">
+    <value>User with name '{0}' no found.</value>
+  </data>
 </root>

@@ -1,6 +1,9 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
+using Daylon.BicycleStore.Rent.Exceptions;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 
 namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
@@ -38,25 +41,25 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
                     break;
             }
 
-            return await query.ToListAsync() ?? throw new Exception("No users found.");
+            return await query.ToListAsync() ?? throw new BicycleStoreException(ResourceMessagesException.USER_NO_FOUND);
         }
 
         public async Task<Domain.Entity.User> GetUserByIdAsync(Guid id)
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id)
-                   ?? throw new KeyNotFoundException($"User with ID {id} not found.");
+                   ?? throw new BicycleStoreException(string.Format(ResourceMessagesException.USER_ID_NO_FOUND, id));
         }
 
         public async Task<Domain.Entity.User> GetUserByEmailAsync(string email)
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email)
-                ?? throw new KeyNotFoundException($"User with email '{email}' not found.");
+                ?? throw new BicycleStoreException(string.Format(ResourceMessagesException.USER_EMAIL_NO_FOUND, email));
         }
 
         public async Task<IList<Domain.Entity.User>> GetUserByNameAsync(string searchName)
         {
             if (string.IsNullOrWhiteSpace(searchName))
-                throw new ArgumentException("Search name cannot be null or empty.", nameof(searchName));
+                throw new BicycleStoreException(ResourceMessagesException.USER_NAME_CANNOT_BE_NULL_OR_EMPTY);
 
             searchName = $"%{searchName.Trim()}%";
 
@@ -68,7 +71,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
              .ToListAsync();
 
             if (users == null || users.Count == 0)
-                throw new KeyNotFoundException($"User with name '{searchName}' not found.");
+                throw new BicycleStoreException(ResourceMessagesException.USER_NAME_NO_FOUND);
 
             return users;
         }
@@ -101,9 +104,6 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         public async Task DeleteUserAsync(Guid id)
         {
             var user = await GetUserByIdAsync(id);
-
-            if (user == null)
-                throw new KeyNotFoundException($"User with ID {id} not found.");
 
             _dbContext.Users.Remove(user);
             await SaveChangesAsync();
