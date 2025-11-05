@@ -1,13 +1,7 @@
-﻿using CommonTestUtilities.Cryptography;
-using CommonTestUtilities.Repositories;
-using CommonTestUtilities.Requests;
+﻿using CommonTestUtilities.Requests;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
-using Daylon.BicycleStore.Rent.Communication.Request.Bibycle;
 using Daylon.BicycleStore.Rent.Exceptions;
 using FluentAssertions;
-using Microsoft.Extensions.Configuration;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Validators.Test.User
 {
@@ -26,6 +20,7 @@ namespace Validators.Test.User
         }
 
         // FIRST NAME
+
         [Fact]
         public void Error_Name_Empty()
         {
@@ -73,6 +68,7 @@ namespace Validators.Test.User
         }
 
         // LAST NAME
+
         [Fact]
         public void Error_Last_Name_Empty()
         {
@@ -120,6 +116,7 @@ namespace Validators.Test.User
         }
 
         // DATE OF BIRTH
+
         [Fact]
         public void Error_Date_Of_Birth_Empty()
         {
@@ -152,7 +149,7 @@ namespace Validators.Test.User
         }
 
         // EMAIL
-        //==================
+
         [Fact]
         public void Error_Email_Empty()
         {
@@ -164,7 +161,9 @@ namespace Validators.Test.User
             var result = validator.Validate(request);
 
             result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(2);
             result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_EMAIL_EMPTY));
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_EMAIL_INVALID_FORMAT));
         }
 
         [Fact]
@@ -178,6 +177,39 @@ namespace Validators.Test.User
             var result = validator.Validate(request);
 
             result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_EMAIL_INVALID_FORMAT));
+        }
+
+        [Fact]
+        public void Error_Email_MaxLengh()
+        {
+            var validator = new RegisterUserValidator();
+
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Email = GenerateStringOfLength('a', 257) + "@gmail.com";
+           
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_EMAIL_MAX_LENGTH));
+        }
+
+        // PASSWORD
+
+        [Fact]
+        public void Error_Password_Empty()
+        {
+            var validator = new RegisterUserValidator();
+
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Password = string.Empty;
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_EMPTY));
         }
 
         [Theory]
@@ -188,7 +220,7 @@ namespace Validators.Test.User
         [InlineData(5)]
         [InlineData(6)]
         [InlineData(7)]
-        public void Error_Password_Invalid(int passwordLength)
+        public void Error_Password_Min_Lenght(int passwordLength)
         {
             var validator = new RegisterUserValidator();
 
@@ -197,11 +229,87 @@ namespace Validators.Test.User
             var result = validator.Validate(request);
 
             result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_MIN_LENGTH));
         }
 
+        [Fact]
+        public void Error_Password_Max_Lenght()
+        {
+            var validator = new RegisterUserValidator();
+
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Password = GenerateStringOfLength('a', 256) + request.Password;
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_MAX_LENGTH));
+        }
+
+        [Fact]
+        public void Error_Password_No_Upercase()
+        {
+            var validator = new RegisterUserValidator();
+
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Password = "@123abdef";
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_REQUIRE_UPPERCASE));
+        }
+
+        [Fact]
+        public void Error_Password_No_Lowercase()
+        {
+            var validator = new RegisterUserValidator();
+
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Password = "@123ABCDEF";
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_REQUIRE_LOWERCASE));
+        }
+
+        [Fact]
+        public void Error_Password_No_Number()
+        {
+            var validator = new RegisterUserValidator();
+
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Password = "@Abdefgh";
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_REQUIRE_NUMBER));
+        }
+
+         [Fact]
+        public void Error_Password_No_Special_Char()
+        {
+            var validator = new RegisterUserValidator();
+
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Password = "123Abcdef";
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_REQUIRE_SPECIAL_CHAR));
+        }
 
         // AUXILIAR METHODS
 
-        private string GenerateStringOfLength(char character, int length) => new string(character, length);        
+        private string GenerateStringOfLength(char character, int length) => new string(character, length);
     }
 }
