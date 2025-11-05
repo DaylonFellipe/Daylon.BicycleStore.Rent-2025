@@ -4,7 +4,6 @@ using Daylon.BicycleStore.Rent.Domain.Entity.Enum;
 using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using FluentValidation;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
 {
