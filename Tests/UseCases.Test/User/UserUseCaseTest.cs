@@ -46,7 +46,7 @@ namespace UseCases.Test.User
         private UserUseCase CreateUseCase(string? email = null)
         {
             var configuration = new ConfigurationBuilder().Build();
-            var passwordEncripter = PBKDF2EncripterBuilder.Build(configuration);
+            var passwordEncripter = PBKDF2EncripterBuilder.Build();
             var userRepositoryBuilder = new UserRepositoryBuilder();
 
             if (!string.IsNullOrEmpty(email))
@@ -56,4 +56,3 @@ namespace UseCases.Test.User
         }
     }
 }
-
