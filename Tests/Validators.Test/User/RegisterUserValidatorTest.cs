@@ -1,4 +1,4 @@
-﻿using CommonTestUtilities.Requests;
+﻿using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
 using Daylon.BicycleStore.Rent.Exceptions;
 using FluentAssertions;
@@ -310,6 +310,6 @@ namespace Validators.Test.User
 
         // AUXILIAR METHODS
 
-        private string GenerateStringOfLength(char character, int length) => new string(character, length);
+        public string GenerateStringOfLength(char character, int length) => new string(character, length);
     }
 }

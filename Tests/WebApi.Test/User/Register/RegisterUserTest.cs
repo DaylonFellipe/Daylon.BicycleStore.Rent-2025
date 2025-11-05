@@ -1,4 +1,4 @@
-﻿using CommonTestUtilities.Requests;
+﻿using CommonTestUtilities.Requests.User;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;

@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Daylon.BicycleStore.Rent.Communication.Request.User;
 
-namespace CommonTestUtilities.Requests
+namespace CommonTestUtilities.Requests.User
 {
     public class RequestRegisterUserJsonBuilder
     {
