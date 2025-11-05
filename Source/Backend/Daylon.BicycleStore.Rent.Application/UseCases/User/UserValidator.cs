@@ -49,7 +49,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.Id)
-                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY)
+                .Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.FirstName)
                 .MaximumLength(100).WithMessage(ResourceMessagesException.USER_NAME_MAX_LENGTH)
@@ -68,7 +69,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.Id)
-                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY)
+                .Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.NewEmail)
                 .NotEmpty().WithMessage(ResourceMessagesException.USER_EMAIL_EMPTY)
@@ -93,7 +95,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.Id)
-                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY)
+                .Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.OldPassword)
                 .NotEmpty().WithMessage(ResourceMessagesException.USER_PASSWORD_EMPTY)
@@ -123,7 +126,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             ClassLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(user => user.Id)
-                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY).Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
+                .NotEmpty().WithMessage(ResourceMessagesException.USER_ID_EMPTY)
+                .Must(id => id != Guid.Empty).WithMessage(ResourceMessagesException.USER_ID_INVALID);
 
             RuleFor(user => user.NewDateOfBirth)
                  .NotEmpty().WithMessage(ResourceMessagesException.USER_DATE_OF_BIRTH_EMPTY)

@@ -1,6 +1,6 @@
 ﻿using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
-using CommonTestUtilities.Requests;
+using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
 using FluentAssertions;
 using FluentValidation;
