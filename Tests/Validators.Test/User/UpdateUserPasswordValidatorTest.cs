@@ -160,8 +160,23 @@ namespace Validators.Test.User
             result.Errors.Count.Should().Be(1);
             result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_REQUIRE_SPECIAL_CHAR));
         }
-        
-         // OLD PASSWORD
+
+        [Fact]
+        public void Error_New_Password_Cannot_Be_Same_As_Old()
+        {
+            var validator = new UpdateUserPasswordValidator();
+
+            var request = RequestUpdateUserPasswordJsonBuilder.Build();
+            request.NewPassword = request.OldPassword;
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Count.Should().Be(1);
+            result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_CANNOT_BE_SAME_AS_OLD));
+        }
+
+        // OLD PASSWORD
 
         [Fact]
         public void Error_Old_Password_Empty()
@@ -277,4 +292,3 @@ namespace Validators.Test.User
 
         public string GenerateStringOfLength(char character, int length) => new string(character, length);
     }
-}
