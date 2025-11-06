@@ -15,4 +15,3 @@ namespace CommonTestUtilities.Requests.User
         }
     }
 }
-
