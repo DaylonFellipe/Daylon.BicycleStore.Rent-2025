@@ -287,8 +287,9 @@ namespace Validators.Test.User
             result.Errors.Count.Should().Be(1);
             result.Errors.Should().ContainSingle(e => e.ErrorMessage.Contains(ResourceMessagesException.USER_PASSWORD_REQUIRE_SPECIAL_CHAR));
         }
-        
+
         // AUXILIAR METHODS
 
         public string GenerateStringOfLength(char character, int length) => new string(character, length);
     }
+}

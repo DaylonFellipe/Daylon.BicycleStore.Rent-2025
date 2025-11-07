@@ -19,5 +19,10 @@ namespace Daylon.BicycleStore.Rent.Communication.Request.Bibycle
 
         // Order Properties
         public double DailyRate { get; set; }
+
+        public static object Build()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
