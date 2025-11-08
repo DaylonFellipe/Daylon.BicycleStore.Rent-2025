@@ -128,8 +128,6 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
             RuleFor(d => d.DailyRate)
                 .Must(dailyRate => dailyRate == null || dailyRate > 0)
                 .GreaterThan(0).WithMessage(ResourceMessagesException.BICYCLE_DAILY_RATE_GREATER_THAN_ZERO);
-
-
         }
     }
 }
