@@ -77,7 +77,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 .GreaterThanOrEqualTo(0).WithMessage(ResourceMessagesException.BICYCLE_QUANTITY_ZERO_OR_GREATER);
 
             RuleFor(d => d.DailyRate)
-                .GreaterThan(0).WithMessage(ResourceMessagesException.BICYCLE_DAILY_RATE_GREATER_THAN_ZERO);      
+                .GreaterThan(0).WithMessage(ResourceMessagesException.BICYCLE_DAILY_RATE_GREATER_THAN_ZERO);
         }
     }
 
@@ -99,26 +99,37 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.Bicycle
                 return Task.FromResult(description.Length <= 500);
             }).MaximumLength(500).WithMessage(ResourceMessagesException.BICYCLE_DESCRIPTION_MAX_LENGTH);
 
-            RuleFor(m => m.Model)
-                .IsInEnum().WithMessage(ResourceMessagesException.BICYCLE_MODEL_REQUIRED)
-                .Must(model => model is null || Enum.IsDefined(typeof(ModelEnum), model)).WithMessage(ResourceMessagesException.BICYCLE_MODEL_INVALID_ENUM);
+            RuleFor(m => m.Model).MustAsync((model, cancellation) =>
+            {
+                if (model.HasValue is false || model is null) return Task.FromResult(true);
+                return Task.FromResult(Enum.IsDefined(typeof(ModelEnum), model));
+            }).WithMessage(ResourceMessagesException.BICYCLE_MODEL_INVALID_ENUM);
 
-            RuleFor(b => b.Brand)
-                .IsInEnum().WithMessage(ResourceMessagesException.BICYCLE_BRAND_REQUIRED)
-                .Must(brand => brand is null || Enum.IsDefined(typeof(BrandEnum), brand)).WithMessage(ResourceMessagesException.BICYCLE_BRAND_INVALID_ENUM);
+            RuleFor(b => b.Brand).MustAsync((brand, cancellation) =>
+            {
+                if (brand.HasValue is false || brand is null) return Task.FromResult(true);
+                return Task.FromResult(Enum.IsDefined(typeof(BrandEnum), brand));
+            }).WithMessage(ResourceMessagesException.BICYCLE_BRAND_INVALID_ENUM);
 
-            RuleFor(c => c.Color)
-                .IsInEnum().WithMessage(ResourceMessagesException.BICYCLE_COLOR_REQUIRED)
-                .Must(color => color is null || Enum.IsDefined(typeof(ColorEnum), color)).WithMessage(ResourceMessagesException.BICYCLE_COLOR_INVALID_ENUM);
+            RuleFor(c => c.Color).MustAsync((color, cancellation) =>
+            {
+                if (color.HasValue is false || color is null) return Task.FromResult(true);
+                return Task.FromResult(Enum.IsDefined(typeof(ColorEnum), color));
+            }).WithMessage(ResourceMessagesException.BICYCLE_COLOR_INVALID_ENUM);
 
             RuleFor(p => p.Price)
-                .GreaterThan(0).WithMessage(ResourceMessagesException.BICYCLE_PRICE_GREATER_THAN_ZERO);
+                 .Must(price => price == null || price > 0)
+                 .WithMessage(ResourceMessagesException.BICYCLE_PRICE_GREATER_THAN_ZERO);
 
             RuleFor(q => q.Quantity)
+                .Must(quantity => quantity == null || quantity >= 0)
                 .GreaterThanOrEqualTo(0).WithMessage(ResourceMessagesException.BICYCLE_QUANTITY_ZERO_OR_GREATER);
 
             RuleFor(d => d.DailyRate)
+                .Must(dailyRate => dailyRate == null || dailyRate > 0)
                 .GreaterThan(0).WithMessage(ResourceMessagesException.BICYCLE_DAILY_RATE_GREATER_THAN_ZERO);
+
+
         }
     }
 }
