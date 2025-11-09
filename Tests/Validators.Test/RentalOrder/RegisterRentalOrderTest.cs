@@ -16,6 +16,7 @@ namespace Validators.Test.RentalOrder
             var request = RequestRegisterRentalOrderJsonBuilder.Build();
 
             var result = validator.Validate(request);
+
             result.IsValid.Should().BeTrue();
         }
 
