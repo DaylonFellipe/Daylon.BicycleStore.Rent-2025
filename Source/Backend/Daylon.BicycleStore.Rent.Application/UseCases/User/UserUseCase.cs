@@ -28,7 +28,8 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             await ValidateRegisterRequest(request, new RegisterUserValidator());
 
             //Check if Email is already registered
-            await _userRepository.ExistsUserWithEmailAsync(request.Email);
+            if (await _userRepository.ExistsUserWithEmailAsync(request.Email))
+                throw new BicycleStoreException(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
 
             // Cryptographically Hash Password
             var hashedPassword = _passwordEncripter.HashPassword_PBKDF2Encripter(request.Password);
