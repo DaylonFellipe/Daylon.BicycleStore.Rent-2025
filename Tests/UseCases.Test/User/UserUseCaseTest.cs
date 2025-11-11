@@ -2,9 +2,13 @@
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
+using Daylon.BicycleStore.Rent.Exceptions;
+using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using FluentAssertions;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
+
+// The request properties are tested in Validator.Test - empty fields, invalid email, weak password, future date of birth, etc.
 
 namespace UseCases.Test.User
 {
@@ -39,10 +43,11 @@ namespace UseCases.Test.User
 
             Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
 
-            await action.Should().ThrowAsync<ValidationException>()
-                       .WithMessage($"The email {request.Email} is already registered.");
+            await action.Should().ThrowAsync<BicycleStoreException>()
+                .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
         }
 
+        // AUXILIAR METHODS
         private UserUseCase CreateUseCase(string? email = null)
         {
             var configuration = new ConfigurationBuilder().Build();
