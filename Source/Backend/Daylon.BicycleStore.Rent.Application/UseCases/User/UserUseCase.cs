@@ -27,7 +27,7 @@ namespace Daylon.BicycleStore.Rent.Application.UseCases.User
             // Validate
             await ValidateRegisterRequest(request, new RegisterUserValidator());
 
-            //Check if Email is already registered
+            // Check if Email is already registered
             if (await _userRepository.ExistsUserWithEmailAsync(request.Email))
                 throw new BicycleStoreException(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
 
