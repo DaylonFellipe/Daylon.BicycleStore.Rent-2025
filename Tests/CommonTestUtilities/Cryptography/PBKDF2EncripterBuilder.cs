@@ -1,10 +1,17 @@
-﻿using Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography;
+﻿using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
+using Daylon.BicycleStore.Rent.Infrastructure.Security.Cryptography;
 using Microsoft.Extensions.Configuration;
+using Moq;
 
 namespace CommonTestUtilities.Cryptography
 {
     public class PBKDF2EncripterBuilder
     {
+        private readonly Mock<IPBKDF2PasswordEncripter> _encripter;
+
+        public PBKDF2EncripterBuilder() =>
+            _encripter = new Mock<IPBKDF2PasswordEncripter>();
+
         public static PBKDF2Encripter Build()
         {
             //return new PBKDF2Encripter(configuration);
@@ -17,5 +24,7 @@ namespace CommonTestUtilities.Cryptography
                 })
                 .Build());
         }
+
+        public IPBKDF2PasswordEncripter BuildMock() => _encripter.Object;
     }
 }

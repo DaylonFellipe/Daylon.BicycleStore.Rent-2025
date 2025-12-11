@@ -19,6 +19,5 @@ namespace CommonTestUtilities.Repositories
         }
 
         public IUserRepository Build() => _repository.Object;
-      
     }
 }

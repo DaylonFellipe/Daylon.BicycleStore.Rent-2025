@@ -1,12 +1,15 @@
-﻿using CommonTestUtilities.Cryptography;
+﻿using Azure.Core;
+using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
+using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
 using Daylon.BicycleStore.Rent.Exceptions;
 using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
 using FluentAssertions;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
+using Moq;
 
 // The request properties are tested in Validator.Test - empty fields, invalid email, weak password, future date of birth, etc.
 
@@ -45,6 +48,29 @@ namespace UseCases.Test.User
 
             await action.Should().ThrowAsync<BicycleStoreException>()
                 .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
+        }
+
+        [Fact]
+        public async Task Success_Verify_Password_Encryter()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+
+            // Mock
+            var passwordEncripterMock = new Mock<IPBKDF2PasswordEncripter>();
+            passwordEncripterMock.Setup(p => p.HashPassword_PBKDF2Encripter(It.IsAny<string>()))
+                .Returns("hashed_password");
+
+            var userRepositoryBuilder = new UserRepositoryBuilder();
+
+            var userRepository = userRepositoryBuilder.Build();
+
+            var useCase = new UserUseCase(userRepository, passwordEncripterMock.Object);
+
+            await useCase.ExecuteRegisterUserAsync(request);
+
+            passwordEncripterMock.Verify(
+                p => p.HashPassword_PBKDF2Encripter(request.Password),
+                Times.Once);
         }
 
         // AUXILIAR METHODS
