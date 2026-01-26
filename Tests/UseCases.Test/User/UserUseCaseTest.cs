@@ -1,8 +1,10 @@
-﻿using Azure.Core;
-using CommonTestUtilities.Cryptography;
+﻿using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
+using CommonTestUtilities.Repositories.Enum;
 using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
+using Daylon.BicycleStore.Rent.Domain.Entity;
+using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
 using Daylon.BicycleStore.Rent.Exceptions;
 using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
@@ -10,6 +12,7 @@ using FluentAssertions;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Moq;
+using static CommonTestUtilities.Repositories.Enum.RepositorySelectionEnum;
 
 // The request properties are tested in Validator.Test - empty fields, invalid email, weak password, future date of birth, etc.
 
@@ -37,18 +40,6 @@ namespace UseCases.Test.User
             result.CreatedOn.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(5));
         }
 
-        [Fact]
-        public async Task Error_Email_Already_Registered()
-        {
-            var request = RequestRegisterUserJsonBuilder.Build();
-
-            var useCase = CreateUseCase(request.Email);
-
-            Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
-
-            await action.Should().ThrowAsync<BicycleStoreException>()
-                .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
-        }
 
         [Fact]
         public async Task Success_Verify_Password_Encryter()
@@ -73,17 +64,107 @@ namespace UseCases.Test.User
                 Times.Once);
         }
 
+        [Fact]
+        public async Task Error_Email_Already_Registered()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+
+            var useCase = CreateUseCase(request.Email);
+
+            Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
+
+            await action.Should().ThrowAsync<BicycleStoreException>()
+                .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
+        }
+
+        // UPDATE NAME
+
+        [Fact]
+        public async Task Success_Update_Name()
+        {
+            // criar um repositorio em memoria
+            // criar um usuário primeiro para depois atualizar o nome
+            var useCase = CreateUseCase(1);
+
+            // Create a user
+            var requestUser = RequestRegisterUserJsonBuilder.Build();
+
+            var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
+
+
+            // Update user
+            var request = RequestUpdateUserNameJsonBuilder.Build();
+
+            var result = await useCase.ExecuteUpdateUserNameAsync(userResult.Id, request.FirstName, request.LastName);
+
+            result.Should().NotBeNull();
+            result.FirstName.Should().Be(request.FirstName);
+            result.LastName.Should().Be(request.LastName);
+        }
+
+        // teste de sucesso para  atualização do nome - esta quebrando no if (!string.IsNullOrWhiteSpace(firstName))
+
+        [Fact]
+        public async Task AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAError_Incorrect_Password_Update()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+
+            var useCase = CreateUseCase(request.Email);
+
+            Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
+
+            await action.Should().ThrowAsync<BicycleStoreException>()
+                .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
+        }
+
+        //[Fact]
+        //public async Task Error_xxxxxxx()
+        //{
+        //    var request = RequestRegisterUserJsonBuilder.Build();
+
+        //    var useCase = CreateUseCase(request.Email);
+
+        //    Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
+
+        //    await action.Should().ThrowAsync<BicycleStoreException>()
+        //        .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
+        //}
+
         // AUXILIAR METHODS
-        private UserUseCase CreateUseCase(string? email = null)
+
+        private UserUseCase CreateUseCase(
+            RepositoryEnum repository = RepositoryEnum.MockRepository,
+            string? email = null)
         {
             var configuration = new ConfigurationBuilder().Build();
             var passwordEncripter = PBKDF2EncripterBuilder.Build();
-            var userRepositoryBuilder = new UserRepositoryBuilder();
 
-            if (!string.IsNullOrEmpty(email))
-                userRepositoryBuilder.ExistsUserWithEmailAsync(email);
+            // Repository - Mock = 0 | InMemory = 1
+            switch (repository)
+            {
+                case RepositoryEnum.MockRepository:
+                    {
+                        var userRepositoryBuilder = new UserRepositoryBuilder();
 
-            return new UserUseCase(userRepositoryBuilder.Build(), passwordEncripter);
+                        if (!string.IsNullOrEmpty(email))
+                            userRepositoryBuilder.ExistsUserWithEmailAsync(email);
+
+                        return new UserUseCase(userRepositoryBuilder.Build(), passwordEncripter);
+                    }
+
+                case RepositoryEnum.InMemoryRepository:
+                    {
+                        var userRepositoryBuilder = new UserRepositoryInMemory();
+
+                        if (!string.IsNullOrEmpty(email))
+                            userRepositoryBuilder.ExistsUserWithEmailAsync(email);
+
+                        return new UserUseCase(userRepositoryBuilder, passwordEncripter);
+                    }
+
+                default:
+                    throw new ArgumentException("Invalid repository selection.");
+            }
         }
     }
 }
