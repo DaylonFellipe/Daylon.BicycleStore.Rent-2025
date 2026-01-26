@@ -4,7 +4,7 @@ using Daylon.BicycleStore.Rent.Domain.Repositories;
 
 namespace CommonTestUtilities.Repositories
 {
-    internal class UserRepositoryInMemory : IUserRepository
+    public class UserRepositoryInMemory : IUserRepository
     {
         private readonly List<User> _users = new();
 
