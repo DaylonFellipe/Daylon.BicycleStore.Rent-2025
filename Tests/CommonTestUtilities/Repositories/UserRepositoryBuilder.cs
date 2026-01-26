@@ -1,7 +1,4 @@
 ﻿using Daylon.BicycleStore.Rent.Domain.Repositories;
-using Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Identity.Client;
 using Moq;
 
 namespace CommonTestUtilities.Repositories
