@@ -69,7 +69,7 @@ namespace UseCases.Test.User
         {
             var request = RequestRegisterUserJsonBuilder.Build();
 
-            var useCase = CreateUseCase(request.Email);
+            var useCase = CreateUseCase(email: request.Email);
 
             Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
 
@@ -84,7 +84,7 @@ namespace UseCases.Test.User
         {
             // criar um repositorio em memoria
             // criar um usuário primeiro para depois atualizar o nome
-            var useCase = CreateUseCase(1);
+            var useCase = CreateUseCase();
 
             // Create a user
             var requestUser = RequestRegisterUserJsonBuilder.Build();
@@ -109,7 +109,7 @@ namespace UseCases.Test.User
         {
             var request = RequestRegisterUserJsonBuilder.Build();
 
-            var useCase = CreateUseCase(request.Email);
+            var useCase = CreateUseCase(email: request.Email);
 
             Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
 
