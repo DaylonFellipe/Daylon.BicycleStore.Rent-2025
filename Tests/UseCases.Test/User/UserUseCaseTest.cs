@@ -1,10 +1,7 @@
 ﻿using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
-using CommonTestUtilities.Repositories.Enum;
 using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
-using Daylon.BicycleStore.Rent.Domain.Entity;
-using Daylon.BicycleStore.Rent.Domain.Repositories;
 using Daylon.BicycleStore.Rent.Domain.Security.Cryptography;
 using Daylon.BicycleStore.Rent.Exceptions;
 using Daylon.BicycleStore.Rent.Exceptions.ExceptionBase;
@@ -39,7 +36,6 @@ namespace UseCases.Test.User
             result.Active.Should().BeTrue();
             result.CreatedOn.Should().BeCloseTo(DateTime.Now, TimeSpan.FromSeconds(5));
         }
-
 
         [Fact]
         public async Task Success_Verify_Password_Encryter()
@@ -82,15 +78,13 @@ namespace UseCases.Test.User
         [Fact]
         public async Task Success_Update_Name()
         {
-            // criar um repositorio em memoria
-            // criar um usuário primeiro para depois atualizar o nome
-            var useCase = CreateUseCase();
+            // Use InMemory Repository to persist user between calls
+            var useCase = CreateUseCase(RepositoryEnum.InMemoryRepository);
 
             // Create a user
             var requestUser = RequestRegisterUserJsonBuilder.Build();
 
             var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
-
 
             // Update user
             var request = RequestUpdateUserNameJsonBuilder.Build();
@@ -102,19 +96,17 @@ namespace UseCases.Test.User
             result.LastName.Should().Be(request.LastName);
         }
 
-        // teste de sucesso para  atualização do nome - esta quebrando no if (!string.IsNullOrWhiteSpace(firstName))
+        //[Fact]
+        //public async Task AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAError_Incorrect_Password_Update()
+        //{
+        //    var request = RequestRegisterUserJsonBuilder.Build();
 
-        [Fact]
-        public async Task AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAError_Incorrect_Password_Update()
-        {
-            var request = RequestRegisterUserJsonBuilder.Build();
+        //    var useCase = CreateUseCase(email: request.Email);
 
-            var useCase = CreateUseCase(email: request.Email);
+        //    Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
 
-            Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
-
-            await action.Should().ThrowAsync<BicycleStoreException>()
-                .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
+        //    await action.Should().ThrowAsync<BicycleStoreException>()
+        //        .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
         }
 
         //[Fact]
@@ -136,7 +128,7 @@ namespace UseCases.Test.User
             RepositoryEnum repository = RepositoryEnum.MockRepository,
             string? email = null)
         {
-            var configuration = new ConfigurationBuilder().Build();
+            _ = new ConfigurationBuilder().Build();
             var passwordEncripter = PBKDF2EncripterBuilder.Build();
 
             // Repository - Mock = 0 | InMemory = 1

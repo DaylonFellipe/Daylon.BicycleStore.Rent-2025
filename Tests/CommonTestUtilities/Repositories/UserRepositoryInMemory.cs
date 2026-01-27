@@ -28,20 +28,16 @@ namespace CommonTestUtilities.Repositories
 
         public Task<User> GetUserByEmailAsync(string email)
         {
-            var user = _users.FirstOrDefault(u => u.Email == email);
-
-            if (user == null)
-                throw new KeyNotFoundException($"User with email '{email}' not found.");
+            var user = _users.FirstOrDefault(u => u.Email == email)
+                ?? throw new KeyNotFoundException($"User with email '{email}' not found.");
 
             return Task.FromResult(user);
         }
 
         public Task<User> GetUserByIdAsync(Guid id)
         {
-            var user = _users.FirstOrDefault(u => u.Id == id);
-
-            if (user == null)
-                throw new KeyNotFoundException($"User with ID '{id}' not found.");
+            var user = _users.FirstOrDefault(u => u.Id == id)
+                ?? throw new KeyNotFoundException($"User with ID '{id}' not found.");
 
             return Task.FromResult(user);
         }
