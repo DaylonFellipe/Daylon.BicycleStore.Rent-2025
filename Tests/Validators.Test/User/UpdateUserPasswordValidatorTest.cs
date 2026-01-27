@@ -77,7 +77,7 @@ namespace Validators.Test.User
         {
             var validator = new UpdateUserPasswordValidator();
 
-            var request = RequestUpdateUserPasswordJsonBuilder.Build(passwordLength);
+            var request = RequestUpdateUserPasswordJsonBuilder.Build(passwordLength: passwordLength);
 
             var result = validator.Validate(request);
 
@@ -204,7 +204,7 @@ namespace Validators.Test.User
         {
             var validator = new UpdateUserPasswordValidator();
 
-            var request = RequestUpdateUserPasswordJsonBuilder.Build(passwordLength);
+            var request = RequestUpdateUserPasswordJsonBuilder.Build(passwordLength: passwordLength);
 
             var result = validator.Validate(request);
 
