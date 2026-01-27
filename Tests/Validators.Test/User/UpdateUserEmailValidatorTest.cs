@@ -128,7 +128,7 @@ namespace Validators.Test.User
         {
             var validator = new UpdateUserEmailValidator();
 
-            var request = RequestUpdateUserEmailJsonBuilder.Build(passwordLength);
+            var request = RequestUpdateUserEmailJsonBuilder.Build(passwordLength: passwordLength);
 
             var result = validator.Validate(request);
 

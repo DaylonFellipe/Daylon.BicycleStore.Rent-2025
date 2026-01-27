@@ -96,17 +96,27 @@ namespace UseCases.Test.User
             result.LastName.Should().Be(request.LastName);
         }
 
-        //[Fact]
-        //public async Task AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAError_Incorrect_Password_Update()
-        //{
-        //    var request = RequestRegisterUserJsonBuilder.Build();
+        // UPDATE EMAIL
 
-        //    var useCase = CreateUseCase(email: request.Email);
+        [Fact]
+        public async Task Success_Update_Email()
+        {
+            var useCase = CreateUseCase(RepositoryEnum.InMemoryRepository);
 
-        //    Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
+            var requestUser = RequestRegisterUserJsonBuilder.Build();
 
-        //    await action.Should().ThrowAsync<BicycleStoreException>()
-        //        .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
+            // Unencrypted password to update email
+            var unencryptedPassword = requestUser.Password;
+
+            var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
+
+            // Update user
+            var request = RequestUpdateUserEmailJsonBuilder.Build(userResult.Id, userResult.Password);
+
+            var result = await useCase.ExecuteUpdateUserEmailAsync(request.Id, request.NewEmail, unencryptedPassword);
+
+            result.Should().NotBeNull();
+            result.Email.Should().Be(request.NewEmail);
         }
 
         //[Fact]
