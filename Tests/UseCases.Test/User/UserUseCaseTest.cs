@@ -73,7 +73,7 @@ namespace UseCases.Test.User
                 .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
         }
 
-        // UPDATE NAME
+        // PATCH
 
         [Fact]
         public async Task Success_Update_Name()
@@ -96,8 +96,6 @@ namespace UseCases.Test.User
             result.LastName.Should().Be(request.LastName);
         }
 
-        // UPDATE EMAIL
-
         [Fact]
         public async Task Success_Update_Email()
         {
@@ -117,6 +115,26 @@ namespace UseCases.Test.User
 
             result.Should().NotBeNull();
             result.Email.Should().Be(request.NewEmail);
+        }
+
+        [Fact]
+        public async Task Success_Update_Password()
+        {
+            var useCase = CreateUseCase(RepositoryEnum.InMemoryRepository);
+
+            var requestUser = RequestRegisterUserJsonBuilder.Build();
+            var unencryptedOldPassword = requestUser.Password;
+
+            var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
+            var unchangedPassword = userResult.Password;    
+
+            // Update user
+            var request = RequestUpdateUserPasswordJsonBuilder.Build(userResult.Id, unencryptedOldPassword);
+
+            var result = await useCase.ExecuteUpdateUserPasswordAsync(request.Id, request.OldPassword, request.NewPassword);
+
+            result.Should().NotBeNull();
+            result.Password.Should().NotBe(unchangedPassword);
         }
 
         //[Fact]
