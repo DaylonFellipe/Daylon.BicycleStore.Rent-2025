@@ -73,7 +73,7 @@ namespace UseCases.Test.User
                 .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
         }
 
-        // UPDATE NAME
+        // PATCH
 
         [Fact]
         public async Task Success_Update_Name()
@@ -96,8 +96,6 @@ namespace UseCases.Test.User
             result.LastName.Should().Be(request.LastName);
         }
 
-        // UPDATE EMAIL
-
         [Fact]
         public async Task Success_Update_Email()
         {
@@ -119,18 +117,61 @@ namespace UseCases.Test.User
             result.Email.Should().Be(request.NewEmail);
         }
 
-        //[Fact]
-        //public async Task Error_xxxxxxx()
-        //{
-        //    var request = RequestRegisterUserJsonBuilder.Build();
+        [Fact]
+        public async Task Success_Update_Password()
+        {
+            var useCase = CreateUseCase(RepositoryEnum.InMemoryRepository);
 
-        //    var useCase = CreateUseCase(request.Email);
+            var requestUser = RequestRegisterUserJsonBuilder.Build();
+            var unencryptedOldPassword = requestUser.Password;
 
-        //    Func<Task> action = async () => await useCase.ExecuteRegisterUserAsync(request);
+            var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
+            var unchangedPassword = userResult.Password;    
 
-        //    await action.Should().ThrowAsync<BicycleStoreException>()
-        //        .WithMessage(ResourceMessagesException.USER_EMAIL_ALREADY_REGISTERED);
-        //}
+            // Update user
+            var request = RequestUpdateUserPasswordJsonBuilder.Build(userResult.Id, unencryptedOldPassword);
+
+            var result = await useCase.ExecuteUpdateUserPasswordAsync(request.Id, request.OldPassword, request.NewPassword);
+
+            result.Should().NotBeNull();
+            result.Password.Should().NotBe(unchangedPassword);
+        }
+
+        [Fact]
+        public async Task Success_Update_DateOfBirth()
+        {
+            var useCase = CreateUseCase(RepositoryEnum.InMemoryRepository);
+
+            var requestUser = RequestRegisterUserJsonBuilder.Build();
+
+            var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
+            var unchangedDateOfBirth = userResult.DateOfBirth;
+
+            // Update user
+            var request = RequestUpdateUserDateOfBirthJsonBuilder.Build(userResult.Id);
+
+            var result = await useCase.ExecuteUpdateUserDateOfBirthAsync(request.Id, request.NewDateOfBirth);
+
+            result.Should().NotBeNull();
+            result.DateOfBirth.Should().NotBe(unchangedDateOfBirth);
+        }
+
+          [Fact]
+        public async Task Success_Update_Status()
+        {
+            var useCase = CreateUseCase(RepositoryEnum.InMemoryRepository);
+
+            var requestUser = RequestRegisterUserJsonBuilder.Build();
+
+            var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
+            var UserStatus = userResult.Active;
+
+            // Update user
+            var result = await useCase.ExecuteUpdateUserStatusAsync(userResult);
+
+            result.Should().NotBeNull();
+            result.Active.Should().NotBe(UserStatus);
+        }
 
         // AUXILIAR METHODS
 
