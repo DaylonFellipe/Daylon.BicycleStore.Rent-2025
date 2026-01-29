@@ -54,8 +54,8 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email)
                 ?? throw new BicycleStoreException(string.Format(ResourceMessagesException.USER_EMAIL_NO_FOUND, email));
-        }
-
+        } 
+       
         public async Task<IList<Domain.Entity.User>> GetUserByNameAsync(string searchName)
         {
             if (string.IsNullOrWhiteSpace(searchName))
@@ -78,7 +78,7 @@ namespace Daylon.BicycleStore.Rent.Infrastructure.DataAccess.Repositories
 
         public async Task<bool> ExistsUserWithEmailAsync(string email)
         {
-            var user = await GetUserByEmailAsync(email);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
 
             if (user != null)
                 return true;
