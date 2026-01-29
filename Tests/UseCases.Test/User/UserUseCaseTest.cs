@@ -126,7 +126,7 @@ namespace UseCases.Test.User
             var unencryptedOldPassword = requestUser.Password;
 
             var userResult = await useCase.ExecuteRegisterUserAsync(requestUser);
-            var unchangedPassword = userResult.Password;    
+            var unchangedPassword = userResult.Password;
 
             // Update user
             var request = RequestUpdateUserPasswordJsonBuilder.Build(userResult.Id, unencryptedOldPassword);
@@ -156,7 +156,9 @@ namespace UseCases.Test.User
             result.DateOfBirth.Should().NotBe(unchangedDateOfBirth);
         }
 
-          [Fact]
+        // PUT 
+
+        [Fact]
         public async Task Success_Update_Status()
         {
             var useCase = CreateUseCase(RepositoryEnum.InMemoryRepository);
