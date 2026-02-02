@@ -37,6 +37,39 @@ namespace WebApi.Test.User.Get
             responseData.RootElement.GetArrayLength().Should().BeGreaterThanOrEqualTo(3);
         }
 
+        [Fact]
+        public async Task Success_Get_Users_Active()
+        {
+            await CreateUserAsync(2);
+
+            var response = await _httpClient.GetAsync("api/User?filterEnum=Active");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            await using var responseBody = await response.Content.ReadAsStreamAsync();
+
+            var responseData = await JsonDocument.ParseAsync(responseBody);
+
+            responseData.RootElement.GetArrayLength().Should().BeGreaterThanOrEqualTo(2);
+        }
+
+        [Fact]
+        public async Task Success_Get_Users_Inactive()
+        {
+            await CreateUserAsync(2);
+
+            var response = await _httpClient.GetAsync("api/User?filterEnum=Inactive");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            await using var responseBody = await response.Content.ReadAsStreamAsync();
+
+            var responseData = await JsonDocument.ParseAsync(responseBody);
+
+            responseData.RootElement.GetArrayLength().Should().BeGreaterThanOrEqualTo(0);
+        }
+
+
         // AUXILIAR METHODS
 
         private async Task CreateUserAsync(int count)
