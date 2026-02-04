@@ -3,6 +3,7 @@ using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
+using Daylon.BicycleStore.Rent.Domain.Entity;
 using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using System.Net;
@@ -78,9 +79,34 @@ namespace WebApi.Test.User.Get
             user.GetProperty("id").GetGuid().Should().Be(userId);
         }
 
+        [Fact]
+        public async Task Success_Get_User_By_Email()
+        {
+            await CreateUserAsync(1);
+
+            var responseAllUsers = await _httpClient.GetAsync("api/User");
+
+            responseAllUsers.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var allUsers = await ReadJsonAsync(responseAllUsers);
+
+            var firstUser = allUsers[0];
+
+            var userEmail = firstUser.GetProperty("email").GetString();
+
+            var response = await _httpClient.GetAsync($"api/User/nameOrEmail?nameOrEmail={userEmail}");
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var users = await ReadJsonAsync(response);
+
+            users.GetArrayLength().Should().BeGreaterThanOrEqualTo(1);
+            users[0].GetProperty("email").GetString().Should().Be(userEmail);
+        }
+
         // AUXILIAR METHODS
 
-        private async Task CreateUserAsync(int count)
+        private async Task CreateUserAsync(int? count = 1)
         {
             for (int i = 0; i < count; i++)
             {
