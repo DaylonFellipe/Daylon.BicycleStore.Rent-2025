@@ -1,4 +1,5 @@
-﻿using CommonTestUtilities.Cryptography;
+﻿using Azure;
+using CommonTestUtilities.Cryptography;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.UseCases.User;
@@ -69,6 +70,19 @@ namespace WebApi.Test.User.Get
             responseData.RootElement.GetArrayLength().Should().BeGreaterThanOrEqualTo(0);
         }
 
+        [Fact]
+        public async Task Success_Get_User_By_Id()
+        {
+            var userId = await CreateAndGetUserIdAsync();
+
+            var response = await GetUserByIdAsync(userId);
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var user = await ReadJsonAsync(response);
+
+            user.GetProperty("id").GetGuid().Should().Be(userId);
+        }
 
         // AUXILIAR METHODS
 
@@ -79,6 +93,29 @@ namespace WebApi.Test.User.Get
                 var request = RequestRegisterUserJsonBuilder.Build();
                 await _httpClient.PostAsJsonAsync("api/User", request);
             }
+        }
+
+        private async Task<Guid> CreateAndGetUserIdAsync()
+        {
+            await CreateUserAsync(1);
+
+            var response = await _httpClient.GetAsync("api/User");
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var json = await ReadJsonAsync(response);
+            return json[0].GetProperty("id").GetGuid();
+        }
+
+        private Task<HttpResponseMessage> GetUserByIdAsync(Guid userId)
+        {
+            return _httpClient.GetAsync($"api/User/{userId}");
+        }
+
+        private static async Task<JsonElement> ReadJsonAsync(HttpResponseMessage response)
+        {
+            await using var responseBody = await response.Content.ReadAsStreamAsync();
+            var document = await JsonDocument.ParseAsync(responseBody);
+            return document.RootElement.Clone();
         }
     }
 }
