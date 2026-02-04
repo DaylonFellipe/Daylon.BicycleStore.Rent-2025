@@ -31,11 +31,9 @@ namespace WebApi.Test.User.Get
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            await using var responseBody = await response.Content.ReadAsStreamAsync();
+            var responseData = await ReadJsonAsync(response);
 
-            var responseData = await JsonDocument.ParseAsync(responseBody);
-
-            responseData.RootElement.GetArrayLength().Should().BeGreaterThanOrEqualTo(3);
+            responseData.GetArrayLength().Should().BeGreaterThanOrEqualTo(3);
         }
 
         [Fact]
@@ -47,11 +45,9 @@ namespace WebApi.Test.User.Get
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            await using var responseBody = await response.Content.ReadAsStreamAsync();
+            var responseData = await ReadJsonAsync(response);
 
-            var responseData = await JsonDocument.ParseAsync(responseBody);
-
-            responseData.RootElement.GetArrayLength().Should().BeGreaterThanOrEqualTo(2);
+            responseData.GetArrayLength().Should().BeGreaterThanOrEqualTo(2);
         }
 
         [Fact]
@@ -63,11 +59,9 @@ namespace WebApi.Test.User.Get
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
-            await using var responseBody = await response.Content.ReadAsStreamAsync();
+            var responseData = await ReadJsonAsync(response);
 
-            var responseData = await JsonDocument.ParseAsync(responseBody);
-
-            responseData.RootElement.GetArrayLength().Should().BeGreaterThanOrEqualTo(0);
+            responseData.GetArrayLength().Should().BeGreaterThanOrEqualTo(0);
         }
 
         [Fact]
