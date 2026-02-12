@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="User\Update\" />
+    <Folder Include="User\Update\Patch\" />
   </ItemGroup>
 
 </Project>
