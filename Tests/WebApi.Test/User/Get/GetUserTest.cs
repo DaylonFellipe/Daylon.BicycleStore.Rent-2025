@@ -1,15 +1,8 @@
-﻿using Azure;
-using CommonTestUtilities.Cryptography;
-using CommonTestUtilities.Repositories;
-using CommonTestUtilities.Requests.User;
-using Daylon.BicycleStore.Rent.Application.UseCases.User;
-using Daylon.BicycleStore.Rent.Domain.Entity;
+﻿using CommonTestUtilities.Requests.User;
 using FluentAssertions;
-using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using static CommonTestUtilities.Repositories.Enum.RepositorySelectionEnum;
 
 namespace WebApi.Test.User.Get
 {
@@ -17,7 +10,7 @@ namespace WebApi.Test.User.Get
     {
         private readonly HttpClient _httpClient;
 
-        public GetUserTest(CustomWebApplicationFactory factory)
+        public GetUserTest(CustomWebApplicationFactory factory) 
         {
             _httpClient = factory.CreateClient();
         }

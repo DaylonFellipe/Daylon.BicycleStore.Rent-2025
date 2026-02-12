@@ -120,7 +120,7 @@ namespace Daylon.BicycleStore.Rent.Api.Controllers
         }
 
         // PUT
-        [HttpPut("changeUserStatus")]
+        [HttpPut("{id}/changeStatus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
