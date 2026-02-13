@@ -1,7 +1,7 @@
 ﻿using CommonTestUtilities.Requests.User;
 using FluentAssertions;
-using System.Net.Http.Json;
 using System.Net;
+using System.Net.Http.Json;
 using System.Text.Json;
 
 namespace WebApi.Test.User.Update.Put
@@ -35,7 +35,7 @@ namespace WebApi.Test.User.Update.Put
 
         private async Task<Guid> CreateAndGetUserIdAsync(int? count = 1)
         {
-            for (int i = 0; i < count; i++) ;
+            for (int i = 0; i < count; i++)
             {
                 var request = RequestRegisterUserJsonBuilder.Build();
                 await _httpClient.PostAsJsonAsync("api/User", request);
