@@ -1,9 +1,13 @@
-﻿using CommonTestUtilities.Requests.User;
+﻿using Azure;
+using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.DTOs.User;
+using Daylon.BicycleStore.Rent.Domain.Entity;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using WebApi.Test.User.Get;
 
 namespace WebApi.Test.User.Update.Patch
 {
@@ -39,7 +43,7 @@ namespace WebApi.Test.User.Update.Patch
             updatedUser.Name.Should().Contain(request.LastName);
         }
 
-         [Fact]
+        [Fact]
         public async Task Success_Update_User_Email()
         {
             var (userId, userPassword) = await CreateAndGetUserIdAndPasswordAsync();
@@ -59,6 +63,30 @@ namespace WebApi.Test.User.Update.Patch
             updatedUser.Should().NotBeNull();
             updatedUser.Id.Should().Be(userId);
             updatedUser.Email.Should().Be(request.NewEmail);
+        }
+
+        [Fact]
+        public async Task Success_Update_User_Password()
+        {
+            var (userId, userOldPassword) = await CreateAndGetUserIdAndPasswordAsync();
+
+            var oldPassword = await GetPasswordWithId(userId);
+
+            var request = RequestUpdateUserPasswordJsonBuilder.Build(userId);
+
+            var response = await _httpClient.PatchAsJsonAsync(
+                $"api/User/password?id={request.Id}" +
+                $"&oldPassword={userOldPassword}" +
+                $"&newPassword={request.NewPassword}",
+                request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var updatedUser = await response.Content.ReadFromJsonAsync<UserDto>();
+
+            updatedUser.Should().NotBeNull();
+            updatedUser.Id.Should().Be(userId);
+            updatedUser.Password.Should().NotBe(updatedUser.Password = oldPassword);
         }
 
         // AUXILIAR METHODS
@@ -87,6 +115,17 @@ namespace WebApi.Test.User.Update.Patch
             await using var responseBody = await response.Content.ReadAsStreamAsync();
             var document = await JsonDocument.ParseAsync(responseBody);
             return document.RootElement.Clone();
+        }
+
+        private async Task<string> GetPasswordWithId(Guid id)
+        {
+            var userData = await _httpClient.GetAsync($"api/User/{id}");
+
+            userData.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var updatedUser = await userData.Content.ReadFromJsonAsync<UserDto>();
+
+            return updatedUser!.Password.ToString();
         }
     }
 }
