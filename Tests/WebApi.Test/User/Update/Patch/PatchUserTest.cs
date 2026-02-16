@@ -1,13 +1,10 @@
-﻿using Azure;
-using CommonTestUtilities.Requests.User;
+﻿using CommonTestUtilities.Requests.User;
 using Daylon.BicycleStore.Rent.Application.DTOs.User;
-using Daylon.BicycleStore.Rent.Domain.Entity;
+using Daylon.BicycleStore.Rent.Infrastructure.DataAccess;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
-using WebApi.Test.User.Get;
 
 namespace WebApi.Test.User.Update.Patch
 {
@@ -23,7 +20,7 @@ namespace WebApi.Test.User.Update.Patch
         [Fact]
         public async Task Success_Update_User_Name()
         {
-            var (userId, _) = await CreateAndGetUserIdAndPasswordAsync();
+            var (userId, _, _) = await CreateAndGetUserIdAndPasswordAsync();
 
             var request = RequestUpdateUserNameJsonBuilder.Build(userId);
 
@@ -46,7 +43,7 @@ namespace WebApi.Test.User.Update.Patch
         [Fact]
         public async Task Success_Update_User_Email()
         {
-            var (userId, userPassword) = await CreateAndGetUserIdAndPasswordAsync();
+            var (userId, userPassword, _) = await CreateAndGetUserIdAndPasswordAsync();
 
             var request = RequestUpdateUserEmailJsonBuilder.Build(userId);
 
@@ -68,7 +65,7 @@ namespace WebApi.Test.User.Update.Patch
         [Fact]
         public async Task Success_Update_User_Password()
         {
-            var (userId, userOldPassword) = await CreateAndGetUserIdAndPasswordAsync();
+            var (userId, userOldPasswor, _) = await CreateAndGetUserIdAndPasswordAsync();
 
             var oldPassword = await GetPasswordWithId(userId);
 
@@ -76,7 +73,7 @@ namespace WebApi.Test.User.Update.Patch
 
             var response = await _httpClient.PatchAsJsonAsync(
                 $"api/User/password?id={request.Id}" +
-                $"&oldPassword={userOldPassword}" +
+                $"&oldPassword={userOldPasswor}" +
                 $"&newPassword={request.NewPassword}",
                 request);
 
@@ -89,17 +86,40 @@ namespace WebApi.Test.User.Update.Patch
             updatedUser.Password.Should().NotBe(updatedUser.Password = oldPassword);
         }
 
+        [Fact]
+        public async Task Success_Update_User_BirthDate()
+        {
+            var (userId, _, oldDateOfBirth) = await CreateAndGetUserIdAndPasswordAsync();
+
+            var request = RequestUpdateUserDateOfBirthJsonBuilder.Build(userId);
+
+            var response = await _httpClient.PatchAsJsonAsync(
+                $"api/User/BirthDate?id={request.Id}" +
+                $"&birthdayDate={request.NewDateOfBirth}",
+                request);
+
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+            var updatedUser = await response.Content.ReadFromJsonAsync<UserDto>();
+
+            updatedUser.Should().NotBeNull();
+            updatedUser.Id.Should().Be(userId);
+            request.NewDateOfBirth.Should().NotBe(oldDateOfBirth);
+        }
+
         // AUXILIAR METHODS
 
-        private async Task<(Guid Id, string? Password)> CreateAndGetUserIdAndPasswordAsync(int? count = 1)
+        private async Task<(Guid Id, string? Password, DateTime? DateOfBirth)> CreateAndGetUserIdAndPasswordAsync(int? count = 1)
         {
             var password = string.Empty;
+            var dateOfBirth = (DateTime?)null;
 
             for (int i = 0; i < count; i++)
             {
                 var request = RequestRegisterUserJsonBuilder.Build();
 
                 password = request.Password;
+                dateOfBirth = request.DateOfBirth;
 
                 await _httpClient.PostAsJsonAsync("api/User", request);
             }
@@ -108,7 +128,7 @@ namespace WebApi.Test.User.Update.Patch
             response.StatusCode.Should().Be(HttpStatusCode.OK);
 
             var json = await ReadJsonAsync(response);
-            return (json[0].GetProperty("id").GetGuid(), password);
+            return (json[0].GetProperty("id").GetGuid(), password, dateOfBirth);
         }
         private static async Task<JsonElement> ReadJsonAsync(HttpResponseMessage response)
         {
