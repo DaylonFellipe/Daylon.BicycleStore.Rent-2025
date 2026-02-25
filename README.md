@@ -58,9 +58,6 @@ Expanded:
 <img width="490" height="1635" alt="image" src="https://github.com/user-attachments/assets/d28072ac-25bc-40f2-8036-1500a3507651" />
 </div>
 
-
-
-
 ---
 
 ## 🗂 Layered Structure
@@ -70,7 +67,7 @@ This organization makes the code easier to maintain, extend, and reuse, as each 
 ---
 
 <div>
-<img width="1050" height="750" alt="image" src="https://github.com/user-attachments/assets/11947d13-fdf3-4385-a680-f41c2f2989ae" />
+<img width="1060" height="1470" alt="image" src="https://github.com/user-attachments/assets/ab21ebdb-e9d4-46a4-9b72-00ad285d37e3" />
 </div>
 
 ---
