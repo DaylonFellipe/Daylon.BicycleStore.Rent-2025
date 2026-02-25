@@ -73,7 +73,6 @@ This organization makes the code easier to maintain, extend, and reuse, as each 
 ---
 
 <br>
-<br>
 
 # Thanks...
 
