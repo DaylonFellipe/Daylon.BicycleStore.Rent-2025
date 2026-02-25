@@ -46,8 +46,20 @@ The project structure follows a clean and modular architecture, which is very co
 Based on the open files and namespaces, the organization is divided into main layers.
 
 <div>
-<img width="400" height="950" alt="image" src="https://github.com/user-attachments/assets/6883075e-21b7-41b7-9f6a-8863b31fadad" />
+<img width="404" height="1149" alt="image" src="https://github.com/user-attachments/assets/1c475e1b-2a0c-44fc-8210-4f024f87a86a" />
 </div>
+<br>
+Expanded:
+
+---
+ 
+<div>
+<img width="490" height="1635" alt="image" src="https://github.com/user-attachments/assets/2c1769e6-5f19-499b-8e4f-23d67dd241b0" />
+<img width="490" height="1635" alt="image" src="https://github.com/user-attachments/assets/d28072ac-25bc-40f2-8036-1500a3507651" />
+</div>
+
+
+
 
 ---
 
